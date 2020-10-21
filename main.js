@@ -5,6 +5,8 @@ var game = {
     upgrade1Bought: 0,
     u2mult: 1,
     u3mult: 1,
+    upgrade2Bought: 0,
+    upgrade3Bought: 0,
 }
 
 function format(amount) {
@@ -17,8 +19,13 @@ function format(amount) {
 function clickParticles() {
     game.parti += game.partiPerClick;
     game.clicks++;
+    if (game.upgrade2Bought = 1) {
     game.u2mult = Math.sqrt(game.clicks * 2) / 5;
+    }
+    if (game.upgrade3Bought = 1) {
     game.u3mult = Math.log10(game.parti) + 2;
+    }
+    
     updatePartiPerClick();
     document.getElementById("clickAmount").innerHTML = "You've clicked " + format(game.clicks) + " times.";
     document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles."
@@ -52,6 +59,7 @@ function buyUpgrade2() {
        } else if (game.u2mult < 1) {
            game.u2mult = 1;
        }
+       game.upgrade2Bought = 1;
        document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
        document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click."
    }
@@ -72,6 +80,7 @@ function buyUpgrade3() {
         } else if (game.u3mult < 1) {
             game.u3mult = 1;
         }
+        game.upgrade3Bought = 1;
         document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
         document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click."
     }

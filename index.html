@@ -5,10 +5,30 @@
     <title>Infinity</title>
 </head>
 <body>
-    <p id = "partiCount">You have 0 Particles.</p>
-    <p id = "displayPartiPerClick">You gain 0.01 Particle per click.</p>
-    <button onclick = 'clickParticles()'>Gain Particles</button>
-    <button onclick = 'buyUpgrade1()'>Clicking is twice as effective. Cost: 0.5 Particles</button>
+    <p id = "partiCount">
+      You have 0 Particles.
+    </p>
+    <p id = "displayPartiPerClick">
+      You gain 0.01 Particle per click.
+    </p>
+    <p id = "displayPartiPerSecond">
+      You gain 0 Particles per second passively.
+    </p>
+    <button onclick = 'clickParticles()'>
+      Gain Particles
+    </button>
+    <button onclick = 'buyUpgrade1()' id = 'upgrade1'>
+      Clicking is twice as effective. <br>Cost: 0.5 Particles
+    </button>
+    <button onclick = 'buyUpgrade2()' id = 'upgrade2'>
+      You gain a boost to clicking the more times you've clicked. <br> Cost: 1.5 Particles
+    </button>
+    <button onclick = 'buyUpgrade3()' id = 'upgrade3' >
+      You gain a boost to clicking the more particles you have. <br> Cost: 4 Particles
+    </button>
+    <p id = 'clickAmount'>
+      <br> You've clicked 0 times. <br>
+    </p>
 </body>
 <script src = "main.js"></script>
 </html>

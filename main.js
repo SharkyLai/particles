@@ -19,12 +19,12 @@ function format(amount) {
 function clickParticles() {
     game.parti += game.partiPerClick;
     game.clicks++;
-    if (game.upgrade2Bought = 1) {
+   /* if (game.upgrade2Bought = 1) {
     game.u2mult = Math.sqrt(game.clicks * 2) / 5;
     }
     if (game.upgrade3Bought = 1) {
     game.u3mult = Math.log10(game.parti) + 2;
-    }
+    } */
     
     updatePartiPerClick();
     document.getElementById("clickAmount").innerHTML = "You've clicked " + format(game.clicks) + " times.";

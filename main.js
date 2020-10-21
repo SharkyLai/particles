@@ -17,6 +17,9 @@ function format(amount) {
 function clickParticles() {
     game.parti += game.partiPerClick;
     game.clicks++;
+    game.u2mult = Math.sqrt(game.clicks * 2) / 5;
+    game.u3mult = Math.log10(game.parti) + 2;
+    updatePartiPerClick();
     document.getElementById("clickAmount").innerHTML = "You've clicked " + format(game.clicks) + " times.";
     document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles."
 }
@@ -38,6 +41,11 @@ function buyUpgrade2() {
    if (game.parti >= 1.5) {
        game.parti -= 1.5;
        game.u2mult = Math.sqrt(game.clicks * 2) / 5;
+      /*  if (game.u2mult < 10) {
+           for (i = 0; i = game.clicks; i++) {
+           updatePartiPerClick();
+           }
+       } */
        updatePartiPerClick();
        if (game.u2mult > 10) {
           game.u2mult = 10;
@@ -52,7 +60,12 @@ function buyUpgrade2() {
 function buyUpgrade3() {
     if (game.parti >= 4) {
         game.parti -= 4;
-        game.u3mult = log10(game.parti);
+        game.u3mult = Math.log10(game.parti) + 2;
+       /* if (game.u3mult < 10) {
+            for (i = 0; i = game.clicks; i++) {
+               updatePartiPerClick();
+            }
+        } */
         updatePartiPerClick();
         if (game.u3mult > 10) {
             game.u3mult = 10;
@@ -63,6 +76,19 @@ function buyUpgrade3() {
         document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click."
     }
 }
+
+
+/* if (game.u2mult < 10) {
+    for (i = 0; i = game.clicks; i++) {
+        updatePartiPerClick();
+    }
+}
+
+if (game.u3mult < 10) {
+    for (i = 0; i = game.clicks; i++) {
+        updatePartiPerClick();
+    }
+} */
 
 function updatePartiPerClick() {
     game.partiPerClick = 0.01 * (game.upgrade1Bought + 1) * game.u2mult * game.u3mult;

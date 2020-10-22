@@ -13,7 +13,10 @@
     You gain 0.01 Particle per click.
   </p>
   <p id = "displayPartiPerSecond">
-    You gain 0 Particles per second passively.
+    You gain 0 Particles per tick passively.
+  </p>
+  <p id = "displayPowerPerSecond">
+    You gain 0 Power per tick.
   </p>
   <button onclick = 'clickParticles()'>
     Gain Particles
@@ -27,8 +30,10 @@
     <button onclick = "tab('Quarks')">Quarks</button>
   </div>
   <div id = "Generators">
-    <p id = 'gen1'>1st Particle Generator</p>
-    <button></button>
+    <p id = "powerCount">You have 0 Power.</p>
+    <p id = 'gen1'>1st Particle Generator x1.00 (0) 0 Particles/tick </p> <button id = "gen1Buy" onclick = 'buyGenerator1()'>Cost: 10</button>
+    <p id = 'powergen1'>1st Power Generator x1.00 (0) 0 Power/tick</p> <button id = "powergen1Buy" onclick = 'buyPowerGenerator1()'>Cost: 50</button>
+    <p id = 'gen2'>2nd Particle Generator</p> <button id = "gen2Buy">Cost: 1e3</button>
   </div>
   <div id = "Upgrades">
     <button onclick = 'buyUpgrade1()' id = 'buttonupgrade1'>

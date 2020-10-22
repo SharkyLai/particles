@@ -19,3 +19,8 @@ button {
 button:hover {
 	background-color: lightgrey;
 }
+
+.buttonupgrade {
+	height: 15px;
+	width: 15px;
+}

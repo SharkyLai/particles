@@ -2,10 +2,10 @@ p {
     font-family: Arial, Helvetica, sans-serif
 }
 
-.buttonupgrade {
+button {
 	background-color: white; 
 	color: black;
-	padding: 3px 3px;
+	padding: 12px 12px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -16,6 +16,6 @@ p {
     border: 2px solid grey;
 }
   
-  .buttonupgrade:hover {
+button:hover {
 	background-color: lightgrey;
-  }
+}

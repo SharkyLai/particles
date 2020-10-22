@@ -3,20 +3,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <p id = "partiCount">
-      You have 0 Particles.
-    </p>
-    <p id = "displayPartiPerClick">
-      You gain 0.01 Particle per click.
-    </p>
-    <p id = "displayPartiPerSecond">
-      You gain 0 Particles per second passively.
-    </p>
-    <button onclick = 'clickParticles()'>
-      Gain Particles
-    </button>
+  <p id = "partiCount">
+    You have 0 Particles.
+  </p>
+  <p id = "displayPartiPerClick">
+    You gain 0.01 Particle per click.
+  </p>
+  <p id = "displayPartiPerSecond">
+    You gain 0 Particles per second passively.
+  </p>
+  <button onclick = 'clickParticles()'>
+    Gain Particles
+  </button>
+  <div id = "nagivateButtons">
+    <button onclick = "tab('Generators')">Generators</button>
+    <button onclick = "tab('Upgrades')">Upgrades</button>
+    <button onclick = "tab('Options')">Options</button>
+    <button onclick = "tab('Stats')">Stats</button>
+    <button onclick = "tab('Achievements')">Achievements</button>
+    <button onclick = "tab('Quarks')">Quarks</button>
+  </div>
+  <div id = "Generators"></div>
+  <div id = "Upgrades">
     <button onclick = 'buyUpgrade1()' id = 'buttonupgrade1'>
       Clicking is twice as effective. <br>Cost: 0.5 Particles
     </button>
@@ -26,9 +37,17 @@
     <button onclick = 'buyUpgrade3()' id = 'buttonupgrade3' >
       You gain a boost to clicking the more particles you have. <br> Cost: 4 Particles
     </button>
+  </div>
+  <div id = "Options">
+
+  </div>
+  <div id = "Stats">
     <p id = 'clickAmount'>
-      <br> You've clicked 0 times. <br>
+      You've clicked 0 times. <br>
     </p>
+  </div>
+  <div id = "Achievements"></div>
+  <div id = "Quarks"></div>
 </body>
 <script src = "main.js"></script>
 <script src = "js/achievements.js"></script>

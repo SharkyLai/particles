@@ -19,12 +19,12 @@ function format(amount) {
 function clickParticles() {
     game.parti += game.partiPerClick;
     game.clicks++;
-    if (game.upgrade2Bought = 1) {
+   /* if (game.upgrade2Bought = 1) {
     game.u2mult = Math.sqrt(game.clicks * 2) / 5;
     }
     if (game.upgrade3Bought = 1) {
     game.u3mult = Math.log10(game.parti) + 2;
-    }
+    } */
     
     updatePartiPerClick();
     document.getElementById("clickAmount").innerHTML = "You've clicked " + format(game.clicks) + " times.";
@@ -102,3 +102,15 @@ if (game.u3mult < 10) {
 function updatePartiPerClick() {
     game.partiPerClick = 0.01 * (game.upgrade1Bought + 1) * game.u2mult * game.u3mult;
 }
+
+function tab(tab) {
+  document.getElementById("Generators").style.display = "none"
+  document.getElementById("Upgrades").style.display = "none"
+  document.getElementById("Options").style.display = "none"
+  document.getElementById("Stats").style.display = "none"
+  document.getElementById("Achievements").style.display = "none"
+  document.getElementById("Quarks").style.display = "none"
+  document.getElementById(tab).style.display = "inline"
+}
+
+tab("Upgrades")

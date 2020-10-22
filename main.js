@@ -2,9 +2,9 @@ var game = {
     parti: 0,
     partiPerClick: 0.01,
     clicks: 0,
-    upgrade1Bought: 0,
     u2mult: 1,
     u3mult: 1,
+    upgrade1Bought: 0,
     upgrade2Bought: 0,
     upgrade3Bought: 0,
 }
@@ -14,7 +14,7 @@ function format(amount) {
     let mantissa = amount / Math.pow(10, power);
     if (power < 3) return amount.toFixed(2);
     return mantissa.toFixed(2) + "e" + power
-  }
+}
 
 function clickParticles() {
     game.parti += game.partiPerClick;

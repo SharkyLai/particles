@@ -10,6 +10,7 @@ var game = {
     upgrade2Bought: 0,
     upgrade3Bought: 0,
     power: 0,
+    totalParti: 0,
     gen1: {
         cost: 10,
         costMult: 2,
@@ -30,6 +31,7 @@ var game = {
     },
     genSpeed: 1000,
     version: 0.1,
+    playTime: 0,
 }
 
 function format(amount) { // Formatting

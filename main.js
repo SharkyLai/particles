@@ -55,6 +55,7 @@ function clickParticles() { // Click Function
 
 function buyUpgrade1() {
     if (game.parti >= 0.5) {
+        if (game.upgrade1Bought = 1) return;
         // if (game.upgrade1Bought = 0) {
         game.parti -= 0.5;
         // game.partiPerClick *= 2;

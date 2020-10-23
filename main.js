@@ -55,7 +55,8 @@ function clickParticles() { // Click Function
 
 function buyUpgrade1() {
     if (game.parti >= 0.5) {
-        if (game.upgrade1Bought = 1) return;
+        if (game.upgrade1Bought = 0) { 
+        
         // if (game.upgrade1Bought = 0) {
         game.parti -= 0.5;
         // game.partiPerClick *= 2;
@@ -64,6 +65,7 @@ function buyUpgrade1() {
         document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
         document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click."
         // }
+        }
     }
 }
 

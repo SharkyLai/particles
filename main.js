@@ -57,15 +57,15 @@ function clickParticles() { // Click Function
 }
 
 function buyUpgrade1() {
-    if (game.parti >= 0.5 && (game.upgrade1Bought = 0)) {
-        // if (game.upgrade1Bought = 0) { 
+    if (game.parti >= 0.5) {
+        if (game.upgrade1Bought = 0) { 
         game.parti -= 0.5;
         // game.partiPerClick *= 2;
         updatePartiPerClick();
         document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
         document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click.";
         game.upgrade1Bought = 1;
-        // }
+        }
     }
 }
 
@@ -173,6 +173,8 @@ if (game.u3mult < 10) {
 
 function updatePartiPerClick() {
     game.partiPerClick = 0.01 * (game.upgrade1Bought + 1) * game.u2mult * game.u3mult;
+    document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
+    document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click.";
 }
 
 function tab(tab) {

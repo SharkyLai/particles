@@ -29,6 +29,7 @@ var game = {
         productionMult: 1,
     },
     genSpeed: 1000,
+    version: 0.1,
 }
 
 function format(amount) { // Formatting
@@ -60,10 +61,10 @@ function buyUpgrade1() {
         // if (game.upgrade1Bought = 0) {
         game.parti -= 0.5;
         // game.partiPerClick *= 2;
-        game.upgrade1Bought = 1;
         updatePartiPerClick();
         document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
-        document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click."
+        document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click.";
+        game.upgrade1Bought = 1;
         // }
         }
     }

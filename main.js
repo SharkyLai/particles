@@ -155,10 +155,10 @@ function buyGenerator1() {
         game.gen1.amount++;
         game.gen1.bought++;
         game.gen1.cost *= game.gen1.costMult;
-        game.gen1.production = 0.05 * game.gen1.amount * game.gen1.productionMult * game.gen1.mult;
+        game.gen1.production = 0.05 * game.gen1.amount * game.gen1.productionMult;
         // game.parti += game.gen1.production;
         updatePartiPerSecond();
-        document.getElementById("gen1").innerHTML = "1st Particle Generator " + format(game.gen1.mult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
+        document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.mult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
         document.getElementById("gen1Buy").innerHTML = "Cost: " + format(game.gen1.cost);
         document.getElementById("displayPartiPerSecond").innerHTML = "You gain " + format(game.gen1.production) + " Particles per tick passively."
     }
@@ -171,7 +171,7 @@ function buyPowerGenerator1() {
         game.powergen1.bought++;
         game.powergen1.cost *= game.powergen1.costMult;
         game.powergen1.production = 0.01 * game.powergen1.amount * game.powergen1.productionMult;
-        document.getElementById("powergen1").innerHTML = "1st Particle Generator " + format(game.powergen1.mult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
+        document.getElementById("powergen1").innerHTML = "1st Particle Generator x" + format(game.powergen1.mult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
         document.getElementById("powergen1Buy").innerHTML = "Cost: " + format(game.powergen1.cost);
         document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powergen1.production) + " Power per tick."
     }
@@ -204,8 +204,8 @@ var updatePartiLoop = window.setInterval(function() {
 function updatePartiPerSecond() {
     game.partiPerSecond = game.gen1.production;
     game.u5mult = Math.sqrt(game.gen1.bought * 2);
-    game.gen1.mult = game.u5mult;
-    document.getElementById("gen1").innerHTML = "1st Particle Generator " + format(game.gen1.mult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
+    game.gen1.productionMult = game.u5mult;
+    document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
     document.getElementById("displayPartiPerSecond").innerHTML = "You gain " + format(game.partiPerSecond) + " Particles per tick passively."
 }
 

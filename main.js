@@ -38,6 +38,11 @@ var game = {
     playTime: 0,
 }
 
+var opts = {
+    selectedTheme: "normal",
+    defaultTab: "upgrades",
+}
+
 function format(amount) { // Formatting
     let power = Math.floor(Math.log10(amount));
     let mantissa = amount / Math.pow(10, power);

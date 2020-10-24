@@ -27,6 +27,7 @@
     <button onclick = "tab('Options')">Options</button>
     <button onclick = "tab('Stats')">Stats</button>
     <button onclick = "tab('Achievements')">Achievements</button>
+    <button onclick = "tab('Challenges')">Challenges</button>
     <button onclick = "tab('Quarks')">Quarks</button>
   </div>
   <div id = "Generators">
@@ -37,13 +38,16 @@
   </div>
   <div id = "Upgrades">
     <button onclick = 'buyUpgrade1()' id = 'buttonupgrade1'>
-      Clicking is twice as effective. <br>Cost: 0.5 Particles
+      Clicking is twice as effective. <br>Cost: 0.25 Particles
     </button>
     <button onclick = 'buyUpgrade2()' id = 'buttonupgrade2'>
       You gain a boost to clicking the more times you've clicked. <br> Cost: 1.5 Particles
     </button>
-    <button onclick = 'buyUpgrade3()' id = 'buttonupgrade3' >
+    <button onclick = 'buyUpgrade3()' id = 'buttonupgrade3'>
       You gain a boost to clicking the more particles you have. <br> Cost: 4 Particles
+    </button>
+    <button onclick = 'buyUpgrade4()' id = 'buttonupgrade4'>
+      Particle Generators are twice as effective. <br> Cost: 15 Particles
     </button>
   </div>
   <div id = "Options">
@@ -55,6 +59,7 @@
     </p>
   </div>
   <div id = "Achievements"></div>
+  <div id = "Challenges"></div>
   <div id = "Quarks"></div>
 </body>
 <script src = "main.js"></script>

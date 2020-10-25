@@ -22,12 +22,13 @@
     Gain Particles
   </button>
   <div id = "nagivateButtons">
-    <button onclick = "tab('Generators')">Generators</button>
-    <button onclick = "tab('Upgrades')">Upgrades</button>
-    <button onclick = "tab('Options')">Options</button>
-    <button onclick = "tab('Stats')">Stats</button>
-    <button onclick = "tab('Achievements')">Achievements</button>
-    <button onclick = "tab('Quarks')">Quarks</button>
+    <button onclick = "tab('Generators')" style = "padding: 6px 10px">Generators</button>
+    <button onclick = "tab('Upgrades')" style = "padding: 6px 10px">Upgrades</button>
+    <button onclick = "tab('Options')" style = "padding: 6px 10px">Options</button>
+    <button onclick = "tab('Stats')" style = "padding: 6px 10px">Stats</button>
+    <button onclick = "tab('Achievements')" style = "padding: 6px 10px">Achievements</button>
+    <button onclick = "tab('Challenges')" style = "padding: 6px 10px">Challenges</button>
+    <button onclick = "tab('Quarks')" style = "padding: 6px 10px; background-color: black; color: greenyellow"><b>Quarks</b></button>
   </div>
   <div id = "Generators">
     <p id = "powerCount">You have 0 Power.</p>
@@ -37,13 +38,19 @@
   </div>
   <div id = "Upgrades">
     <button onclick = 'buyUpgrade1()' id = 'buttonupgrade1'>
-      Clicking is twice as effective. <br>Cost: 0.5 Particles
+      Clicking is twice as effective. <br>Cost: 0.25 Particles
     </button>
     <button onclick = 'buyUpgrade2()' id = 'buttonupgrade2'>
       You gain a boost to clicking the more times you've clicked. <br> Cost: 1.5 Particles
     </button>
-    <button onclick = 'buyUpgrade3()' id = 'buttonupgrade3' >
+    <button onclick = 'buyUpgrade3()' id = 'buttonupgrade3'>
       You gain a boost to clicking the more particles you have. <br> Cost: 4 Particles
+    </button>
+    <button onclick = 'buyUpgrade4()' id = 'buttonupgrade4'>
+      1st Particle Generators are twice as effective. <br> Cost: 15 Particles
+    </button>
+    <button onclick = 'buyUpgrade5()' id = 'buttonupgrade5'>
+      1st Particle Generators are boosted by the amount of 1st Particle Generators bought. <br> Cost: 30 Particles
     </button>
   </div>
   <div id = "Options">
@@ -53,8 +60,10 @@
     <p id = 'clickAmount'>
       You've clicked 0 times. <br>
     </p>
+    <a href="changelog.html">View the Changelog</a>
   </div>
   <div id = "Achievements"></div>
+  <div id = "Challenges"></div>
   <div id = "Quarks"></div>
 </body>
 <script src = "main.js"></script>

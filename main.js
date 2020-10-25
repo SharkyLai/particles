@@ -18,7 +18,7 @@ var game = {
     partiPerSecond: 0,
     gen1: {
         cost: 10,
-        costMult: 2,
+        costMult: 1.5,
         amount: 0,
         bought: 0,
         mult: 1,

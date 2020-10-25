@@ -13,7 +13,7 @@ button {
 	margin: 4px 2px;
 	transition-duration: 0.4s;
 	cursor: pointer;
-    border: 2px solid grey;
+	border: 2px solid grey;
 }
   
 button:hover {
@@ -23,4 +23,5 @@ button:hover {
 .buttonupgrade {
 	height: 15px;
 	width: 15px;
+	display: flex;
 }

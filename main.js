@@ -13,6 +13,7 @@ var game = {
     upgrade3Bought: 0,
     upgrade4Bought: 0,
     upgrade5Bought: 0,
+    upgrade6Bought: 0,
     power: 0,
     totalParti: 0,
     partiPerSecond: 0,
@@ -35,8 +36,9 @@ var game = {
         productionMult: 1,
     },
     genSpeed: 1000,
-    version: 0.1,
+    version: 0.2,
     playTime: 0,
+    currentChallenge: "none",
 }
 
 var opts = {
@@ -146,6 +148,26 @@ function buyUpgrade5() {
     }
 }
 
+function buyUpgrade6() {
+
+}
+
+function buyUpgrade7() {
+
+}
+
+function buyUpgrade8() {
+
+}
+
+function buyUpgrade9() {
+
+}
+
+function buyUpgrade10() {
+
+}
+
 function buyGenerator1() {
     if (game.parti >= game.gen1.cost) {
         game.parti -= game.gen1.cost;
@@ -161,6 +183,10 @@ function buyGenerator1() {
     }
 }
 
+function buyGenerator2() {
+
+}
+
 function buyPowerGenerator1() {
     if (game.parti >= game.powergen1.cost) {
         game.parti -= game.powergen1.cost;
@@ -172,6 +198,10 @@ function buyPowerGenerator1() {
         document.getElementById("powergen1Buy").innerHTML = "Cost: " + format(game.powergen1.cost);
         document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powergen1.production) + " Power per tick."
     }
+}
+
+function buyPowerGenerator2() {
+
 }
 
 function generateParti() {
@@ -244,4 +274,18 @@ function tab(tab) {
   document.getElementById(tab).style.display = "inline"
 }
 
-tab("Upgrades")
+tab("Upgrades");
+
+function challengeReset() {
+
+}
+
+function startChallenge(chall, goal, cost) {
+    if (chall == 1) {
+       
+    } else if (chall == 2) {
+
+    } else if (chall == 3) {
+
+    }
+}

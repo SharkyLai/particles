@@ -20,3 +20,7 @@ button {
 button:hover {
 	background-color: lightgrey;
 }
+
+table, th, td {
+	border-collapse: collapse;
+}

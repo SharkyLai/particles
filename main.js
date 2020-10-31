@@ -48,6 +48,11 @@ var game = {
     version: 0.2,
     playTime: 0,
     currentChallenge: "none",
+    caps: {
+        firstRow: 10,
+        secondRow: 20,
+    },
+    clickCap: 100000,
 }
 
 var opts = {
@@ -62,19 +67,20 @@ function format(amount) { // Formatting
     return mantissa.toFixed(2) + "e" + power
 }
 
-function clickParticles() { // Click Function
+function clickParticles() { 
+    if (game.clicks < game.clickCap) { // Click Function
     game.parti += game.partiPerClick;
     game.clicks++;
-   /* if (game.upgrade2Bought = 1) {
-    game.u2mult = Math.sqrt(game.clicks * 2) / 5;
-    }
-    if (game.upgrade3Bought = 1) {
-    game.u3mult = Math.log10(game.parti) + 2;
-    } */
-    
     updatePartiPerClick();
     document.getElementById("clickAmount").innerHTML = "You've clicked " + format(game.clicks) + " times.";
     document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles."
+   } else if (game.clicks > game.clickCap) {
+    alert("Cheated particles are corruptive. Beware!")
+   } else if (game.clicks >= game.clickCap && (game.partiPerSecond = 0)) {
+    alert("Uh oh, you've been softlocked. Try buying a generator now!")
+   } else if (game.clicks = game.clickCap && (game.partiPerSecond > 0)) {
+    alert("You've reached the click cap! This is to prevent autoclicking abuse. From now on, you'll have to rely on generators. Don't worry though, there'll be upgrades later on to increase this cap!")
+   } 
 }
 
 function buyUpgrade1() {
@@ -100,8 +106,8 @@ function buyUpgrade2() {
        game.u2mult = Math.sqrt(game.clicks * 2) / 5;
        document.getElementById("buttonupgrade2").style.backgroundColor = "lightgrey"
        updatePartiPerClick();
-       if (game.u2mult > 10) {
-          game.u2mult = 10;
+       if (game.u2mult > game.caps.firstRow) {
+          game.u2mult = game.caps.firstRow;
        } else if (game.u2mult < 1) {
            game.u2mult = 1;
        }
@@ -118,8 +124,8 @@ function buyUpgrade3() {
         game.u3mult = Math.log10(game.parti) + 2;
         document.getElementById("buttonupgrade3").style.backgroundColor = "lightgrey"
         updatePartiPerClick();
-        if (game.u3mult > 10) {
-            game.u3mult = 10;
+        if (game.u3mult > game.caps.firstRow) {
+            game.u3mult = game.caps.firstRow;
         } else if (game.u3mult < 1) {
             game.u3mult = 1;
         }
@@ -146,8 +152,8 @@ function buyUpgrade5() {
         if (game.upgrade5Bought != 0) return;
         game.parti -= 30;
         game.u5mult = Math.sqrt(game.gen1.bought * 2);
-        if (game.u5mult > 20) {
-            game.u5mult = 20;
+        if (game.u5mult > game.caps.firstRow) {
+            game.u5mult = game.caps.firstRow;
         } else if (game.u5mult < 1) {
             game.u5mult = 1;
         }
@@ -206,8 +212,8 @@ function buyUpgrade9() {
         if (game.upgrade9Bought != 0) return;
         game.parti -= 600;
         game.u2mult = Math.sqrt(game.clicks ^ 2);
-        if (game.u2mult > 10) {
-            game.u2mult = 10;
+        if (game.u2mult > game.caps.firstRow) {
+            game.u2mult = game.caps.firstRow;
          } else if (game.u2mult < 1) {
              game.u2mult = 1;
          }
@@ -221,9 +227,8 @@ function buyUpgrade10() {
     if (game.parti >= 1000) {
         if (game.upgrade10Bought != 0) return;
         game.parti -= 1000;
-        game.u3mult = Math.sqrt(game.parti) + 2;
-        if (game.u3mult > 10) {
-            game.u3mult = 10;
+        if (game.u3mult > game.caps.firstRow) {
+            game.u3mult = game.caps.firstRow;
         } else if (game.u3mult < 1) {
             game.u3mult = 1;
         }
@@ -231,6 +236,37 @@ function buyUpgrade10() {
         document.getElementById("buttonupgrade10").style.backgroundColor = "lightgrey"
         game.upgrade10Bought = 1;
     }
+}
+
+function buyUpgrade11() {
+    if (game.parti >= 2500) {
+       if (game.upgrade11Bought != 0) return;
+       game.parti -= 2500;
+       game.caps.firstRow = 100;
+       updatePartiPerClick();
+       updatePartiPerSecond();
+       game.upgrade11Bought = 1;
+    }
+}
+
+function buyUpgrade12() {
+
+}
+
+function buyUpgrade13() {
+
+}
+
+function buyUpgrade14() {
+
+}
+
+function buyUpgrade15() {
+
+}
+
+function clickCapUpgrade() {
+    clickCap *= 10;
 }
 
 function buyGenerator1() {
@@ -300,8 +336,8 @@ function updatePartiPerSecond() {
     if (game.upgrade5Bought != 0) {
     game.u5mult = Math.sqrt(game.gen1.bought * 2);
     }
-    if (game.u5mult > 20) {
-        game.u5mult = 20;
+    if (game.u5mult > game.caps.firstRow) {
+        game.u5mult = game.caps.firstRow;
     } else if (game.u5mult < 1) {
         game.u5mult = 1;
     }
@@ -332,11 +368,11 @@ function updatePartiPerClick() {
     // Upgrade 2
     if (game.upgrade9Bought != 0) {
         game.u2mult = Math.sqrt(game.clicks ^ 2);
-    } else if (game.upgrade2Bought != 0){
+    } else if (game.upgrade2Bought != 0) {
         game.u2mult = Math.sqrt(game.clicks * 2) / 5;
     } 
-    if (game.u2mult > 10) {
-        game.u2mult = 10;
+    if (game.u2mult > game.caps.firstRow) {
+        game.u2mult = game.caps.firstRow;
      } else if (game.u2mult < 1) {
          game.u2mult = 1;
      }
@@ -346,8 +382,8 @@ function updatePartiPerClick() {
     } else if (game.upgrade3Bought != 0) {
         game.u3mult = Math.log10(game.parti) + 2;
     }
-    if (game.u3mult > 10) {
-        game.u3mult = 10;
+    if (game.u3mult > game.caps.firstRow) {
+        game.u3mult = game.caps.firstRow;
     } else if (game.u3mult < 1) {
         game.u3mult = 1;
     }

@@ -18,6 +18,12 @@
   <p id = "displayPowerPerSecond">
     You gain 0 Power per tick.
   </p>
+  <p id = "clickCap">
+    You can only click 100000 times.
+  </p>
+  <p id = 'clickAmount'>
+    You've clicked 0 times. <br>
+  </p>
   <button onclick = 'clickParticles()'>
     Gain Particles
   </button>
@@ -39,48 +45,63 @@
   <div id = "Upgrades">
     <table align = "center" style = "margin: auto">
     <tr>
-    <td><button onclick = 'buyUpgrade1()' id = 'buttonupgrade1'>
-      Clicking is now twice as effective. <br> Cost: 0.25 Particles
+    <td><button onclick = 'buyUpgrade1()' id = 'buttonupgrade1' class = "upgrade">
+      Clicking is now twice as effective. <br><br> Cost: 0.25 Particles
     </button></td>
-    <td><button onclick = 'buyUpgrade2()' id = 'buttonupgrade2'>
+    <td><button onclick = 'buyUpgrade2()' id = 'buttonupgrade2' class = "upgrade">
       You gain a boost to clicking the more times you've clicked. <br> Cost: 1.5 Particles
     </button></td>
-    <td><button onclick = 'buyUpgrade3()' id = 'buttonupgrade3'>
+    <td><button onclick = 'buyUpgrade3()' id = 'buttonupgrade3' class = "upgrade">
       You gain a boost to clicking the more particles you have. <br> Cost: 4 Particles
     </button></td>
-    <td><button onclick = 'buyUpgrade4()' id = 'buttonupgrade4'>
+    <td><button onclick = 'buyUpgrade4()' id = 'buttonupgrade4' class = "upgrade">
       1st Particle Generators are twice as effective. <br> Cost: 15 Particles
     </button></td>
-    <td><button onclick = 'buyUpgrade5()' id = 'buttonupgrade5'>
+    <td><button onclick = 'buyUpgrade5()' id = 'buttonupgrade5' class = "upgrade">
       1st Particle Generators are boosted by the amount. <br> Cost: 30 Particles
     </button></td>
     </tr>
     <tr>
-    <td><button onclick = 'buyUpgrade6()' id = 'buttonupgrade6'>
+    <td><button onclick = 'buyUpgrade6()' id = 'buttonupgrade6' class = "upgrade">
       1st Power Generators are twice as effective. <br> Cost: 50 Particles
     </button></td>
-    <td><button onclick = 'buyUpgrade7()' id = 'buttonupgrade7'>
+    <td><button onclick = 'buyUpgrade7()' id = 'buttonupgrade7' class = "upgrade">
       Power now boosts your Particles per click. <br> Cost: 100 Particles
     </button></td>
-    <td><button onclick = 'buyUpgrade8()' id = 'buttonupgrade8'>
+    <td><button onclick = 'buyUpgrade8()' id = 'buttonupgrade8' class = "upgrade">
       Power now boosts your Generator multipliers. <br> Cost: 250 Particles
     </button></td>
-    <td><button onclick = 'buyUpgrade9()' id = 'buttonupgrade9'>
+    <td><button onclick = 'buyUpgrade9()' id = 'buttonupgrade9' class = "upgrade">
       Upgrade 2 now uses a better formula. <br> Cost: 600 Particles
     </button></td>
-    <td><button onclick = 'buyUpgrade10()' id = 'buttonupgrade10'>
-      Upgrade 3 now uses a better formula. <br> Cost: 1000 Particles.    
+    <td><button onclick = 'buyUpgrade10()' id = 'buttonupgrade10' class = "upgrade">
+      Upgrade 3 now uses a better formula. <br> Cost: 1000 Particles    
     </button></td>
-  </tr>
-    </table>
+    </tr>
+    <tr>
+   <td><button onclick = 'buyUpgrade11()' id = 'buttonupgrade11' class = "upgrade">
+      Increases the first row's upgrades' mult caps to 50x. <br> Cost: 2500 Particles
+   </button></td>
+   <td><button onclick = 'buyUpgrade12()' id = 'buttonupgrade12' class = "upgrade">
+
+   </button></td>
+   <td><button onclick = 'buyUpgrade13()' id = 'buttonupgrade13' class = "upgrade">
+
+   </button></td>
+   <td><button onclick = 'buyUpgrade14()' id = 'buttonupgrade14' class = "upgrade">
+
+   </button></td>
+   <td><button onclick = 'buyUpgrade15()' id = 'buttonupgrade15' class = "upgrade">
+
+   </button></td>
+    </tr>
+  </table>
   </div>
   <div id = "Options">
 
   </div>
   <div id = "Stats">
-    <p id = 'clickAmount'>
-      You've clicked 0 times. <br>
-    </p>
+   
     <a href="changelog.html">View the Changelog</a>
   </div>
   <div id = "Achievements"></div>

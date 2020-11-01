@@ -2,6 +2,8 @@
 
 var game = {
     parti: 0,
+    energy: 0,
+    quarks: 0,
     partiPerClick: 0.01,
     clicks: 0,
     u2mult: 1,
@@ -22,6 +24,7 @@ var game = {
     upgrade9Bought: 0,
     upgrade10Bought: 0,
     upgrade11Bought: 0,
+    upgrade12Bought: 0,
     power: 0,
     totalParti: 0,
     partiPerSecond: 0,
@@ -35,9 +38,18 @@ var game = {
         production: 0,
         productionMult: 1,
     },
+    gen2: {
+        cost: 1e5,
+        costMult: 1.5,
+        amount: 0,
+        bought: 0,
+        mult: 1,
+        production: 0,
+        productionMult: 1,
+    },
     powergen1: {
         cost: 50,
-        costMult: 4,
+        costMult: 2,
         amount: 0,
         bought: 0,
         mult: 1,
@@ -52,7 +64,8 @@ var game = {
         firstRow: 10,
         secondRow: 20,
     },
-    clickCap: 100000,
+    clickCap: 10000,
+    clickCapCost: 1000,
 }
 
 var opts = {
@@ -178,7 +191,7 @@ function buyUpgrade7() {
     if (game.parti >= 100) {
         if (game.upgrade7Bought != 0) return;
         game.parti -= 100;
-        game.u7mult = Math.log10(game.power ^ 4);
+        game.u7mult = Math.log10(Math.pow(game.power, 4));
         if (game.u7mult > 20) {
             game.u7mult = 20;
         } else if (game.u7mult < 1) {
@@ -195,7 +208,7 @@ function buyUpgrade8() {
     if (game.parti >= 250) {
         if (game.upgrade8Bought != 0) return;
         game.parti -= 250;
-        game.u8mult = Math.log10(game.power ^ 4);
+        game.u8mult = Math.log10(Math.pow(game.power, 4));
         if (game.u8mult > 20) {
             game.u8mult = 20;
         } else if (game.u8mult < 1) {
@@ -245,12 +258,22 @@ function buyUpgrade11() {
        game.caps.firstRow = 100;
        updatePartiPerClick();
        updatePartiPerSecond();
+       document.getElementById("buttonupgrade11").style.backgroundColor = "lightgrey"
        game.upgrade11Bought = 1;
     }
 }
 
 function buyUpgrade12() {
-
+    if (game.parti >= 6000) {
+        if (game.upgrade12Bought != 0) return;
+        game.parti -= 6000;
+        if (game.powergen1.bought % 5 == 0) {
+            game.powergen1.productionMult = Math.pow(2, game.powergen1.bought / 5);
+        }
+        updatePowerPerSecond();
+        document.getElementById("buttonupgrade12").style.backgroundColor = "lightgrey"
+        game.upgrade12Bought = 1;
+    }
 }
 
 function buyUpgrade13() {
@@ -266,7 +289,12 @@ function buyUpgrade15() {
 }
 
 function clickCapUpgrade() {
-    clickCap *= 10;
+    if (game.parti >= game.clickCapCost) {
+        game.parti -= game.clickCapCost;
+        game.clickCap *= 5;
+        game.clickCapCost *= 10;
+        document.getElementById("clickCap").innerHTML = "You can only click" + format(game.clickCap) + " times."
+    }
 }
 
 function buyGenerator1() {
@@ -276,9 +304,13 @@ function buyGenerator1() {
         game.gen1.bought++;
         game.gen1.cost *= game.gen1.costMult;
         game.gen1.production = 0.2 * game.gen1.amount * game.gen1.productionMult;
-        // game.parti += game.gen1.production;
+        /* if (game.upgrade12Bought != 0) {
+            if (game.gen1.bought % 5 == 0) {
+                game.gen1.mult = Math.pow(2, game.gen1.bought / 5);
+            }
+        } */
         updatePartiPerSecond();
-        document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.mult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
+        document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
         document.getElementById("gen1Buy").innerHTML = "Cost: " + format(game.gen1.cost);
         document.getElementById("displayPartiPerSecond").innerHTML = "You gain " + format(game.gen1.production) + " Particles per tick passively."
     }
@@ -295,6 +327,11 @@ function buyPowerGenerator1() {
         game.powergen1.bought++;
         game.powergen1.cost *= game.powergen1.costMult;
         game.powergen1.production = 0.01 * game.powergen1.amount * game.powergen1.productionMult;
+        if (game.upgrade12Bought != 0) {
+            if (game.powergen1.bought % 5 == 0) {
+                game.powergen1.productionMult = Math.pow(2, game.powergen1.bought / 5);
+            }
+        }
         document.getElementById("powergen1").innerHTML = "1st Power Generator x" + format(game.powergen1.productionMult) + " (" + format(game.powergen1.amount) + ") " + format(game.powergen1.production) + " Power/tick"
         document.getElementById("powergen1Buy").innerHTML = "Cost: " + format(game.powergen1.cost);
         document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powergen1.production) + " Power per tick."
@@ -307,7 +344,10 @@ function buyPowerGenerator2() {
 
 function generateParti() {
     if (game.gen1.amount >= 1) {
-    game.parti += game.gen1.production;
+        game.parti += game.gen1.production;
+    }
+    if (game.gen2.amount >= 1) {
+        game.parti += game.gen2.production;
     }
 }
 
@@ -343,7 +383,7 @@ function updatePartiPerSecond() {
     }
     // Upgrade 8
     if (game.upgrade8Bought != 0) {
-        game.u8mult = Math.log10(game.power ^ 4);
+        game.u8mult = Math.log10(Math.pow(game.power, 4));
     }
     if (game.u8mult > 20) {
         game.u8mult = 20;
@@ -352,7 +392,7 @@ function updatePartiPerSecond() {
     }
     game.gen1.productionMult = game.u4mult * game.u5mult * game.u8mult;
     game.gen1.production = 0.2 * game.gen1.amount * game.gen1.productionMult;
-    document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
+    document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.mult * game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
     document.getElementById("displayPartiPerSecond").innerHTML = "You gain " + format(game.partiPerSecond) + " Particles per tick passively."
 }
 
@@ -389,7 +429,7 @@ function updatePartiPerClick() {
     }
     // Upgrade 7
     if (game.upgrade7Bought != 0) {
-        game.u7mult = Math.log10(game.power ^ 4);
+        game.u7mult = Math.log10(Math.pow(game.power, 4));
     } 
     if (game.u7mult > 20) {
         game.u7mult = 20;
@@ -417,6 +457,15 @@ tab("Upgrades");
 function challengeReset() {
 
 }
+
+var saveGameLoop = window.setInterval(function() {
+    localStorage.setItem("gameSave", JSON.stringify(game))
+  }, 15000)
+  
+var savegame = JSON.parse(localStorage.getItem("gameSave"))
+if (savegame !== null) {
+    game = savegame
+} 
 
 function startChallenge(chall, goal, cost) {
 if (game.parti >= cost) {

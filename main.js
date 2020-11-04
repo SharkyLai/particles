@@ -317,7 +317,7 @@ function buyUpgrade15() {
         if (game.upgrade15Bought != 0) return;
         document.getElementById("buttonupgrade15").style.backgroundColor = "lightgrey"
         game.parti -= 80000;
-        game.u15mult = Math.cbrt(game.gen1.bought);
+        game.u15mult = Math.cbrt(Math.pow(game.gen1.bought, 2));
         if (game.u15mult < 1) {
             game.u15mult = 1;
         }
@@ -341,11 +341,6 @@ function buyGenerator1() {
         game.gen1.bought++;
         game.gen1.cost *= game.gen1.costMult;
         game.gen1.production = 0.2 * game.gen1.amount * game.gen1.productionMult;
-        /* if (game.upgrade12Bought != 0) {
-            if (game.gen1.bought % 5 == 0) {
-                game.gen1.mult = Math.pow(2, game.gen1.bought / 5);
-            }
-        } */
         updatePartiPerSecond();
         document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
         document.getElementById("gen1Buy").innerHTML = "Cost: " + format(game.gen1.cost);
@@ -449,7 +444,7 @@ function updatePartiPerSecond() {
 
 function updatePowerPerSecond() {
     game.powerPerSecond = game.powergen1.production;
-    game.u15mult = Math.cbrt(game.gen1.bought);
+    game.u15mult = Math.cbrt(Math.pow(game.gen1.bought, 2));
     if (game.u15mult < 1) {
         game.u15mult = 1;
     }
@@ -559,8 +554,10 @@ function updateAll() {
     document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles."
     document.getElementById("powerCount").innerHTML = "You have " + format(game.power) + " Power."
     document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.mult * game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
+    document.getElementById("gen1Buy").innerHTML = "Cost: " + format(game.gen1.cost);
     document.getElementById("displayPartiPerSecond").innerHTML = "You gain " + format(game.partiPerSecond) + " Particles per tick passively."
     document.getElementById("powergen1").innerHTML = "1st Power Generator x" + format(game.powergen1.productionMult) + " (" + format(game.powergen1.amount) + ") " + format(game.powergen1.production) + " Power/tick"
+    document.getElementById("powergen1Buy").innerHTML = "Cost: " + format(game.powergen1.cost);
     document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powerPerSecond) + " Power per tick."
     document.getElementById("gen2").innerHTML = "2nd Particle Generator x" + format(game.gen2.productionMult) + " (" + format(game.gen2.amount) + ") " + format(game.gen2.production) + " Generators/tick"
     document.getElementById("gen2Buy").innerHTML = "Cost: " + format(game.gen2.cost);

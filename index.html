@@ -6,24 +6,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <p id = "partiCount">
-    You have 0 Particles.
-  </p>
-  <p id = "displayPartiPerClick">
-    You gain 0.01 Particle per click.
-  </p>
-  <p id = "displayPartiPerSecond">
-    You gain 0 Particles per tick passively.
-  </p>
-  <p id = "displayPowerPerSecond">
-    You gain 0 Power per tick.
-  </p>
-  <p id = "clickCap">
-    You can only click 1e4 times.
-  </p>
-  <p id = 'clickAmount'>
-    You've clicked 0 times. <br>
-  </p>
+  <br>
+  <p id = "partiCount" style = "font-size: 25px; text-align: center;">You have 0 Particles.</p>
+  <p id = "displayPartiPerClick" style = "font-size: 15px; text-align: center;">You gain 0.01 Particle per click.</p>
+  <p id = "displayPartiPerSecond" style = "font-size: 15px; text-align: center;">You gain 0 Particles per tick passively.</p>
   <button onclick = 'clickParticles()'>
     Gain Particles
   </button>
@@ -39,6 +25,7 @@
   </div>
   <div id = "Generators">
     <p id = "powerCount">You have 0 Power.</p>
+    <p id = "displayPowerPerSecond"> You gain 0 Power per tick. </p>
     <p id = 'gen1'>1st Particle Generator x1.00 (0) 0 Particles/tick </p> <button id = "gen1Buy" onclick = 'buyGenerator1()'>Cost: 10</button>
     <p id = 'powergen1'>1st Power Generator x1.00 (0) 0 Power/tick</p> <button id = "powergen1Buy" onclick = 'buyPowerGenerator1()'>Cost: 50</button>
     <p id = 'gen2'>2nd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen2Buy" onclick = 'buyGenerator2()'>Cost: 1e4</button>
@@ -104,11 +91,27 @@
 
   </div>
   <div id = "Stats">
-   
+    <p id = "clickCap">
+      You can only click 1e4 times.
+    </p>
+    <p id = 'clickAmount'>
+      You've clicked 0 times. <br>
+    </p>
     <a href="changelog.html">View the Changelog</a>
   </div>
   <div id = "Achievements"></div>
-  <div id = "Challenges"></div>
+  <div id = "Challenges">
+    <br>
+    <br>
+    <table align = "center" id = "upgradeTable">
+      <tr>
+        <td><p id = "chall1" class = "challenge">The 3rd and 4th row of upgrades do nothing.<br><br><br><button onclick = 'startChallenge(1)' id = "startChall1" class = "challengebtn">Start</button><br><br>Reward: 1 Energy</p></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
   <div id = "Quarks"></div>
 </body>
 <script src = "main.js"></script>
@@ -116,6 +119,5 @@
 <script src = "js/format.js"></script>
 <script src = "js/options.js"></script>
 <script src = "js/quarks.js"></script>
-<script src = "https://unpkg.com/vue@next"></script>
 
 </html>

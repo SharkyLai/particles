@@ -64,6 +64,8 @@ var game = {
     version: 0.2,
     playTime: 0,
     currentChallenge: "none",
+    challGoal: 0,
+    // challenge1Comp: 0,
     caps: {
         firstRow: 10,
         secondRow: 20,
@@ -256,6 +258,7 @@ function buyUpgrade10() {
 }
 
 function buyUpgrade11() {
+    if (game.currentChallenge = 1) return;
     if (game.parti >= 2500) {
        if (game.upgrade11Bought != 0) return;
        game.parti -= 2500;
@@ -268,6 +271,7 @@ function buyUpgrade11() {
 }
 
 function buyUpgrade12() {
+    if (game.currentChallenge = 1) return;
     if (game.parti >= 6000) {
         if (game.upgrade12Bought != 0) return;
         game.parti -= 6000;
@@ -281,6 +285,7 @@ function buyUpgrade12() {
 }
 
 function buyUpgrade13() {
+    if (game.currentChallenge = 1) return;
     if (game.parti >= 15000) {
         if (game.upgrade13Bought != 0) return;
         game.parti -= 15000;
@@ -297,6 +302,7 @@ function buyUpgrade13() {
 }
 
 function buyUpgrade14() {
+    if (game.currentChallenge = 1) return;
     if (game.parti >= 40000) {
         if (game.upgrade14Bought != 0) return;
         game.parti -= 40000;
@@ -313,6 +319,7 @@ function buyUpgrade14() {
 }
 
 function buyUpgrade15() {
+    if (game.currentChallenge = 1) return;
     if (game.parti >= 80000) {
         if (game.upgrade15Bought != 0) return;
         document.getElementById("buttonupgrade15").style.backgroundColor = "lightgrey"
@@ -413,6 +420,10 @@ var updateLoop = window.setInterval(function() {
     updatePowerPerSecond();
     update1stGenPerSecond();
 }, 100)
+
+var updatePlayTimeLoop = window.setInterval(function() {
+    game.playTime++;
+}, 1000)
 
 function updatePartiPerSecond() {
     game.partiPerSecond = game.gen1.production;
@@ -516,37 +527,54 @@ function tab(tab) {
 
 tab("Upgrades");
 
-function challengeReset() {
-
-}
-
 var saveGameLoop = window.setInterval(function() {
     localStorage.setItem("gameSave", JSON.stringify(game))
-  }, 15000)
+}, 15000)
   
 var savegame = JSON.parse(localStorage.getItem("gameSave"))
 if (savegame !== null) {
     game = savegame
 } 
 
-function startChallenge(chall, goal, cost) {
-if (game.parti >= cost) {
-    if (confirm("Are you sure you want to start this challenge? You will have to perform a Particle reset.")) {
-    challengeReset();
-    } else {
-        return;
-    }
-    if (chall == 1) {
-       game.parti = -5
-    } else if (chall == 2) {
+function startChallenge(chall) {
+    if (game.currentChallenge == "none") {
+        if (confirm("Are you sure you want to start this challenge? You will have to perform a challenge reset.")) {
+            challReset();
+            updateAll();
+        } else {
+            chall == 0;
+            return;
+        }
+        if (chall == 1) {
+            game.currentChallenge = 1;
+            game.challGoal = 1e5;
+            document.getElementById("startChall1").innerHTML = "Running"
+        } else if (chall == 2) {
 
-    } else if (chall == 3) {
+        } else if (chall == 3) {
 
+        } else if (chall == 4) {
+
+        }
+        let challCheck = window.setInterval(function() {
+            if (game.parti >= game.challGoal) {
+                if (chall == 1) {
+                    game.energy += 1;
+                }
+                leaveChallenge();
+                if (game.currentChallenge = "none") {
+                    challCheck = undefined;
+                    return;
+                }            
+            }
+        }, 100)
     }
 }
-    if (game.parti >= goal) {
 
-    }
+function leaveChallenge() {
+    game.currentChallenge = "none";
+    challReset();
+    updateAll();
 }
 
 function updateAll() {
@@ -610,3 +638,77 @@ function updateAll() {
 }
 
 updateAll();
+
+function challReset() {
+    game = {
+        parti: 0,
+        // energy: energy,
+        // quarks: quarks,
+        partiPerClick: 0.01,
+        clicks: 0,
+        u2mult: 1,
+        u3mult: 1,
+        u4mult: 1,
+        u5mult: 1,
+        u6mult: 1,
+        u7mult: 1,
+        u8mult: 1,
+        u15mult: 1,
+        upgrade1Bought: 0,
+        upgrade2Bought: 0,
+        upgrade3Bought: 0,
+        upgrade4Bought: 0,
+        upgrade5Bought: 0,
+        upgrade6Bought: 0,
+        upgrade7Bought: 0,
+        upgrade8Bought: 0,
+        upgrade9Bought: 0,
+        upgrade10Bought: 0,
+        upgrade11Bought: 0,
+        upgrade12Bought: 0,
+        upgrade13Bought: 0,
+        upgrade14Bought: 0,
+        upgrade15Bought: 0,
+        power: 0,
+        // playTime: playTime,
+        partiPerSecond: 0,
+        powerPerSecond: 0,
+        gen1: {
+            cost: 10,
+            costMult: 1.5,
+            amount: 0,
+            bought: 0,
+            mult: 1,
+            production: 0,
+            productionMult: 1,
+        },
+        gen2: {
+            cost: 1e4,
+            costMult: 1.5,
+            amount: 0,
+            bought: 0,
+            mult: 1,
+            production: 0,
+            productionMult: 1,
+        },
+        powergen1: {
+            cost: 50,
+            costMult: 2,
+            amount: 0,
+            bought: 0,
+            mult: 1,
+            production: 0,
+            productionMult: 1,
+        },
+        genSpeed: 1000,
+        version: 0.2,
+        currentChallenge: "none",
+        challGoal: 0,
+        caps: {
+            firstRow: 10,
+            secondRow: 20,
+        },
+        clickCap: 10000,
+        clickCapCost: 1000,
+    }
+}

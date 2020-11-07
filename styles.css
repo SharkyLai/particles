@@ -1,6 +1,6 @@
 p {
 	font-family: Arial, Helvetica, sans-serif;
-	
+	line-height: 0.4;
 }
 
 button {
@@ -14,6 +14,8 @@ button {
 	transition-duration: 0.4s;
 	cursor: pointer;
 	border: 2px solid grey;
+	border-radius: 4px;
+	box-shadow: 1px 1px #888888;
 }
   
 button:hover {
@@ -24,7 +26,28 @@ table, th, td {
 	border-collapse: collapse;
 }
 
+#upgradeTable {
+	border: none;
+}
+
 .upgrade {
 	width: 210px;
 	height: 110px;
+}
+
+#chall1 {
+	border: 2px solid black;
+	padding: 20px 20px;
+}
+
+.challengebtn {
+	margin: auto;
+	display: block;
+	width: 80px;
+	height: 35px;
+	padding: 6px 6px;
+}
+
+.challenge {
+	text-align: center;
 }

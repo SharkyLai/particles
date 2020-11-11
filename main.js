@@ -14,6 +14,11 @@ var game = {
     u7mult: 1,
     u8mult: 1,
     u15mult: 1,
+    enMult: 1,
+    enUpgCost: 0,
+    enUpgMult: {
+        u11mult: 1,
+    },
     upgrade1Bought: 0,
     upgrade2Bought: 0,
     upgrade3Bought: 0,
@@ -76,7 +81,7 @@ var game = {
 
 var opts = {
     selectedTheme: "normal",
-    defaultTab: "upgrades",
+    defaultTab: "Upgrades",
 }
 
 function format(amount) { // Formatting
@@ -332,6 +337,52 @@ function buyUpgrade15() {
     }
 }
 
+function buyUpgrade16() {
+
+}
+
+function buyUpgrade17() {
+
+}
+
+function buyUpgrade18() {
+
+}
+
+function buyUpgrade19() {
+
+}
+
+function buyUpgrade20() {
+
+}
+
+function buyRepUpgrade11() {
+
+}
+
+function buyRepUpgrade12() {
+
+}
+
+function enUpg(id) {
+    if (id == 11) {
+        game.enUpgCost = 2;
+        // game.enUpgMult.u11mult = 
+    } else if (id == 12) {
+
+    } else if (id == 13) {
+
+    } else if (id == 14) {
+        
+    } else if (id == 15) {
+
+    }
+    if (game.energy >= game.enUpgCost) {
+        game.energy -= game.enUpgCost;
+    }
+}
+
 function clickCapUpgrade() {
     if (game.parti >= game.clickCapCost) {
         game.parti -= game.clickCapCost;
@@ -525,7 +576,28 @@ function tab(tab) {
   document.getElementById(tab).style.display = "inline"
 }
 
-tab("Upgrades");
+// Options
+
+function updateDefaultTab() {
+    if (opts.defaultTab == "Upgrades") {
+        tab("Generators");
+        opts.defaultTab = "Generators"
+    } else if (opts.defaultTab == "Generators") {
+        tab("Upgrades");
+        opts.defaultTab = "Upgrades";
+    }
+}
+
+function updateTheme(theme) {
+    opts.selectedTheme = theme.toString();
+    if (theme == Dark) {
+        //
+    } else if (theme == Aqua) {
+        // 
+    } else if (theme == Normal) {
+        //
+    }
+}
 
 var saveGameLoop = window.setInterval(function() {
     localStorage.setItem("gameSave", JSON.stringify(game))
@@ -550,7 +622,8 @@ function startChallenge(chall) {
             game.challGoal = 1e5;
             document.getElementById("startChall1").innerHTML = "Running"
         } else if (chall == 2) {
-
+            game.currentChallenge = 2;
+            game.challGoal = 1e8;
         } else if (chall == 3) {
 
         } else if (chall == 4) {
@@ -559,7 +632,7 @@ function startChallenge(chall) {
         let challCheck = window.setInterval(function() {
             if (game.parti >= game.challGoal) {
                 if (chall == 1) {
-                    game.energy += 1;
+                    game.energy = 1;
                 }
                 leaveChallenge();
                 if (game.currentChallenge = "none") {
@@ -635,12 +708,81 @@ function updateAll() {
     if (game.upgrade15Bought != 0) {
         document.getElementById("buttonupgrade15").style.backgroundColor = "lightgrey";
     }
+    /* if (opts.defaultTab == "Upgrades") {
+        tab("Upgrades");
+    } else if (opts.defaultTab == "Generators") {
+        tab("Generators");
+    } */
 }
 
 updateAll();
 
 function challReset() {
-    game = {
+    game.parti = 0;
+    game.partiPerClick = 0;
+    // Multipliers
+    game.clicks = 0;
+    game.u2mult = 1;
+    game.u3mult = 1;
+    game.u4mult = 1;
+    game.u5mult = 1;
+    game.u6mult = 1;
+    game.u7mult = 1;
+    game.u8mult = 1;
+    game.u15mult = 1;
+    // Bought Upgrades
+    game.upgrade1Bought = 0;
+    game.upgrade2Bought = 0;
+    game.upgrade3Bought = 0;
+    game.upgrade4Bought = 0;
+    game.upgrade5Bought = 0;
+    game.upgrade6Bought = 0;
+    game.upgrade7Bought = 0;
+    game.upgrade8Bought = 0;
+    game.upgrade9Bought = 0;
+    game.upgrade10Bought = 0;
+    game.upgrade11Bought = 0;
+    game.upgrade12Bought = 0;
+    game.upgrade13Bought = 0;
+    game.upgrade14Bought = 0;
+    game.upgrade15Bought = 0;
+    game.upgrade16Bought = 0;
+    game.upgrade17Bought = 0;
+    game.upgrade18Bought = 0;
+    game.upgrade19Bought = 0;
+    game.upgrade20Bought = 0;
+    game.power = 0;
+    game.partiPerSecond = 0;
+    game.powerPerSecond = 0;
+    game.genSpeed = 1000;
+    game.caps.firstRow = 10;
+    game.caps.firstRow = 20;
+    // Gen 1
+    game.gen1.cost = 10;
+    game.gen1.costMult = 1.5;
+    game.gen1.amount = 0;
+    game.gen1.bought = 0;
+    game.gen1.mult = 1;
+    game.gen1.production = 0;
+    game.gen1.productionMult = 1;
+    // Gen 2
+    game.gen2.cost = 1e4;
+    game.gen2.costMult = 1.5;
+    game.gen2.amount = 0;
+    game.gen2.bought = 0;
+    game.gen2.mult = 1;
+    game.gen2.production = 0;
+    game.gen2.productionMult = 1;
+    // Power Gen 1
+    game.powergen1.cost = 50;
+    game.powergen1.costMult = 2;
+    game.powergen1.amount = 0;
+    game.powergen1.bought = 0;
+    game.powergen1.mult = 1;
+    game.powergen1.production = 0;
+    game.powergen1.productionMult = 1;
+    
+    /* game = {
         parti: 0,
         // energy: energy,
         // quarks: quarks,
@@ -709,6 +851,6 @@ function challReset() {
             secondRow: 20,
         },
         clickCap: 10000,
-        clickCapCost: 1000,
-    }
+        clickCapCost: 1000, 
+    } */
 }

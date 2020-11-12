@@ -1,3 +1,5 @@
+// imports and exports
+
 // Variables
 
 var game = {
@@ -6,6 +8,7 @@ var game = {
     quarks: 0,
     partiPerClick: 0.01,
     clicks: 0,
+    u1mult: 1,
     u2mult: 1,
     u3mult: 1,
     u4mult: 1,
@@ -34,6 +37,11 @@ var game = {
     upgrade13Bought: 0,
     upgrade14Bought: 0,
     upgrade15Bought: 0,
+    upgrade16Bought: 0,
+    upgrade17Bought: 0,
+    upgrade18Bought: 0,
+    upgrade19Bought: 0,
+    upgrade20Bought: 0,
     power: 0,
     powerMult: 0,
     totalParti: 0,
@@ -71,7 +79,7 @@ var game = {
     playTime: 0,
     currentChallenge: "none",
     challGoal: 0,
-    // challenge1Comp: 0,
+    chall1Comp: 0,
     caps: {
         firstRow: 10,
         secondRow: 20,
@@ -79,6 +87,8 @@ var game = {
     clickCap: 10000,
     clickCapCost: 1000,
 }
+
+var challCheck;
 
 var opts = {
     selectedTheme: "normal",
@@ -113,6 +123,7 @@ function buyUpgrade1() {
     if (game.upgrade1Bought != 0) return;
     // if (game.upgrade1Bought = 0) {
     game.parti -= 0.25;
+    game.u1mult = 2;
     // game.partiPerClick *= 2;
     document.getElementById("buttonupgrade1").style.backgroundColor = "lightgrey"
     updatePartiPerClick();
@@ -204,8 +215,8 @@ function buyUpgrade7() {
         if (game.upgrade7Bought != 0) return;
         game.parti -= 150;
         game.u7mult = Math.log10(Math.pow(game.power, 4));
-        if (game.u7mult > 20) {
-            game.u7mult = 20;
+        if (game.u7mult > game.caps.secondRow) {
+            game.u7mult = game.caps.secondRow;
         } else if (game.u7mult < 1) {
             game.u7mult = 1;
         }
@@ -221,8 +232,8 @@ function buyUpgrade8() {
         if (game.upgrade8Bought != 0) return;
         game.parti -= 400;
         game.u8mult = Math.log10(Math.pow(game.power, 4));
-        if (game.u8mult > 20) {
-            game.u8mult = 20;
+        if (game.u8mult > game.caps.secondRow) {
+            game.u8mult = game.caps.secondRow;
         } else if (game.u8mult < 1) {
             game.u8mult = 1;
         }
@@ -264,20 +275,22 @@ function buyUpgrade10() {
 }
 
 function buyUpgrade11() {
-    if (game.currentChallenge = 1) return;
+    if (game.currentChallenge == 1) {
+        return;
+    }
     if (game.parti >= 8000) {
        if (game.upgrade11Bought != 0) return;
        game.parti -= 8000;
        game.caps.firstRow = 100;
+       document.getElementById("buttonupgrade11").style.backgroundColor = "lightgrey"
        updatePartiPerClick();
        updatePartiPerSecond();
-       document.getElementById("buttonupgrade11").style.backgroundColor = "lightgrey"
        game.upgrade11Bought = 1;
     }
 }
 
 function buyUpgrade12() {
-    if (game.currentChallenge = 1) return;
+    if (game.currentChallenge == 1) return;
     if (game.parti >= 15000) {
         if (game.upgrade12Bought != 0) return;
         game.parti -= 15000;
@@ -291,13 +304,13 @@ function buyUpgrade12() {
 }
 
 function buyUpgrade13() {
-    if (game.currentChallenge = 1) return;
+    if (game.currentChallenge == 1) return;
     if (game.parti >= 80000) {
         if (game.upgrade13Bought != 0) return;
         game.parti -= 80000;
         game.u7mult = Math.sqrt(Math.pow(game.power, 4));
-        if (game.u7mult > 20) {
-            game.u7mult = 20;
+        if (game.u7mult > game.caps.secondRow) {
+            game.u7mult = game.caps.secondRow;
         } else if (game.u7mult < 1) {
             game.u7mult = 1;
         }
@@ -308,13 +321,13 @@ function buyUpgrade13() {
 }
 
 function buyUpgrade14() {
-    if (game.currentChallenge = 1) return;
+    if (game.currentChallenge == 1) return;
     if (game.parti >= 200000) {
         if (game.upgrade14Bought != 0) return;
         game.parti -= 200000;
         game.u8mult = Math.sqrt(Math.pow(game.power, 4));
-        if (game.u8mult > 20) {
-            game.u8mult = 20;
+        if (game.u8mult > game.caps.secondRow) {
+            game.u8mult = game.caps.secondRow;
         } else if (game.u8mult < 1) {
             game.u8mult = 1;
         }
@@ -325,7 +338,7 @@ function buyUpgrade14() {
 }
 
 function buyUpgrade15() {
-    if (game.currentChallenge = 1) return;
+    if (game.currentChallenge == 1) return;
     if (game.parti >= 1e6) {
         if (game.upgrade15Bought != 0) return;
         document.getElementById("buttonupgrade15").style.backgroundColor = "lightgrey"
@@ -339,8 +352,8 @@ function buyUpgrade15() {
 }
 
 function buyUpgrade16() {
-    if (game.currentChallenge = 1) return;
-    if (game.parti = 2e7) {
+    if (game.currentChallenge == 1) return;
+    if (game.parti >= 2e7) {
         if (game.upgrade16Bought != 0) return;
         game.parti -= 2e7;
         document.getElementById("buttonupgrade16").style.backgroundColor = "lightgrey"
@@ -349,11 +362,27 @@ function buyUpgrade16() {
 }
 
 function buyUpgrade17() {
-
+    if (game.currentChallenge == 1) return;
+    if (game.parti >= 3e8) {
+        if (game.upgrade17Bought != 0) return;
+        game.parti -= 3e8;
+        game.caps.secondRow = 250;
+        document.getElementById("buttonupgrade17").style.backgroundColor = "lightgrey"
+        game.upgrade17Bought = 1;
+    }
 }
 
 function buyUpgrade18() {
-
+    if (game.currentChallenge == 1) return;
+    if (game.parti >= 5e9) {
+        if (game.upgrade18Bought != 0) return;
+        game.parti -= 5e9;
+        game.u1mult = 10;
+        game.u4mult = 10;
+        game.u6mult = 10;
+        document.getElementById("buttonupgrade17").style.backgroundColor = "lightgrey";
+        game.upgrade18Bought = 1;
+    }
 }
 
 function buyUpgrade19() {
@@ -500,13 +529,13 @@ function updatePartiPerSecond() {
     } else if (game.upgrade8Bought != 0) {
         game.u8mult = Math.log10(Math.pow(game.power, 4));
     }
-    if (game.u8mult > 20) {
-        game.u8mult = 20;
+    if (game.u8mult > game.caps.secondRow) {
+        game.u8mult = game.caps.secondRow;
     } else if (game.u8mult < 1) {
         game.u8mult = 1;
     }
     // Energy Mult
-    game.enMult = Math.log10(Math.pow(game.energy, 2)) + (game.energy * 2);
+    game.enMult = Math.log10(Math.pow(game.energy, 2)) + (game.energy * 2) + 1;
     if (game.enMult < 1) {
         game.enMult = 1;
     }
@@ -569,12 +598,12 @@ function updatePartiPerClick() {
     } else if (game.upgrade7Bought != 0) {
         game.u7mult = Math.log10(Math.pow(game.power, 4));
     } 
-    if (game.u7mult > 20) {
-        game.u7mult = 20;
+    if (game.u7mult > game.caps.secondRow) {
+        game.u7mult = game.caps.secondRow;
     } else if (game.u7mult < 1) {
         game.u7mult = 1;
     }
-    game.partiPerClick = 0.01 * (game.upgrade1Bought + 1) * game.u2mult * game.u3mult * game.u7mult * game.powerMult;
+    game.partiPerClick = 0.01 * game.u1mult * game.u2mult * game.u3mult * game.u7mult * game.powerMult;
     document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
     document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click.";
 }
@@ -656,11 +685,12 @@ function startChallenge(chall) {
         } else if (chall == 4) {
 
         }
-        let challCheck = window.setInterval(function() {
+        challCheck = window.setInterval(function() {
             if (game.parti >= game.challGoal) {
                 if (chall == 1) {
                     game.energy = 1;
                     document.getElementById("startChall1").innerHTML = "Completed";
+                    game.chall1Comp = 1;
                 }
                 leaveChallenge();
                 if (game.currentChallenge = "none") {
@@ -691,56 +721,114 @@ function updateAll() {
     document.getElementById("gen2").innerHTML = "2nd Particle Generator x" + format(game.gen2.productionMult) + " (" + format(game.gen2.amount) + ") " + format(game.gen2.production) + " Generators/tick"
     document.getElementById("gen2Buy").innerHTML = "Cost: " + format(game.gen2.cost);
     document.getElementById("clickCap").innerHTML = "You can only click " + format(game.clickCap) + " times.";
+    document.getElementById("energyCount").innerHTML = "You have " + format(game.energy) + " Energy, translated to a x" + format(game.enMult) + " multiplier to all Particle Generators"
     if (game.upgrade1Bought != 0) {
         document.getElementById("buttonupgrade1").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade1").style.backgroundColor = "white";
     }
+
     if (game.upgrade2Bought != 0) {
         document.getElementById("buttonupgrade2").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade2").style.backgroundColor = "white";
     }
+
     if (game.upgrade3Bought != 0) {
         document.getElementById("buttonupgrade3").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade3").style.backgroundColor = "white";
     }
+
     if (game.upgrade4Bought != 0) {
         document.getElementById("buttonupgrade4").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade4").style.backgroundColor = "white";
     }
+
     if (game.upgrade5Bought != 0) {
         document.getElementById("buttonupgrade5").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade5").style.backgroundColor = "white";
     }
+
     if (game.upgrade6Bought != 0) {
         document.getElementById("buttonupgrade6").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade6").style.backgroundColor = "white";
     }
+
     if (game.upgrade7Bought != 0) {
         document.getElementById("buttonupgrade7").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade7").style.backgroundColor = "white";
     }
+
     if (game.upgrade8Bought != 0) {
         document.getElementById("buttonupgrade8").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade8").style.backgroundColor = "white";
     }
+
     if (game.upgrade9Bought != 0) {
         document.getElementById("buttonupgrade9").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade9").style.backgroundColor = "white";
     }
+
     if (game.upgrade10Bought != 0) {
         document.getElementById("buttonupgrade10").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade10").style.backgroundColor = "white";
     }
+
     if (game.upgrade11Bought != 0) {
         document.getElementById("buttonupgrade11").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade11").style.backgroundColor = "white";
     }
+
     if (game.upgrade12Bought != 0) {
         document.getElementById("buttonupgrade12").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade12").style.backgroundColor = "white";
     }
+
     if (game.upgrade13Bought != 0) {
         document.getElementById("buttonupgrade13").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade13").style.backgroundColor = "white";
     }
+
     if (game.upgrade14Bought != 0) {
         document.getElementById("buttonupgrade14").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade14").style.backgroundColor = "white";
     }
+
     if (game.upgrade15Bought != 0) {
         document.getElementById("buttonupgrade15").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade15").style.backgroundColor = "white";
     }
-    /* if (opts.defaultTab == "Upgrades") {
-        tab("Upgrades");
-    } else if (opts.defaultTab == "Generators") {
-        tab("Generators");
-    } */
+    
+    if (game.upgrade16Bought != 0) {
+        document.getElementById("buttonupgrade16").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade16").style.backgroundColor = "white";
+    }
+
+    if (game.upgrade17Bought != 0) {
+        document.getElementById("buttonupgrade17").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade17").style.backgroundColor = "white";
+    }
+
+    if (game.upgrade18Bought != 0) {
+        document.getElementById("buttonupgrade18").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade18").style.backgroundColor = "white";
+    }
 }
 
 updateAll();
@@ -748,8 +836,10 @@ updateAll();
 function challReset() {
     game.parti = 0;
     game.partiPerClick = 0;
+    game.challGoal = undefined;
     // Multipliers
     game.clicks = 0;
+    game.u1mult = 1;
     game.u2mult = 1;
     game.u3mult = 1;
     game.u4mult = 1;

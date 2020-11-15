@@ -58,7 +58,7 @@ var game = {
     },
     gen2: {
         cost: 1e4,
-        costMult: 1.5,
+        costMult: 2.5,
         amount: 0,
         bought: 0,
         mult: 1,
@@ -80,9 +80,11 @@ var game = {
     currentChallenge: "none",
     challGoal: 0,
     chall1Comp: 0,
+    chall2Comp: 0,
     caps: {
         firstRow: 10,
         secondRow: 20,
+        powerMult: 100,
     },
     clickCap: 10000,
     clickCapCost: 1000,
@@ -247,7 +249,7 @@ function buyUpgrade9() {
     if (game.parti >= 1000) {
         if (game.upgrade9Bought != 0) return;
         game.parti -= 1000;
-        game.u2mult = Math.sqrt(game.clicks ^ 2);
+        game.u2mult = Math.sqrt(Math.pow(game.clicks, 2));
         if (game.u2mult > game.caps.firstRow) {
             game.u2mult = game.caps.firstRow;
          } else if (game.u2mult < 1) {
@@ -281,7 +283,7 @@ function buyUpgrade11() {
     if (game.parti >= 8000) {
        if (game.upgrade11Bought != 0) return;
        game.parti -= 8000;
-       game.caps.firstRow = 100;
+       game.caps.firstRow = 250;
        document.getElementById("buttonupgrade11").style.backgroundColor = "lightgrey"
        updatePartiPerClick();
        updatePartiPerSecond();
@@ -380,17 +382,31 @@ function buyUpgrade18() {
         game.u1mult = 10;
         game.u4mult = 10;
         game.u6mult = 10;
-        document.getElementById("buttonupgrade17").style.backgroundColor = "lightgrey";
+        document.getElementById("buttonupgrade18").style.backgroundColor = "lightgrey";
         game.upgrade18Bought = 1;
     }
 }
 
 function buyUpgrade19() {
-
+    if (game.currentChallenge == 1) return;
+    if (game.parti >= 1e13) {
+        if (game.upgrade19Bought != 0) return;
+        game.parti -= 1e13;
+        game.powerMult = Math.log10(game.power) * Math.cbrt(game.power) * 2;
+        document.getElementById("buttonupgrade19").style.backgroundColor = "lightgrey";
+        game.upgrade19Bought = 1;
+    }
 }
 
 function buyUpgrade20() {
-
+    if (game.currentChallenge == 1) return;
+    if (game.parti >= 1e15) {
+        if (game.upgrade20Bought != 0) return;
+        game.parti -= 1e15;
+        game.caps.powerMult = 10000;
+        document.getElementById("buttonupgrade20").style.backgroundColor = "lightgrey";
+        game.upgrade20Bought = 1;
+    }
 }
 
 function buyRepUpgrade11() {
@@ -443,6 +459,7 @@ function buyGenerator1() {
 }
 
 function buyGenerator2() {
+    if (game.currentChallenge == 2) return;
     if (game.parti >= game.gen2.cost) {
         game.parti -= game.gen2.cost;
         game.gen2.amount++;
@@ -475,7 +492,7 @@ function buyPowerGenerator1() {
 }
 
 function buyPowerGenerator2() {
-
+    if (game.currentChallenge == 2) return;
 }
 
 function generateParti() {
@@ -505,7 +522,7 @@ var updateLoop = window.setInterval(function() {
     updatePartiPerClick();
     updatePartiPerSecond();
     updatePowerPerSecond();
-    update1stGenPerSecond();
+    // update1stGenPerSecond();
 }, 100)
 
 var updatePlayTimeLoop = window.setInterval(function() {
@@ -564,15 +581,19 @@ function updatePowerPerSecond() {
 
 function updatePartiPerClick() {
     // Power Mult
-    game.powerMult = Math.log10(game.power);
-    if (game.powerMult > 100) {
-        game.powerMult = 100;
+    if (game.upgrade19Bought != 0) {
+        game.powerMult = Math.log10(game.power) * Math.cbrt(game.power) * 2;
+    } else {
+        game.powerMult = Math.log10(game.power) * Math.cbrt(game.power) / 3.5;
+    }
+    if (game.powerMult > game.caps.powerMult) {
+        game.powerMult = game.caps.powerMult;
     } else if (game.powerMult < 1) {
         game.powerMult = 1;
     }
     // Upgrade 2
     if (game.upgrade9Bought != 0) {
-        game.u2mult = Math.sqrt(game.clicks ^ 2);
+        game.u2mult = Math.sqrt(Math.pow(game.clicks, 3));
     } else if (game.upgrade2Bought != 0) {
         game.u2mult = Math.sqrt(game.clicks * 2) / 5;
     } 
@@ -608,10 +629,10 @@ function updatePartiPerClick() {
     document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click.";
 }
 
-function update1stGenPerSecond() {
+/* function update1stGenPerSecond() {
     game.gen2.productionMult = 1;
     game.gen2.production = 0.2 * game.gen2.amount * game.gen2.productionMult;
-}
+} */
 
 function generate1stGen() {
     game.gen1.amount += game.gen2.production;
@@ -675,11 +696,12 @@ function startChallenge(chall) {
         }
         if (chall == 1) {
             game.currentChallenge = 1;
-            game.challGoal = 1e5;
+            game.challGoal = 1e10;
             document.getElementById("startChall1").innerHTML = "Running"
         } else if (chall == 2) {
             game.currentChallenge = 2;
-            game.challGoal = 1e8;
+            game.challGoal = 1e13;
+            document.getElementById("startChall2").innerHTML = "Running"
         } else if (chall == 3) {
 
         } else if (chall == 4) {
@@ -688,15 +710,20 @@ function startChallenge(chall) {
         challCheck = window.setInterval(function() {
             if (game.parti >= game.challGoal) {
                 if (chall == 1) {
-                    game.energy = 1;
+                    if (game.chall1Comp == 0) {
+                        game.energy += 1;
+                    }
                     document.getElementById("startChall1").innerHTML = "Completed";
-                    game.chall1Comp = 1;
+                    game.chall1Comp += 1;
+                } else if (chall == 2) {
+                    if (game.chall2Comp == 0) {
+                        game.energy += 2;
+                    }
+                    document.getElementById("startChall2").innerHTML = "Completed";
+                    game.chall2Comp += 1;
                 }
-                leaveChallenge();
-                if (game.currentChallenge = "none") {
-                    challCheck = undefined;
-                    return;
-                }            
+                challCheck = undefined;
+                leaveChallenge();           
             }
         }, 100)
     }
@@ -829,6 +856,38 @@ function updateAll() {
     } else {
         document.getElementById("buttonupgrade18").style.backgroundColor = "white";
     }
+
+    if (game.upgrade19Bought != 0) {
+        document.getElementById("buttonupgrade19").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade19").style.backgroundColor = "white";
+    }
+
+    if (game.upgrade20Bought != 0) {
+        document.getElementById("buttonupgrade20").style.backgroundColor = "lightgrey";
+    } else {
+        document.getElementById("buttonupgrade20").style.backgroundColor = "white";
+    }
+    
+    if (game.chall1Comp == 0) {
+        document.getElementById("startChall1").innerHTMl = "Start";
+    } else if (game.chall1Comp != 0) {
+        document.getElementById("startChall1").innerHTML = "Completed";
+    }
+
+    if (game.currentChallenge == 1) {
+        document.getElementById("startChall1").innerHTML = "Running";
+    }
+
+    if (game.chall2Comp == 0) {
+        document.getElementById("startChall2").innerHTMl = "Start";
+    } else if (game.chall2Comp != 0) {
+        document.getElementById("startChall2").innerHTML = "Completed";
+    }
+
+    if (game.currentChallenge == 2) {
+        document.getElementById("startChall2").innerHTML = "Running";
+    }
 }
 
 updateAll();
@@ -873,8 +932,10 @@ function challReset() {
     game.partiPerSecond = 0;
     game.powerPerSecond = 0;
     game.genSpeed = 1000;
+    // Caps
     game.caps.firstRow = 10;
     game.caps.firstRow = 20;
+    game.caps.powerMult = 100;
     // Gen 1
     game.gen1.cost = 10;
     game.gen1.costMult = 1.5;
@@ -885,7 +946,7 @@ function challReset() {
     game.gen1.productionMult = 1;
     // Gen 2
     game.gen2.cost = 1e4;
-    game.gen2.costMult = 1.5;
+    game.gen2.costMult = 2.5;
     game.gen2.amount = 0;
     game.gen2.bought = 0;
     game.gen2.mult = 1;

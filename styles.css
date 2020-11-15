@@ -53,11 +53,6 @@ table, th, td {
 	height: 110px;
 }
 
-#chall1 {
-	border: 2px solid white;
-	padding: 20px 20px;
-}
-
 .challengebtn {
 	margin: auto;
 	display: block;
@@ -68,4 +63,8 @@ table, th, td {
 
 .challenge {
 	text-align: center;
+	width: 420px;
+	height: 120px;
+	border: 2px solid white;
+	padding: 20px 20px;
 }

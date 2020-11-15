@@ -72,7 +72,7 @@
     </tr>
     <tr>
    <td><button onclick = 'buyUpgrade11()' id = 'buttonupgrade11' class = "upgrade">
-      Increases the first row's upgrades' mult caps to 50x. <br> <br>Cost: 8e3 Particles
+      Increases the first row of upgrades' mult caps to 250x. <br> <br>Cost: 8e3 Particles
    </button></td>
    <td><button onclick = 'buyUpgrade12()' id = 'buttonupgrade12' class = "upgrade">
       1st Power Generators now gain a boost based on the amount bought. <br> <br>Cost: 1.5e4 Particles
@@ -97,8 +97,12 @@
       <td><button onclick = 'buyUpgrade18()' id = 'buttonupgrade18' class = 'upgrade'>
         Upgrades 1, 4 and 6 are stronger. <br> <br> Cost: 5e9 Particles
       </button></td>
-      <td><button></button></td>
-      <td><button></button></td>
+      <td><button onclick = 'buyUpgrade19()' id = 'buttonupgrade19' class = 'upgrade'>
+        Power multiplier uses a better formula. <br> <br> Cost: 1e13 Particles
+      </button></td>
+      <td><button onclick = 'buyUpgrade20()' id = 'buttonupgrade20' class = 'upgrade'>
+        Power multiplier is uncapped. <br> <br> Cost: 1e15 Particles
+      </button></td>
     </tr>
   </table>
   </div>
@@ -122,14 +126,14 @@
         <td>
           <p id = "chall1" class = "challenge">
             The 3rd and 4th row of upgrades do nothing.
-            <br><br><br>
-            <button onclick = 'startChallenge(1)' id = "startChall1" class = "challengebtn" style = "padding: 6px, 10px;">Start</button><br><br>Reward: 1 Energy and 3rd Particle Generators</p>
+            <br><br><br><br>
+            <button onclick = 'startChallenge(1)' id = "startChall1" class = "challengebtn" style = "padding: 6px, 10px;">Start</button><br><br><br>Reward: 1 Energy and 3rd Particle Generators<br><br><br><br>Goal: 1e10 Particles</p>
           </td>
         <td>
           <p id = "chall2" class = "challenge">
-            
-            <br><br><br>
-            <button onclick = 'startChallenge(2)' id = "startChall2" class = "challengebtn">Start</button><br><br>Reward: 1 Energy</p>
+            You can only purchase 1st Particle Generators and 1st Power Generators.
+            <br><br><br><br>
+            <button onclick = 'startChallenge(2)' id = "startChall2" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and 2 new Repeatable Upgrades<br><br><br><br>Goal: 1e13 Particles</p>
           </td>
         <td></td>
         <td></td>

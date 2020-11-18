@@ -118,21 +118,56 @@
     </p>
     <a href="changelog.html">View the Changelog</a>
   </div>
-  <div id = "Achievements"></div>
+  <div id = "Achievements">
+    <br>
+    <br>
+    <table align = 'center' id = 'achTable'>
+      <tr>
+        <td>
+          <p id = 'ach11' class = 'ach tooltip'>11
+            <span class = 'tooltiptext'><b>*click*</b><br><br>Click and gain Particles once.</span>
+          </p>
+        </td>
+        <td><p id = 'ach12' class = 'ach tooltip'>12
+          <span class = 'tooltiptext'><b>Clicking is irrelevant</b><br><br>Have a 1st Particle Generator.</span>
+        </p></td>
+        <td><p id = 'ach13' class = 'ach tooltip'>13
+          <span class = 'tooltiptext'><b>Powerful</b><br><br>Have a 1st Power Generator.</span>
+        </p></td>
+        <td><p id = 'ach14' class = 'ach tooltip'>14
+          <span class = 'tooltiptext'><b>Generating Generation</b><br><br>Have a 2nd Particle Generator.</span>
+        </p></td>
+        <td><p id = 'ach15' class = 'ach tooltip'>15
+          <span class = 'tooltiptext'><b>Unchallenged</b><br><br>Beat Challenge 1</span>
+        </p></td>
+        <td><p id = 'ach16' class = 'ach tooltip'>16
+          <span class = 'tooltiptext'><b>Upgraded to the max</b><br><br>Obtain Rows 1-4 of Upgrades</span>
+        </p></td>
+        <td><p id = 'ach17' class = 'ach tooltip'>17
+          <span class = 'tooltiptext'><b>ez</b><br><br>Beat Challenge 2</span>
+        </p></td>
+        <td><p id = 'ach18' class = 'ach tooltip'>18
+          <span class = 'tooltiptext'><b></b><br><br></span>
+        </p></td>
+      </tr>
+    </table>
+  </div>
   <div id = "Challenges">
+    <br><br>
+    <button onclick = 'leaveChallenge()' style = 'margin: auto; display: block;'>Leave Challenge</button>
     <br><br>
     <table align = "center" id = "upgradeTable">
       <tr>
         <td>
           <p id = "chall1" class = "challenge">
             The 3rd and 4th row of upgrades do nothing.
-            <br><br><br><br>
+            <br><br><br><br><br><br>
             <button onclick = 'startChallenge(1)' id = "startChall1" class = "challengebtn" style = "padding: 6px, 10px;">Start</button><br><br><br>Reward: 1 Energy and 3rd Particle Generators<br><br><br><br>Goal: 1e10 Particles</p>
           </td>
         <td>
           <p id = "chall2" class = "challenge">
-            You can only purchase 1st Particle Generators and 1st Power Generators.
-            <br><br><br><br>
+            You can only buy 1st Particle Gens and 1st Power Gens.
+            <br><br><br><br><br><br>
             <button onclick = 'startChallenge(2)' id = "startChall2" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and 2 new Repeatable Upgrades<br><br><br><br>Goal: 1e13 Particles</p>
           </td>
         <td></td>
@@ -151,5 +186,4 @@
 <script type= "text/javascript" src = "js/format.js"></script>
 <script type= "text/javascript" src = "js/options.js"></script>
 <script type= "text/javascript" src = "js/quarks.js"></script>
-
 </html>

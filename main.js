@@ -42,7 +42,7 @@ var game = {
     upgrade18Bought: 0,
     upgrade19Bought: 0,
     upgrade20Bought: 0,
-    power: 0,
+    power: 0.01,
     powerMult: 0,
     totalParti: 0,
     partiPerSecond: 0,
@@ -74,6 +74,15 @@ var game = {
         production: 0,
         productionMult: 1,
     },
+    powergen2: {
+        cost: 1e3,
+        costMult: 5,
+        amount: 0,
+        bought: 0,
+        mult: 1,
+        production: 0,
+        productionMult: 1,
+    },
     genSpeed: 1000,
     version: 0.2,
     playTime: 0,
@@ -88,6 +97,16 @@ var game = {
     },
     clickCap: 10000,
     clickCapCost: 1000,
+    achs: {
+        ach11: 0,
+        ach12: 0,
+        ach13: 0,
+        ach14: 0,
+        ach15: 0,
+        ach16: 0,
+        ach17: 0,
+        ach18: 0,
+    }
 }
 
 var challCheck;
@@ -109,6 +128,7 @@ function clickParticles() {
     game.parti += game.partiPerClick;
     game.clicks++;
     updatePartiPerClick();
+    checkAchs(11);
     document.getElementById("clickAmount").innerHTML = "You've clicked " + format(game.clicks) + " times.";
     document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles."
    } else if (game.clicks > game.clickCap) {
@@ -129,6 +149,7 @@ function buyUpgrade1() {
     // game.partiPerClick *= 2;
     document.getElementById("buttonupgrade1").style.backgroundColor = "lightgrey"
     updatePartiPerClick();
+    checkAchs(16);
     document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
     document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click."
     game.upgrade1Bought = 1;
@@ -150,6 +171,7 @@ function buyUpgrade2() {
            game.u2mult = 1;
        }
        game.upgrade2Bought = 1;
+       checkAchs(16);
        document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
        document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click."
    }
@@ -168,6 +190,7 @@ function buyUpgrade3() {
             game.u3mult = 1;
         }
         game.upgrade3Bought = 1;
+        checkAchs(16);
         document.getElementById("partiCount").innerHTML = "You have " + format(game.parti) + " Particles.";
         document.getElementById("displayPartiPerClick").innerHTML = "You gain " + format(game.partiPerClick) + " Particles per click."
     }
@@ -181,6 +204,7 @@ function buyUpgrade4() {
         game.u4mult = 2;
         document.getElementById("buttonupgrade4").style.backgroundColor = "lightgrey"
         updatePartiPerSecond();
+        checkAchs(16);
         game.upgrade4Bought = 1;
     }
 }
@@ -195,6 +219,7 @@ function buyUpgrade5() {
         } else if (game.u5mult < 1) {
             game.u5mult = 1;
         }
+        checkAchs(16);
         document.getElementById("buttonupgrade5").style.backgroundColor = "lightgrey"
         updatePartiPerSecond();
         game.upgrade5Bought = 1;
@@ -206,6 +231,7 @@ function buyUpgrade6() {
         if (game.upgrade6Bought != 0) return;
         game.parti -= 80;
         game.u6mult = 2;
+        checkAchs(16);
         document.getElementById("buttonupgrade6").style.backgroundColor = "lightgrey"
         updatePowerPerSecond();
         game.upgrade6Bought = 1;
@@ -222,6 +248,7 @@ function buyUpgrade7() {
         } else if (game.u7mult < 1) {
             game.u7mult = 1;
         }
+        checkAchs(16);
         document.getElementById("buttonupgrade7").style.backgroundColor = "lightgrey"
         updatePartiPerClick();
         game.upgrade7Bought = 1;
@@ -239,6 +266,7 @@ function buyUpgrade8() {
         } else if (game.u8mult < 1) {
             game.u8mult = 1;
         }
+        checkAchs(16);
         document.getElementById("buttonupgrade8").style.backgroundColor = "lightgrey"
         updatePartiPerSecond();
         game.upgrade8Bought = 1;
@@ -255,6 +283,7 @@ function buyUpgrade9() {
          } else if (game.u2mult < 1) {
              game.u2mult = 1;
          }
+         checkAchs(16);
          updatePartiPerClick();
         document.getElementById("buttonupgrade9").style.backgroundColor = "lightgrey"
         game.upgrade9Bought = 1;
@@ -270,6 +299,7 @@ function buyUpgrade10() {
         } else if (game.u3mult < 1) {
             game.u3mult = 1;
         }
+        checkAchs(16);
         updatePartiPerClick();
         document.getElementById("buttonupgrade10").style.backgroundColor = "lightgrey"
         game.upgrade10Bought = 1;
@@ -284,6 +314,7 @@ function buyUpgrade11() {
        if (game.upgrade11Bought != 0) return;
        game.parti -= 8000;
        game.caps.firstRow = 250;
+       checkAchs(16);
        document.getElementById("buttonupgrade11").style.backgroundColor = "lightgrey"
        updatePartiPerClick();
        updatePartiPerSecond();
@@ -300,6 +331,7 @@ function buyUpgrade12() {
             game.powergen1.productionMult = Math.pow(2, game.powergen1.bought / 5);
         }
         updatePowerPerSecond();
+        checkAchs(16);
         document.getElementById("buttonupgrade12").style.backgroundColor = "lightgrey"
         game.upgrade12Bought = 1;
     }
@@ -317,6 +349,7 @@ function buyUpgrade13() {
             game.u7mult = 1;
         }
         updatePartiPerClick();
+        checkAchs(16);
         document.getElementById("buttonupgrade13").style.backgroundColor = "lightgrey"
         game.upgrade13Bought = 1;
     }
@@ -334,6 +367,7 @@ function buyUpgrade14() {
             game.u8mult = 1;
         }
         updatePartiPerSecond();
+        checkAchs(16);
         document.getElementById("buttonupgrade14").style.backgroundColor = "lightgrey"
         game.upgrade14Bought = 1;
     }
@@ -350,6 +384,7 @@ function buyUpgrade15() {
             game.u15mult = 1;
         }
         game.upgrade15Bought = 1;
+        checkAchs(16);
     }
 }
 
@@ -358,6 +393,7 @@ function buyUpgrade16() {
     if (game.parti >= 2e7) {
         if (game.upgrade16Bought != 0) return;
         game.parti -= 2e7;
+        checkAchs(16);
         document.getElementById("buttonupgrade16").style.backgroundColor = "lightgrey"
         game.upgrade16Bought = 1;
     }
@@ -369,6 +405,7 @@ function buyUpgrade17() {
         if (game.upgrade17Bought != 0) return;
         game.parti -= 3e8;
         game.caps.secondRow = 250;
+        checkAchs(16);
         document.getElementById("buttonupgrade17").style.backgroundColor = "lightgrey"
         game.upgrade17Bought = 1;
     }
@@ -382,6 +419,7 @@ function buyUpgrade18() {
         game.u1mult = 10;
         game.u4mult = 10;
         game.u6mult = 10;
+        checkAchs(16);
         document.getElementById("buttonupgrade18").style.backgroundColor = "lightgrey";
         game.upgrade18Bought = 1;
     }
@@ -392,6 +430,7 @@ function buyUpgrade19() {
     if (game.parti >= 1e13) {
         if (game.upgrade19Bought != 0) return;
         game.parti -= 1e13;
+        checkAchs(16);
         game.powerMult = Math.log10(game.power) * Math.cbrt(game.power) * 2;
         document.getElementById("buttonupgrade19").style.backgroundColor = "lightgrey";
         game.upgrade19Bought = 1;
@@ -404,6 +443,7 @@ function buyUpgrade20() {
         if (game.upgrade20Bought != 0) return;
         game.parti -= 1e15;
         game.caps.powerMult = 10000;
+        checkAchs(16);
         document.getElementById("buttonupgrade20").style.backgroundColor = "lightgrey";
         game.upgrade20Bought = 1;
     }
@@ -452,6 +492,7 @@ function buyGenerator1() {
         game.gen1.cost *= game.gen1.costMult;
         game.gen1.production = 0.2 * game.gen1.amount * game.gen1.productionMult;
         updatePartiPerSecond();
+        checkAchs(12);
         document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
         document.getElementById("gen1Buy").innerHTML = "Cost: " + format(game.gen1.cost);
         document.getElementById("displayPartiPerSecond").innerHTML = "You gain " + format(game.gen1.production) + " Particles per tick passively."
@@ -467,6 +508,7 @@ function buyGenerator2() {
         game.gen2.cost *= game.gen2.costMult;
         game.gen2.production = 0.2 * game.gen2.amount * game.gen2.productionMult;
         updatePartiPerSecond();
+        checkAchs(14);
         document.getElementById("gen2").innerHTML = "2nd Particle Generator x" + format(game.gen2.productionMult) + " (" + format(game.gen2.amount) + ") " + format(game.gen2.production) + " Generators/tick"
         document.getElementById("gen2Buy").innerHTML = "Cost: " + format(game.gen2.cost);
         document.getElementById("displayPartiPerSecond").innerHTML = "You gain " + format(game.gen1.production) + " Particles per tick passively."
@@ -485,6 +527,7 @@ function buyPowerGenerator1() {
                 game.powergen1.productionMult = Math.pow(2, game.powergen1.bought / 5);
             }
         }
+        checkAchs(13);
         document.getElementById("powergen1").innerHTML = "1st Power Generator x" + format(game.powergen1.productionMult) + " (" + format(game.powergen1.amount) + ") " + format(game.powergen1.production) + " Power/tick"
         document.getElementById("powergen1Buy").innerHTML = "Cost: " + format(game.powergen1.cost);
         document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powergen1.production) + " Power per tick."
@@ -500,7 +543,7 @@ function generateParti() {
         game.parti += game.gen1.production;
     }
     if (game.gen2.amount >= 1) {
-        game.parti += game.gen2.production;
+        game.gen1.amount += game.gen2.production;
     }
 }
 
@@ -508,6 +551,9 @@ function generatePower() {
     if (game.powergen1.amount >= 1) {
         game.power += game.powergen1.production;
     }
+    /* if (game.powergen2.amount >= 1) {
+        
+    } */
 }
 
 var gameLoop = window.setInterval(function() {
@@ -635,7 +681,7 @@ function updatePartiPerClick() {
 } */
 
 function generate1stGen() {
-    game.gen1.amount += game.gen2.production;
+    // game.gen1.amount += game.gen2.production;
     document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.mult * game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
 }
 
@@ -712,12 +758,14 @@ function startChallenge(chall) {
                 if (chall == 1) {
                     if (game.chall1Comp == 0) {
                         game.energy += 1;
+                        checkAchs(15);
                     }
                     document.getElementById("startChall1").innerHTML = "Completed";
                     game.chall1Comp += 1;
                 } else if (chall == 2) {
                     if (game.chall2Comp == 0) {
                         game.energy += 2;
+                        checkAchs(17);
                     }
                     document.getElementById("startChall2").innerHTML = "Completed";
                     game.chall2Comp += 1;
@@ -730,6 +778,7 @@ function startChallenge(chall) {
 }
 
 function leaveChallenge() {
+    if (game.currentChallenge == "none") return;
     game.currentChallenge = "none";
     challReset();
     updateAll();
@@ -870,7 +919,7 @@ function updateAll() {
     }
     
     if (game.chall1Comp == 0) {
-        document.getElementById("startChall1").innerHTMl = "Start";
+        document.getElementById("startChall1").innerHTML = "Start";
     } else if (game.chall1Comp != 0) {
         document.getElementById("startChall1").innerHTML = "Completed";
     }
@@ -880,7 +929,7 @@ function updateAll() {
     }
 
     if (game.chall2Comp == 0) {
-        document.getElementById("startChall2").innerHTMl = "Start";
+        document.getElementById("startChall2").innerHTML = "Start";
     } else if (game.chall2Comp != 0) {
         document.getElementById("startChall2").innerHTML = "Completed";
     }
@@ -888,6 +937,14 @@ function updateAll() {
     if (game.currentChallenge == 2) {
         document.getElementById("startChall2").innerHTML = "Running";
     }
+
+    if (game.achs.ach11 == 1) document.getElementById('ach11').className = 'achFin tooltip';
+    if (game.achs.ach12 == 1) document.getElementById('ach12').className = 'achFin tooltip';
+    if (game.achs.ach13 == 1) document.getElementById('ach13').className = 'achFin tooltip';
+    if (game.achs.ach14 == 1) document.getElementById('ach14').className = 'achFin tooltip';
+    if (game.achs.ach15 == 1) document.getElementById('ach15').className = 'achFin tooltip';
+    if (game.achs.ach16 == 1) document.getElementById('ach16').className = 'achFin tooltip';
+    if (game.achs.ach17 == 1) document.getElementById('ach17').className = 'achFin tooltip';
 }
 
 updateAll();
@@ -960,7 +1017,14 @@ function challReset() {
     game.powergen1.mult = 1;
     game.powergen1.production = 0;
     game.powergen1.productionMult = 1;
-    
+    // Power Gen 2
+    game.powergen2.cost = 1e3;
+    game.powergen2.costMult = 5;
+    game.powergen2.amount = 0;
+    game.powergen2.bought = 0;
+    game.powergen2.mult = 1;
+    game.powergen2.production = 0;
+    game.powergen2.productionMult = 1;
     /* game = {
         parti: 0,
         // energy: energy,
@@ -1032,4 +1096,66 @@ function challReset() {
         clickCap: 10000,
         clickCapCost: 1000, 
     } */
+}
+
+// Achievements
+
+function checkAchs(id) {
+    // Ach 11
+    if (id == 11) {
+        if (game.achs.ach11 == 0) {
+            if (game.clicks >= 1) {
+                game.achs.ach11 = 1;
+                document.getElementById('ach11').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 12) {
+        if (game.achs.ach12 == 0) {
+            if (game.gen1.amount >= 1) {
+                game.achs.ach12 = 1;
+                document.getElementById('ach12').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 13) {
+        if (game.achs.ach13 == 0) {
+            if (game.powergen1.amount >= 1) {
+                game.achs.ach13 = 1;
+                document.getElementById('ach13').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 14) {
+        if (game.achs.ach14 == 0) {
+            if (game.gen2.amount >= 1) {
+                game.achs.ach14 = 1;
+                document.getElementById('ach14').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 15) {
+        if (game.achs.ach15 == 0) {
+            if (game.chall1Comp >= 1) {
+                game.achs.ach15 = 1;
+                document.getElementById('ach15').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 16) {
+        if (game.achs.ach16 == 0) {
+            if (game.upgrade1Bought == 1 && game.upgrade2Bought == 1 && game.upgrade3Bought == 1 && game.upgrade4Bought == 1 && game.upgrade5Bought == 1 && game.upgrade6Bought == 1 && game.upgrade7Bought == 1 && game.upgrade8Bought == 1 && game.upgrade9Bought == 1 && game.upgrade10Bought == 1 && game.upgrade11Bought == 1 && game.upgrade12Bought == 1 && game.upgrade13Bought == 1 && game.upgrade14Bought == 1 && game.upgrade15Bought == 1 && game.upgrade16Bought == 1 && game.upgrade17Bought == 1 && game.upgrade18Bought == 1 && game.upgrade19Bought == 1 && game.upgrade20Bought == 1) {
+                game.achs.ach16 = 1;
+                document.getElementById('ach16').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 17) {
+        if (game.achs.ach17 == 0) {
+            if (game.chall2Comp >= 1) {
+                game.achs.ach17 = 1;
+                document.getElementById('ach17').style.backgroundColor = 'green';
+            }
+        }
+    }
 }

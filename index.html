@@ -31,6 +31,7 @@
     <p id = 'gen1'>1st Particle Generator x1.00 (0) 0 Particles/tick </p> <button id = "gen1Buy" onclick = 'buyGenerator1()'>Cost: 10</button>
     <p id = 'powergen1'>1st Power Generator x1.00 (0) 0 Power/tick</p> <button id = "powergen1Buy" onclick = 'buyPowerGenerator1()'>Cost: 50</button>
     <p id = 'gen2'>2nd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen2Buy" onclick = 'buyGenerator2()'>Cost: 1e4</button>
+    <p id = 'powergen2'>2nd Power Generator x1.00 (0) 0 Generators/tick</p> <button id = "powergen2Buy" onclick = 'buyPowerGenerator2()'>Cost: 1.5e3 Power</button>
   </div>
   <div id = "Upgrades">
     <br>
@@ -89,7 +90,7 @@
     </tr>
     <tr>
       <td><button onclick = 'buyUpgrade16()' id = 'buttonupgrade16' class = 'upgrade'>
-        Upgrade 4, 5 and 8 applies to 2nd Particle Generators. <br> <br>Cost: 2e7 Particles
+        Upgrade 4, 5 and 8 applies to 2nd Particle Generators. <br> <br>Cost: 1e7 Particles
       </button></td>
       <td><button onclick = 'buyUpgrade17()' id = 'buttonupgrade17' class = 'upgrade'>
         Increase the second row of upgrades' caps to 250x. <br> <br> Cost: 3e8 Particles
@@ -147,7 +148,7 @@
           <span class = 'tooltiptext'><b>ez</b><br><br>Beat Challenge 2</span>
         </p></td>
         <td><p id = 'ach18' class = 'ach tooltip'>18
-          <span class = 'tooltiptext'><b></b><br><br></span>
+          <span class = 'tooltiptext'><b>Generating Generation 2: Electric Boogaloo</b><br><br>Have a 2nd Power Generator.</span>
         </p></td>
       </tr>
     </table>
@@ -162,7 +163,7 @@
           <p id = "chall1" class = "challenge">
             The 3rd and 4th row of upgrades do nothing.
             <br><br><br><br><br><br>
-            <button onclick = 'startChallenge(1)' id = "startChall1" class = "challengebtn" style = "padding: 6px, 10px;">Start</button><br><br><br>Reward: 1 Energy and 3rd Particle Generators<br><br><br><br>Goal: 1e10 Particles</p>
+            <button onclick = 'startChallenge(1)' id = "startChall1" class = "challengebtn" style = "padding: 6px, 10px;">Start</button><br><br><br>Reward: 1 Energy and 3rd Particle Generators<br><br><br><br>Goal: 3e6 Particles</p>
           </td>
         <td>
           <p id = "chall2" class = "challenge">
@@ -186,4 +187,6 @@
 <script type= "text/javascript" src = "js/format.js"></script>
 <script type= "text/javascript" src = "js/options.js"></script>
 <script type= "text/javascript" src = "js/quarks.js"></script>
+<script type= "text/javascript" src = "js/automate.js"></script>
+<script type= "text/javascript" src = "js/upgrades.js"></script>
 </html>

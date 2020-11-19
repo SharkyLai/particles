@@ -5,6 +5,8 @@
 var game = {
     parti: 0,
     energy: 0,
+    positiveEnergy: 0,
+    negativeEnergy: 0,
     quarks: 0,
     partiPerClick: 0.01,
     clicks: 0,
@@ -75,7 +77,7 @@ var game = {
         productionMult: 1,
     },
     powergen2: {
-        cost: 1e3,
+        cost: 1.5e3,
         costMult: 5,
         amount: 0,
         bought: 0,
@@ -84,7 +86,7 @@ var game = {
         productionMult: 1,
     },
     genSpeed: 1000,
-    version: 0.2,
+    version: 0.3,
     playTime: 0,
     currentChallenge: "none",
     challGoal: 0,
@@ -390,9 +392,9 @@ function buyUpgrade15() {
 
 function buyUpgrade16() {
     if (game.currentChallenge == 1) return;
-    if (game.parti >= 2e7) {
+    if (game.parti >= 1e7) {
         if (game.upgrade16Bought != 0) return;
-        game.parti -= 2e7;
+        game.parti -= 1e7;
         checkAchs(16);
         document.getElementById("buttonupgrade16").style.backgroundColor = "lightgrey"
         game.upgrade16Bought = 1;
@@ -416,7 +418,7 @@ function buyUpgrade18() {
     if (game.parti >= 5e9) {
         if (game.upgrade18Bought != 0) return;
         game.parti -= 5e9;
-        game.u1mult = 10;
+        game.u1mult = 500;
         game.u4mult = 10;
         game.u6mult = 10;
         checkAchs(16);
@@ -515,13 +517,24 @@ function buyGenerator2() {
     }
 }
 
+function buyGenerator3() {
+    if (game.currentChallenge == 2) return;
+    if (game.parti >= game.gen3.cost) {
+        game.parti -= game.gen3.cost;
+        game.gen3.amount++;
+        game.gen3.bought++;
+        game.gen3.cost *= game.gen3.costMult;
+        game.gen3.production = 0.5 * game.gen3.amount * game.gen3.productionMult;
+    }
+}
+
 function buyPowerGenerator1() {
     if (game.parti >= game.powergen1.cost) {
         game.parti -= game.powergen1.cost;
         game.powergen1.amount++;
         game.powergen1.bought++;
         game.powergen1.cost *= game.powergen1.costMult;
-        game.powergen1.production = 0.01 * game.powergen1.amount * game.powergen1.productionMult;
+        game.powergen1.production = 0.025 * game.powergen1.amount * game.powergen1.productionMult;
         if (game.upgrade12Bought != 0) {
             if (game.powergen1.bought % 5 == 0) {
                 game.powergen1.productionMult = Math.pow(2, game.powergen1.bought / 5);
@@ -536,6 +549,17 @@ function buyPowerGenerator1() {
 
 function buyPowerGenerator2() {
     if (game.currentChallenge == 2) return;
+    if (game.power >= game.powergen2.cost) {
+        game.power -= game.powergen2.cost;
+        game.powergen2.amount++;
+        game.powergen2.bought++;
+        game.powergen2.cost *= game.powergen2.costMult;
+        game.powergen2.production = 0.2 * game.powergen2.amount * game.powergen2.productionMult;
+        checkAchs(18);
+        document.getElementById("powergen2").innerHTML = "2nd Power Generator x" + format(game.powergen2.productionMult) + " (" + format(game.powergen2.amount) + ") " + format(game.powergen2.production) + " Generators/tick"
+        document.getElementById("powergen2Buy").innerHTML = "Cost: " + format(game.powergen2.cost) + " Power";
+        document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powergen1.production) + " Power per tick."
+    }
 }
 
 function generateParti() {
@@ -551,9 +575,9 @@ function generatePower() {
     if (game.powergen1.amount >= 1) {
         game.power += game.powergen1.production;
     }
-    /* if (game.powergen2.amount >= 1) {
-        
-    } */
+    if (game.powergen2.amount >= 1) {
+        game.powergen1.amount += game.powergen2.production;
+    } 
 }
 
 var gameLoop = window.setInterval(function() {
@@ -619,7 +643,8 @@ function updatePowerPerSecond() {
         game.u15mult = 1;
     }
     game.powergen1.productionMult = game.u6mult * game.u15mult;
-    game.powergen1.production = 0.01 * game.powergen1.amount * game.powergen1.productionMult;
+    game.powergen1.production = 0.025 * game.powergen1.amount * game.powergen1.productionMult;
+    game.powergen2.production = 0.2 * game.powergen2.amount * game.powergen2.productionMult;
     document.getElementById("powerCount").innerHTML = "You have " + format(game.power) + " Power, translated to a x" + format(game.powerMult) + " boost to clicking."
     document.getElementById("powergen1").innerHTML = "1st Power Generator x" + format(game.powergen1.productionMult) + " (" + format(game.powergen1.amount) + ") " + format(game.powergen1.production) + " Power/tick"
     document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powerPerSecond) + " Power per tick."
@@ -742,7 +767,7 @@ function startChallenge(chall) {
         }
         if (chall == 1) {
             game.currentChallenge = 1;
-            game.challGoal = 1e10;
+            game.challGoal = 3e6;
             document.getElementById("startChall1").innerHTML = "Running"
         } else if (chall == 2) {
             game.currentChallenge = 2;
@@ -796,6 +821,8 @@ function updateAll() {
     document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powerPerSecond) + " Power per tick."
     document.getElementById("gen2").innerHTML = "2nd Particle Generator x" + format(game.gen2.productionMult) + " (" + format(game.gen2.amount) + ") " + format(game.gen2.production) + " Generators/tick"
     document.getElementById("gen2Buy").innerHTML = "Cost: " + format(game.gen2.cost);
+    document.getElementById("powergen2").innerHTML = "2nd Power Generator x" + format(game.powergen2.productionMult) + " (" + format(game.powergen2.amount) + ") " + format(game.powergen2.production) + " Generators/tick"
+    document.getElementById("powergen2Buy").innerHTML = "Cost: " + format(game.powergen2.cost) + " Power";
     document.getElementById("clickCap").innerHTML = "You can only click " + format(game.clickCap) + " times.";
     document.getElementById("energyCount").innerHTML = "You have " + format(game.energy) + " Energy, translated to a x" + format(game.enMult) + " multiplier to all Particle Generators"
     if (game.upgrade1Bought != 0) {
@@ -945,6 +972,7 @@ function updateAll() {
     if (game.achs.ach15 == 1) document.getElementById('ach15').className = 'achFin tooltip';
     if (game.achs.ach16 == 1) document.getElementById('ach16').className = 'achFin tooltip';
     if (game.achs.ach17 == 1) document.getElementById('ach17').className = 'achFin tooltip';
+    if (game.achs.ach18 == 1) document.getElementById('ach18').className = 'achFin tooltip';
 }
 
 updateAll();
@@ -1018,7 +1046,7 @@ function challReset() {
     game.powergen1.production = 0;
     game.powergen1.productionMult = 1;
     // Power Gen 2
-    game.powergen2.cost = 1e3;
+    game.powergen2.cost = 1.5e3;
     game.powergen2.costMult = 5;
     game.powergen2.amount = 0;
     game.powergen2.bought = 0;
@@ -1155,6 +1183,14 @@ function checkAchs(id) {
             if (game.chall2Comp >= 1) {
                 game.achs.ach17 = 1;
                 document.getElementById('ach17').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 18) {
+        if (game.achs.ach18 == 0) {
+            if (game.powergen2.amount >= 1) {
+                game.achs.ach18 = 1;
+                document.getElementById('ach18').style.backgroundColor = 'green';
             }
         }
     }

@@ -1,0 +1,58 @@
+.parti {
+    width: 120px;
+    height: 40px;
+    padding: 6px 10px;
+    color: black;
+    background: linear-gradient(violet, pink);
+}
+
+.parti:hover {
+    color: white;
+    background: linear-gradient(pink, violet);
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.power {
+    width: 120px;
+    height: 40px;
+    padding: 6px 10px;
+    color: white;
+    background: linear-gradient(rgba(95, 7, 95, 0.678), purple);
+}
+
+.power:hover {
+    background: linear-gradient(rgba(95, 7, 95, 0.678), violet);
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.energy {
+    width: 120px;
+    height: 40px;
+    padding: 6px 10px;
+    color: black;
+    background: linear-gradient(yellow, rgb(187, 187, 0));
+}
+
+.energy:hover {
+    color: white;
+    background: linear-gradient(rgb(187, 187, 0), yellow);
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.quarks {
+    width: 120px;
+    height: 40px;
+    padding: 6px 10px;
+    color: black;
+    background: linear-gradient(rgb(87, 87, 238), rgb(231, 115, 115), rgb(131, 219, 131));
+}
+
+.quarks:hover {
+    color: white;
+    background: linear-gradient(rgb(131, 219, 131), rgb(231, 115, 115),rgb(87, 87, 238));
+    transition-duration: 0.1s;
+    cursor: pointer;
+}

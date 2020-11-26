@@ -1,6 +1,28 @@
+* {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
 p {
 	font-family: Arial, Helvetica, sans-serif;
-	
+	line-height: 0.4;
+	color: lightgray;
+}
+
+#partiCount {
+	color: white;
+}
+
+#gainParti {
+	margin: auto;
+	display: block;
+}
+
+#powerCount {
+	color: violet;
+}
+
+body {
+	background-color: #1a1814;
 }
 
 button {
@@ -14,6 +36,8 @@ button {
 	transition-duration: 0.4s;
 	cursor: pointer;
 	border: 2px solid grey;
+	border-radius: 4px;
+	box-shadow: 1px 1px #888888;
 }
   
 button:hover {
@@ -24,7 +48,72 @@ table, th, td {
 	border-collapse: collapse;
 }
 
+#upgradeTable {
+	border: none;
+}
+
 .upgrade {
 	width: 210px;
 	height: 110px;
+}
+
+.challengebtn {
+	margin: auto;
+	display: block;
+	width: 100px;
+	height: 35px;
+	padding: 6px 10px;
+}
+
+.challenge {
+	text-align: center;
+	width: 420px;
+	height: 150px;
+	border: 2px solid white;
+	padding: 20px 20px;
+}
+
+.ach {
+	border: 2px solid grey;
+	padding: 10px 10px;
+	width: 25px;
+	height: 25px;
+	background-color: black;
+	text-align: center;
+}
+
+.achFin {
+	border: 2px solid grey;
+	padding: 10px 10px;
+	width: 25px;
+	height: 25px;
+	background-color: green;
+	text-align: center;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black;
+}
+  
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	text-align: center;
+	border-radius: 6px;
+	padding: 25px 25px;
+	color: #fff;
+	line-height: 18px;
+	
+	position: absolute;
+	z-index: 1;
+	top: 100%;
+	left: 50%;
+	margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
 }

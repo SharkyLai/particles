@@ -1,121 +1,208 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="An incremental game about particles.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="prestige.css">
 </head>
 <body>
-  <p id = "partiCount">
-    You have 0 Particles.
-  </p>
-  <p id = "displayPartiPerClick">
-    You gain 0.01 Particle per click.
-  </p>
-  <p id = "displayPartiPerSecond">
-    You gain 0 Particles per tick passively.
-  </p>
-  <p id = "displayPowerPerSecond">
-    You gain 0 Power per tick.
-  </p>
-  <p id = "clickCap">
-    You can only click 1e4 times.
-  </p>
-  <p id = 'clickAmount'>
-    You've clicked 0 times. <br>
-  </p>
-  <button onclick = 'clickParticles()'>
+  <br>
+  <p id = "partiCount" style = "font-size: 25px; text-align: center;">You have 0 Particles.</p>
+  <p id = "displayPartiPerClick" style = "font-size: 15px; text-align: center;">You gain 0.01 Particle per click.</p>
+  <p id = "displayPartiPerSecond" style = "font-size: 15px; text-align: center;">You gain 0 Particles per tick passively.</p>
+  <button onclick = 'clickParticles()' style = "text-align: center;" id = "gainParti">
     Gain Particles
   </button>
   <br>
-  <div id = "nagivateButtons">
-    <button onclick = "tab('Generators')" style = "padding: 6px 10px">Generators</button>
-    <button onclick = "tab('Upgrades')" style = "padding: 6px 10px">Upgrades</button>
-    <button onclick = "tab('Options')" style = "padding: 6px 10px">Options</button>
-    <button onclick = "tab('Stats')" style = "padding: 6px 10px">Stats</button>
-    <button onclick = "tab('Achievements')" style = "padding: 6px 10px">Achievements</button>
-    <button onclick = "tab('Challenges')" style = "padding: 6px 10px">Challenges</button>
-    <button onclick = "tab('Quarks')" style = "padding: 6px 10px; background-color: black; color: greenyellow"><b>Quarks</b></button>
+  <div id = "nagivateButtons" style = "margin: auto; width: 1000px;">
+    <button onclick = "tab('Generators')" style = "width: 120px; height: 40px; padding: 6px 10px">Generators</button>
+    <button onclick = "tab('Options')" style = "width: 120px; height: 40px; padding: 6px 10px">Options</button>
+    <button onclick = "tab('Stats')" style = "width: 120px; height: 40px; padding: 6px 10px">Stats</button>
+    <button onclick = "tab('Achievements')" style = "width: 120px; height: 40px; padding: 6px 10px">Achievements</button>
+    <button onclick = "tab('Challenges')" style = "width: 120px; height: 40px; padding: 6px 10px">Challenges</button>
+    <button onclick = "tab('Particles')" class = 'parti'><b>Particles</b></button>
+    <button onclick = "tab('Power')" class = 'power'><b>Power</b></button>
+    <button onclick = "tab('Energy')" class = 'energy'><b>Energy</b></button>
+    <button onclick = "tab('Quarks')" class = 'quarks'><b>Quarks</b></button>
   </div>
   <div id = "Generators">
-    <p id = "powerCount">You have 0 Power.</p>
     <p id = 'gen1'>1st Particle Generator x1.00 (0) 0 Particles/tick </p> <button id = "gen1Buy" onclick = 'buyGenerator1()'>Cost: 10</button>
     <p id = 'powergen1'>1st Power Generator x1.00 (0) 0 Power/tick</p> <button id = "powergen1Buy" onclick = 'buyPowerGenerator1()'>Cost: 50</button>
     <p id = 'gen2'>2nd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen2Buy" onclick = 'buyGenerator2()'>Cost: 1e4</button>
+    <p id = 'powergen2'>2nd Power Generator x1.00 (0) 0 Generators/tick</p> <button id = "powergen2Buy" onclick = 'buyPowerGenerator2()'>Cost: 1.5e3 Power</button>
+    <p id = 'gen3'>3rd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen3Buy" onclick = 'buyGenerator3()'>Cost: 1e12</button>  
   </div>
-  <div id = "Upgrades">
+  
+  <div id = "Options">
+
+  </div>
+  <div id = "Stats">
+    <p id = "clickCap">
+      You can only click 1e4 times.
+    </p>
+    <p id = 'clickAmount'>
+      You've clicked 0 times. <br>
+    </p>
+    <a href="changelog.html">View the Changelog</a>
+  </div>
+  <div id = "Achievements">
+    <br>
+    <br>
+    <table align = 'center' id = 'achTable'>
+      <tr>
+        <td>
+          <p id = 'ach11' class = 'ach tooltip'>11
+            <span class = 'tooltiptext'><b>*click*</b><br><br>Click and gain Particles once.</span>
+          </p>
+        </td>
+        <td><p id = 'ach12' class = 'ach tooltip'>12
+          <span class = 'tooltiptext'><b>Clicking is irrelevant</b><br><br>Have a 1st Particle Generator.</span>
+        </p></td>
+        <td><p id = 'ach13' class = 'ach tooltip'>13
+          <span class = 'tooltiptext'><b>Powerful</b><br><br>Have a 1st Power Generator.</span>
+        </p></td>
+        <td><p id = 'ach14' class = 'ach tooltip'>14
+          <span class = 'tooltiptext'><b>Generating Generation</b><br><br>Have a 2nd Particle Generator.</span>
+        </p></td>
+        <td><p id = 'ach15' class = 'ach tooltip'>15
+          <span class = 'tooltiptext'><b>Unchallenged</b><br><br>Beat Challenge 1</span>
+        </p></td>
+        <td><p id = 'ach16' class = 'ach tooltip'>16
+          <span class = 'tooltiptext'><b>Upgraded to the max</b><br><br>Obtain Rows 1-4 of Upgrades</span>
+        </p></td>
+        <td><p id = 'ach17' class = 'ach tooltip'>17
+          <span class = 'tooltiptext'><b>ez</b><br><br>Beat Challenge 2</span>
+        </p></td>
+        <td><p id = 'ach18' class = 'ach tooltip'>18
+          <span class = 'tooltiptext'><b>Generating Generation 2: Electric Boogaloo</b><br><br>Have a 2nd Power Generator.</span>
+        </p></td>
+      </tr>
+      <tr>
+        <td><p id = 'ach21' class = 'ach tooltip'>21
+          <span class = 'tooltiptext'><b>placeholder</b><br><br>Have a 3rd Particle Generator</span>
+        </p></td>
+      </tr>
+    </table>
+  </div>
+  <div id = "Challenges">
+    <br><br>
+    <button onclick = 'leaveChallenge()' style = 'margin: auto; display: block;'>Leave Challenge</button>
+    <br><br>
+    <table align = "center" id = "upgradeTable">
+      <tr>
+        <td>
+          <p id = "chall1" class = "challenge">
+            The 3rd and 4th row of upgrades do nothing.
+            <br><br><br><br><br><br>
+            <button onclick = 'startChallenge(1)' id = "startChall1" class = "challengebtn" style = "padding: 6px, 10px;">Start</button><br><br><br>Reward: 1 Energy and 3rd Particle Generators<br><br><br><br>Goal: 3e6 Particles</p>
+          </td>
+        <td>
+          <p id = "chall2" class = "challenge">
+            You can only buy 1st Particle Gens and 1st Power Gens.
+            <br><br><br><br><br><br>
+            <button onclick = 'startChallenge(2)' id = "startChall2" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and a new Repeatable Upgrades<br><br><br><br>Goal: 1e13 Particles</p>
+          </td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+  <div id = "Particles">
     <br>
     <br>
     <table align = "center" style = "margin: auto">
     <tr>
     <td><button onclick = 'buyUpgrade1()' id = 'buttonupgrade1' class = "upgrade">
-      Clicking is now twice as effective. <br> Cost: 0.25 Particles
+      Clicking is now twice as effective. <br> <br>Cost: 0.25 Particles
     </button></td>
     <td><button onclick = 'buyUpgrade2()' id = 'buttonupgrade2' class = "upgrade">
-      You gain a boost to clicking the more times you've clicked. <br> Cost: 1.5 Particles
+      You gain a boost to clicking the more times you've clicked. <br> <br>Cost: 1.5 Particles
     </button></td>
     <td><button onclick = 'buyUpgrade3()' id = 'buttonupgrade3' class = "upgrade">
-      You gain a boost to clicking the more particles you have. <br> Cost: 4 Particles
+      You gain a boost to clicking the more particles you have. <br> <br>Cost: 4 Particles
     </button></td>
     <td><button onclick = 'buyUpgrade4()' id = 'buttonupgrade4' class = "upgrade">
-      1st Particle Generators are twice as effective. <br> Cost: 15 Particles
+      1st Particle Generators are twice as effective. <br> <br>Cost: 15 Particles
     </button></td>
     <td><button onclick = 'buyUpgrade5()' id = 'buttonupgrade5' class = "upgrade">
-      1st Particle Generators are boosted by the amount bought. <br> Cost: 30 Particles
+      1st Particle Generators are boosted by the amount bought. <br> <br>Cost: 30 Particles
     </button></td>
     </tr>
     <tr>
     <td><button onclick = 'buyUpgrade6()' id = 'buttonupgrade6' class = "upgrade">
-      1st Power Generators are twice as effective. <br> Cost: 50 Particles
+      1st Power Generators are twice as effective. <br> <br>Cost: 80 Particles
     </button></td>
     <td><button onclick = 'buyUpgrade7()' id = 'buttonupgrade7' class = "upgrade">
-      Power now boosts your Particles per click. <br> Cost: 100 Particles
+      Power now boosts your Particles per click further. <br> <br>Cost: 150 Particles
     </button></td>
     <td><button onclick = 'buyUpgrade8()' id = 'buttonupgrade8' class = "upgrade">
-      Power now boosts your Generator multipliers. <br> Cost: 250 Particles
+      Power now boosts your Generator multipliers. <br> <br>Cost: 400 Particles
     </button></td>
     <td><button onclick = 'buyUpgrade9()' id = 'buttonupgrade9' class = "upgrade">
-      Upgrade 2 now uses a better formula. <br> Cost: 600 Particles
+      Upgrade 2 now uses a better formula. <br> <br>Cost: 1e3 Particles
     </button></td>
     <td><button onclick = 'buyUpgrade10()' id = 'buttonupgrade10' class = "upgrade">
-      Upgrade 3 now uses a better formula. <br> Cost: 1e3 Particles    
+      Upgrade 3 now uses a better formula. <br> <br>Cost: 4e3 Particles    
     </button></td>
     </tr>
     <tr>
    <td><button onclick = 'buyUpgrade11()' id = 'buttonupgrade11' class = "upgrade">
-      Increases the first row's upgrades' mult caps to 50x. <br> Cost: 2.5e3 Particles
+      Increases the first row of upgrades' mult caps to 250x. <br> <br>Cost: 8e3 Particles
    </button></td>
    <td><button onclick = 'buyUpgrade12()' id = 'buttonupgrade12' class = "upgrade">
-      1st Power Generators now gain a boost based on the amount bought. <br> Cost: 6e3 Particles
+      1st Power Generators now gain a boost based on the amount bought. <br> <br>Cost: 1.5e4 Particles
    </button></td>
    <td><button onclick = 'buyUpgrade13()' id = 'buttonupgrade13' class = "upgrade">
-      Upgrade 7 uses a better formula. <br> Cost: 1.5e4 Particles
+      Upgrade 7 uses a better formula. <br> <br>Cost: 8e4 Particles
    </button></td>
    <td><button onclick = 'buyUpgrade14()' id = 'buttonupgrade14' class = "upgrade"> 
-      Upgrade 8 uses a better formula. <br> Cost: 4e4 Particles
+      Upgrade 8 uses a better formula. <br> <br>Cost: 2e5 Particles
    </button></td>
    <td><button onclick = 'buyUpgrade15()' id = 'buttonupgrade15' class = "upgrade">
-      Power Generators now gain a boost based on the amount of 1st Particle Generators bought. <br> Cost: 8e4 Particles
+      Power Generators gain a boost based on bought 1st Particle Generators.<br> <br>Cost: 1e6 Particles
    </button></td>
+    </tr>
+    <tr>
+      <td><button onclick = 'buyUpgrade16()' id = 'buttonupgrade16' class = 'upgrade'>
+        Upgrade 4, 5 and 8 applies to 2nd Particle Generators. <br> <br>Cost: 1e7 Particles
+      </button></td>
+      <td><button onclick = 'buyUpgrade17()' id = 'buttonupgrade17' class = 'upgrade'>
+        Increase the second row of upgrades' caps to 250x. <br> <br> Cost: 3e8 Particles
+      </button></td>
+      <td><button onclick = 'buyUpgrade18()' id = 'buttonupgrade18' class = 'upgrade'>
+        Upgrades 1, 4 and 6 are stronger. <br> <br> Cost: 5e9 Particles
+      </button></td>
+      <td><button onclick = 'buyUpgrade19()' id = 'buttonupgrade19' class = 'upgrade'>
+        Power multiplier uses a better formula. <br> <br> Cost: 1e13 Particles
+      </button></td>
+      <td><button onclick = 'buyUpgrade20()' id = 'buttonupgrade20' class = 'upgrade'>
+        Power multiplier is uncapped. <br> <br> Cost: 1e15 Particles
+      </button></td>
+    </tr>
+    <tr>
+      <td><button onclick = 'buyRepUpgrade11()' id = 'rep11' class = 'upgrade'>
+        Multiplies all Particle gain by 2. Currently: 1.00x Cost: 1e10 Particles
+      </button></td>
     </tr>
   </table>
   </div>
-  <div id = "Options">
-
+  <div id = 'Power'>
+    <p id = "powerCount" style = "font-size: 25px; text-align: center;">You have 0 Power, translated to a x1.00 multiplier to clicking.</p>
+    <p id = "displayPowerPerSecond" style = "font-size: 15px; text-align: center;"> You gain 0 Power per tick. </p>
   </div>
-  <div id = "Stats">
-   
-    <a href="changelog.html">View the Changelog</a>
+  <div id = "Energy">
+    <p id = "energyCount" style = "color: yellow; text-align: center; font-size: 22px;">You have 0 Energy, translated to a x1.00 multiplier on all Particle Generators</p>
   </div>
-  <div id = "Achievements"></div>
-  <div id = "Challenges"></div>
   <div id = "Quarks"></div>
 </body>
-<script src = "main.js"></script>
-<script src = "js/achievements.js"></script>
-<script src = "js/format.js"></script>
-<script src = "js/options.js"></script>
-<script src = "js/quarks.js"></script>
-<script src = "https://unpkg.com/vue@next"></script>
-
+<script type= "text/javascript" src = "main.js"></script>
+<script type= "text/javascript" src = "js/achievements.js"></script>
+<script type= "text/javascript" src = "js/format.js"></script>
+<script type= "text/javascript" src = "js/options.js"></script>
+<script type= "text/javascript" src = "js/quarks.js"></script>
+<script type= "text/javascript" src = "js/automate.js"></script>
+<script type= "text/javascript" src = "js/upgrades.js"></script>
 </html>

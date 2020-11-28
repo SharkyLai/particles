@@ -76,7 +76,7 @@
           <span class = 'tooltiptext'><b>ez</b><br><br>Beat Challenge 2</span>
         </p></td>
         <td><p id = 'ach18' class = 'ach tooltip'>18
-          <span class = 'tooltiptext'><b>Generating Generation 2: Electric Boogaloo</b><br><br>Have a 2nd Power Generator.</span>
+          <span class = 'tooltiptext'><b>Generating Generation 2: Electric Boogaloo</b><br><br>Have a 2nd Power Generator.<br><br><b>Reward: </b>Increases first row of upgrades' multiplier cap to 450x.</span>
         </p></td>
       </tr>
       <tr>
@@ -150,7 +150,7 @@
     </tr>
     <tr>
    <td><button onclick = 'buyUpgrade11()' id = 'buttonupgrade11' class = "upgrade">
-      Increases the first row of upgrades' mult caps to 250x. <br> <br>Cost: 8e3 Particles
+      Increases the first row of upgrades' mult caps to 150x. <br> <br>Cost: 8e3 Particles
    </button></td>
    <td><button onclick = 'buyUpgrade12()' id = 'buttonupgrade12' class = "upgrade">
       1st Power Generators now gain a boost based on the amount bought. <br> <br>Cost: 1.5e4 Particles
@@ -184,7 +184,7 @@
     </tr>
     <tr>
       <td><button onclick = 'buyRepUpgrade11()' id = 'rep11' class = 'upgrade'>
-        Multiplies all Particle gain by 2. Currently: 1.00x Cost: 1e10 Particles
+        Multiplies all Particle gain by 2. <br> Currently: 1.00x <br> Cost: 1e10 Particles
       </button></td>
     </tr>
   </table>
@@ -192,6 +192,20 @@
   <div id = 'Power'>
     <p id = "powerCount" style = "font-size: 25px; text-align: center;">You have 0 Power, translated to a x1.00 multiplier to clicking.</p>
     <p id = "displayPowerPerSecond" style = "font-size: 15px; text-align: center;"> You gain 0 Power per tick. </p>
+    <table align = 'center' style = "margin: auto">
+      <tr>
+        <td><button id = 'emp11' onclick = 'buyEmpowerment(11)' class = 'emp'>
+          All Power gain is multiplied by 2. <br> Currently: 1.00x <br> Cost: 1e4 Power
+        </button></td>
+      </tr>
+      <tr>
+        <td><button id = 'emp21' onclick = 'buyEmpowerment(21)' class = 'emp'>
+          Increase the multiplier to clicking from Power's formula's exponent. <br> Currently: 1.00x <br> Cost: 1e5 Power
+        </button></td>
+        <td><button></button></td>
+      </tr>
+      <tr></tr>
+    </table>
   </div>
   <div id = "Energy">
     <p id = "energyCount" style = "color: yellow; text-align: center; font-size: 22px;">You have 0 Energy, translated to a x1.00 multiplier on all Particle Generators</p>

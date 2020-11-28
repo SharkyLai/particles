@@ -140,6 +140,20 @@ var game = {
             mult: 1,
         },
     },
+    emp: {
+        upg11: {
+            cost: 1e4,
+            costMult: 5,
+            bought: 0,
+            mult: 1,
+        },
+        upg21: {
+            cost: 1e5,
+            costMult: 10,
+            bought: 0,
+            mult: 1,
+        }
+    }
 }
 
 var challCheck;
@@ -346,7 +360,7 @@ function buyUpgrade11() {
     if (game.parti >= 8000) {
        if (game.upgrade11Bought != 0) return;
        game.parti -= 8000;
-       game.caps.firstRow = 250;
+       game.caps.firstRow = 150;
        checkAchs(16);
        document.getElementById("buttonupgrade11").style.backgroundColor = "lightgrey"
        updatePartiPerClick();
@@ -464,7 +478,7 @@ function buyUpgrade19() {
         if (game.upgrade19Bought != 0) return;
         game.parti -= 1e13;
         checkAchs(16);
-        game.powerMult = Math.log10(game.power) * Math.cbrt(game.power) * 2;
+        game.powerMult = Math.pow((Math.log10(game.power) * Math.sqrt(game.power)), game.emp.upg21.mult);
         document.getElementById("buttonupgrade19").style.backgroundColor = "lightgrey";
         game.upgrade19Bought = 1;
     }
@@ -495,6 +509,30 @@ function buyRepUpgrade11() {
 function buyRepUpgrade12() {
 
 }
+
+function buyEmpowerment(id) {
+    if (id == 11) {
+        if (game.power > game.emp.upg11.cost) {
+            game.power -= game.emp.upg11.cost;
+            game.emp.upg11.cost *= game.emp.upg11.costMult;
+            game.emp.upg11.bought++;
+            game.emp.upg11.mult *= 2;
+            document.getElementById("emp11").innerHTML = "All Power gain is multiplied by 2. Currently: " + format(game.emp.upg11.mult) + "x Cost: " + format(game.emp.upg11.cost) + " Power";
+        }
+    } else if (id == 21) {
+        if (game.power > game.emp.upg21.cost) {
+            game.power -= game.emp.upg21.cost;
+            game.emp.upg21.cost *= game.emp.upg21.costMult;
+            game.emp.upg21.bought++;
+            game.emp.upg21.mult += 0.25;
+            document.getElementById("emp21").innerHTML = "Increase the multiplier to clicking from Power's formula's exponent. Currently: " + format(game.emp.upg21.mult) + "x Cost: " + format(game.emp.upg21.cost) + " Power";
+        }
+    }
+
+    if (game.power == 0) {
+        game.power = 0.01;
+    }
+} 
 
 function enUpg(id) {
     if (id == 11) {
@@ -690,7 +728,7 @@ function updatePowerPerSecond() {
     if (game.u15mult < 1) {
         game.u15mult = 1;
     }
-    game.powergen1.productionMult = game.u6mult * game.u15mult;
+    game.powergen1.productionMult = game.u6mult * game.u15mult * game.emp.upg11.mult;
     game.powergen1.production = 0.025 * game.powergen1.amount * game.powergen1.productionMult;
     game.powergen2.production = 0.2 * game.powergen2.amount * game.powergen2.productionMult;
     document.getElementById("powerCount").innerHTML = "You have " + format(game.power) + " Power, translated to a x" + format(game.powerMult) + " boost to clicking."
@@ -701,9 +739,9 @@ function updatePowerPerSecond() {
 function updatePartiPerClick() {
     // Power Mult
     if (game.upgrade19Bought != 0) {
-        game.powerMult = Math.log10(game.power) * Math.cbrt(game.power) * 2;
+        game.powerMult = Math.pow((Math.log10(game.power) * Math.sqrt(game.power)), game.emp.upg21.mult);
     } else {
-        game.powerMult = Math.log10(game.power) * Math.cbrt(game.power) / 3.5;
+        game.powerMult = Math.pow((Math.log10(game.power) * Math.cbrt(game.power)), game.emp.upg21.mult);
     }
     if (game.powerMult > game.caps.powerMult) {
         game.powerMult = game.caps.powerMult;
@@ -824,14 +862,14 @@ function startChallenge(chall) {
         }
         challCheck = window.setInterval(function() {
             if (game.parti >= game.challGoal) {
-                if (chall == 1) {
+                if (game.currentChallenge == 1) {
                     if (game.chall1Comp == 0) {
                         game.energy += 1;
                         checkAchs(15);
                     }
                     document.getElementById("startChall1").innerHTML = "Completed";
                     game.chall1Comp += 1;
-                } else if (chall == 2) {
+                } else if (game.currentChallenge == 2) {
                     if (game.chall2Comp == 0) {
                         game.energy += 2;
                         checkAchs(17);
@@ -839,7 +877,6 @@ function startChallenge(chall) {
                     document.getElementById("startChall2").innerHTML = "Completed";
                     game.chall2Comp += 1;
                 }
-                challCheck = undefined;
                 leaveChallenge();           
             }
         }, 100)
@@ -872,6 +909,8 @@ function updateAll() {
     document.getElementById("clickCap").innerHTML = "You can only click " + format(game.clickCap) + " times.";
     document.getElementById("energyCount").innerHTML = "You have " + format(game.energy) + " Energy, translated to a x" + format(game.enMult) + " multiplier to all Particle Generators"
     document.getElementById("rep11").innerHTML = "Multiplies all Particle gain by 2. Currently: " + format(game.rep.upg11.mult) + "x Cost: " + format(game.rep.upg11.cost) + " Particles";
+    document.getElementById("emp11").innerHTML = "All Power gain is multiplied by 2. Currently: " + format(game.emp.upg11.mult) + "x Cost: " + format(game.emp.upg11.cost) + " Power";
+    document.getElementById("emp21").innerHTML = "Increase the multiplier to clicking from Power's formula's exponent. Currently: " + format(game.emp.upg21.mult) + "x Cost: " + format(game.emp.upg21.cost) + " Power";
     if (game.upgrade1Bought != 0) {
         document.getElementById("buttonupgrade1").style.backgroundColor = "lightgrey";
     } else {
@@ -1247,6 +1286,9 @@ function checkAchs(id) {
         if (game.achs.ach18 == 0) {
             if (game.powergen2.amount >= 1) {
                 game.achs.ach18 = 1;
+                if (game.caps.firstRow < 450) {
+                    game.caps.firstRow = 450
+                }
                 document.getElementById('ach18').style.backgroundColor = 'green';
             }
         }

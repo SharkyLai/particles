@@ -57,6 +57,11 @@ table, th, td {
 	height: 110px;
 }
 
+.emp {
+	width: 270px;
+	height: 150px;
+}
+
 .challengebtn {
 	margin: auto;
 	display: block;

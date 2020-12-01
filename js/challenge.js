@@ -60,6 +60,14 @@ function challReset() {
     game.gen2.mult = 1;
     game.gen2.production = 0;
     game.gen2.productionMult = 1;
+    // Gen 3
+    game.gen3.cost = 1e12;
+    game.gen3.costMult = 5;
+    game.gen3.amount = 0;
+    game.gen3.bought = 0;
+    game.gen3.mult = 1;
+    game.gen3.production = 0;
+    game.gen3.productionMult = 1;
     // Power Gen 1
     game.powergen1.cost = 50;
     game.powergen1.costMult = 2;
@@ -167,7 +175,10 @@ function startChallenge(chall) {
             game.challGoal = 1e13;
             document.getElementById("startChall2").innerHTML = "Running"
         } else if (chall == 3) {
-
+            game.currentChallenge = 3;
+            game.challGoal = 1e20; 
+            game.clickCap = 10;
+            document.getElementById("startChall3").innerHTML = "Running"
         } else if (chall == 4) {
 
         }
@@ -180,15 +191,25 @@ function startChallenge(chall) {
                     }
                     document.getElementById("startChall1").innerHTML = "Completed";
                     game.chall1Comp += 1;
+                    leaveChallenge();
                 } else if (game.currentChallenge == 2) {
                     if (game.chall2Comp == 0) {
-                        game.energy += 2;
+                        game.energy += 1;
                         checkAchs(17);
                     }
                     document.getElementById("startChall2").innerHTML = "Completed";
                     game.chall2Comp += 1;
-                }
-                leaveChallenge();           
+                    leaveChallenge();
+                } else if (game.currentChallenge == 3) {
+                    if (game.chall3Comp == 0) {
+                        game.energy += 1;
+                    }
+                    document.getElementById("startChall3").innerHTML = "Completed";
+                    game.chall3Comp += 1;
+                    leaveChallenge();
+                } else if (game.currentChallenge == 4) {
+                    
+                } 
             }
         }, 100)
     }

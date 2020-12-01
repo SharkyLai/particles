@@ -101,6 +101,7 @@ var game = {
     challGoal: 0,
     chall1Comp: 0,
     chall2Comp: 0,
+    chall3Comp: 0,
     caps: {
         firstRow: 10,
         secondRow: 20,
@@ -183,7 +184,7 @@ function clickParticles() {
     alert("Cheated particles are corruptive. Beware!")
    } else if (game.clicks >= game.clickCap && (game.partiPerSecond = 0)) {
     alert("Uh oh, you've been softlocked. Try buying a generator now!")
-   } else if (game.clicks = game.clickCap && (game.partiPerSecond > 0)) {
+   } else if (game.clicks == game.clickCap && (game.partiPerSecond > 0)) {
     alert("You've reached the click cap! This is to prevent autoclicking abuse. From now on, you'll have to rely on generators. Don't worry though, there'll be upgrades later on to increase this cap!")
    } 
 }
@@ -220,7 +221,7 @@ function updatePartiPerSecond() {
         game.u8mult = 1;
     }
     // Energy Mult
-    game.enMult = Math.log10(Math.pow(game.energy, 2)) + (game.energy * 2) + 1;
+    game.enMult = Math.pow((Math.log10(Math.pow(game.energy, 2)) + (game.energy * 2) + 1), 1.75);
     if (game.enMult < 1) {
         game.enMult = 1;
     }
@@ -230,6 +231,8 @@ function updatePartiPerSecond() {
         game.gen2.productionMult = game.u4mult * game.u5mult * game.u8mult * game.enMult;
     }
     game.gen2.production = 0.2 * game.gen2.amount * game.gen2.productionMult;
+
+    game.gen3.productionMult = game.enMult;
     game.gen3.production = 2 * game.gen3.amount * game.gen3.productionMult;
     document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.mult * game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
     document.getElementById("gen2").innerHTML = "2nd Particle Generator x" + format(game.gen2.productionMult) + " (" + format(game.gen2.amount) + ") " + format(game.gen2.production) + " Generators/tick"
@@ -477,6 +480,16 @@ function updateAll() {
 
     if (game.currentChallenge == 2) {
         document.getElementById("startChall2").innerHTML = "Running";
+    }
+
+    if (game.chall3Comp == 0) {
+        document.getElementById("startChall3").innerHTML = "Start";
+    } else if (game.chall3Comp != 0) {
+        document.getElementById("startChall3").innerHTML = "Completed";
+    }
+
+    if (game.currentChallenge == 3) {
+        document.getElementById("startChall3").innerHTML = "Running";
     }
 
     // r1 achs

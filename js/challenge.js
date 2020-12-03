@@ -15,6 +15,8 @@ function challReset() {
     game.u7mult = 1;
     game.u8mult = 1;
     game.u15mult = 1;
+    if (game.achs.ach26 == 0) game.u20mult = 1
+    if (game.achs.ach26 == 1) game.u20mult = 1e8
     // Bought Upgrades
     game.upgrade1Bought = 0;
     game.upgrade2Bought = 0;
@@ -35,7 +37,7 @@ function challReset() {
     game.upgrade17Bought = 0;
     game.upgrade18Bought = 0;
     game.upgrade19Bought = 0;
-    game.upgrade20Bought = 0;
+    if (game.achs.ach26 == 0) game.upgrade20Bought = 0
     // game.power = 0;
     game.partiPerSecond = 0;
     game.powerPerSecond = 0;
@@ -84,77 +86,6 @@ function challReset() {
     game.powergen2.mult = 1;
     game.powergen2.production = 0;
     game.powergen2.productionMult = 1;
-    /* game = {
-        parti: 0,
-        // energy: energy,
-        // quarks: quarks,
-        partiPerClick: 0.01,
-        clicks: 0,
-        u2mult: 1,
-        u3mult: 1,
-        u4mult: 1,
-        u5mult: 1,
-        u6mult: 1,
-        u7mult: 1,
-        u8mult: 1,
-        u15mult: 1,
-        upgrade1Bought: 0,
-        upgrade2Bought: 0,
-        upgrade3Bought: 0,
-        upgrade4Bought: 0,
-        upgrade5Bought: 0,
-        upgrade6Bought: 0,
-        upgrade7Bought: 0,
-        upgrade8Bought: 0,
-        upgrade9Bought: 0,
-        upgrade10Bought: 0,
-        upgrade11Bought: 0,
-        upgrade12Bought: 0,
-        upgrade13Bought: 0,
-        upgrade14Bought: 0,
-        upgrade15Bought: 0,
-        power: 0,
-        // playTime: playTime,
-        partiPerSecond: 0,
-        powerPerSecond: 0,
-        gen1: {
-            cost: 10,
-            costMult: 1.5,
-            amount: 0,
-            bought: 0,
-            mult: 1,
-            production: 0,
-            productionMult: 1,
-        },
-        gen2: {
-            cost: 1e4,
-            costMult: 1.5,
-            amount: 0,
-            bought: 0,
-            mult: 1,
-            production: 0,
-            productionMult: 1,
-        },
-        powergen1: {
-            cost: 50,
-            costMult: 2,
-            amount: 0,
-            bought: 0,
-            mult: 1,
-            production: 0,
-            productionMult: 1,
-        },
-        genSpeed: 1000,
-        version: 0.2,
-        currentChallenge: "none",
-        challGoal: 0,
-        caps: {
-            firstRow: 10,
-            secondRow: 20,
-        },
-        clickCap: 10000,
-        clickCapCost: 1000, 
-    } */
 }
 
 function startChallenge(chall) {
@@ -176,11 +107,13 @@ function startChallenge(chall) {
             document.getElementById("startChall2").innerHTML = "Running"
         } else if (chall == 3) {
             game.currentChallenge = 3;
-            game.challGoal = 1e20; 
+            game.challGoal = 1e23; 
             game.clickCap = 10;
             document.getElementById("startChall3").innerHTML = "Running"
         } else if (chall == 4) {
-
+            game.currentChallenge = 4;
+            game.challGoal = 1e14;
+            document.getElementById("startChall4").innerHTML = "Running"
         }
         challCheck = window.setInterval(function() {
             if (game.parti >= game.challGoal) {
@@ -203,12 +136,18 @@ function startChallenge(chall) {
                 } else if (game.currentChallenge == 3) {
                     if (game.chall3Comp == 0) {
                         game.energy += 1;
+                        checkAchs(24);
                     }
                     document.getElementById("startChall3").innerHTML = "Completed";
                     game.chall3Comp += 1;
                     leaveChallenge();
                 } else if (game.currentChallenge == 4) {
-                    
+                    if (game.chall4Comp == 0) {
+                        game.energy += 1;
+                    }
+                    document.getElementById("startChall3").innerHTML = "Completed";
+                    game.chall4Comp += 1;
+                    leaveChallenge();
                 } 
             }
         }, 100)

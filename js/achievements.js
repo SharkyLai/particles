@@ -75,4 +75,44 @@ function checkAchs(id) {
             }
         }
     }
+    if (id == 22) {
+        if (game.achs.ach22 == 0) {
+            if (game.emp.upg11.amount >= 1) {
+                game.achs.ach22 = 1;
+                document.getElementById('ach22').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 23) {
+        if (game.achs.ach23 == 0) {
+            if (game.powerMult >= 1e10) {
+                game.achs.ach23 = 1;
+                document.getElementById('ach23').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 24) {
+        if (game.achs.ach24 == 0) {
+            if (game.chall3Comp >= 1) {
+                game.achs.ach24 = 1;
+                document.getElementById('ach24').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 25) {
+        if (game.achs.ach25 == 0) {
+            if (game.emp.upg11.amount >= 1 && game.emp.upg21.amount >= 1 && game.emp.upg22.amount >= 1 && game.emp.upg31.amount >= 1) {
+                game.achs.ach25 = 1;
+                document.getElementById('ach25').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 26) {
+        if (game.achs.ach26 == 0) {
+            if (game.parti >= 1e30) {
+                game.achs.ach26 = 1;
+                document.getElementById('ach26').style.backgroundColor = 'green';
+            }
+        }
+    }
 }

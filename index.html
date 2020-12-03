@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="description" content="An incremental game about particles.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinity</title>
+    <title>Particles</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="prestige.css">
 </head>
@@ -36,16 +36,23 @@
   </div>
   
   <div id = "Options">
-
+    <table align = 'center'>
+      <tr>
+        <td>
+          <button onclick = 'hardReset()' class = 'opts'>RESET THE GAME</button>
+        </td>
+      </tr>
+    </table>
   </div>
   <div id = "Stats">
-    <p id = "clickCap">
+    <p id = "clickCap" class = "stats">
       You can only click 1e4 times.
     </p>
-    <p id = 'clickAmount'>
+    <p id = 'clickAmount' class = "stats">
       You've clicked 0 times. <br>
     </p>
-    <a href="changelog.html">View the Changelog</a>
+    <p class = "Stats">You are currently playing on v0.4.0</p>
+    <a href="changelog.html" class = "stats">View the Changelog</a>
   </div>
   <div id = "Achievements">
     <br>
@@ -81,7 +88,22 @@
       </tr>
       <tr>
         <td><p id = 'ach21' class = 'ach tooltip'>21
-          <span class = 'tooltiptext'><b>placeholder</b><br><br>Have a 3rd Particle Generator</span>
+          <span class = 'tooltiptext'><b>wow, it's polynomial!</b><br><br>Have a 3rd Particle Generator</span>
+        </p></td>
+        <td><p id = 'ach22' class = 'ach tooltip'>22
+          <span class = 'tooltiptext'><b>Empowered</b><br><br>Buy your first Empowerment.</span>
+        </p></td>
+        <td><p id = 'ach23' class = 'ach tooltip'>23
+          <span class = 'tooltiptext'><b>Powered to the max</b><br><br>Have a Power multiplier of 1e10x or above.</span>
+        </p></td>
+        <td><p id = 'ach24' class = 'ach tooltip'>24
+          <span class = 'tooltiptext'><b>Clicking is irrelevant!</b><br><br>Beat Challenge 3.</span>
+        </p></td>
+        <td><p id = 'ach25' class = 'ach tooltip'>25
+          <span class = 'tooltiptext'><b>okay, you're Powerful</b><br><br>Buy one of each of the first four Empowerments.</span>
+        </p></td>
+        <td><p id = 'ach26' class = 'ach tooltip'>26
+          <span class = 'tooltiptext'><b>particle overload</b><br><br>Obtain 1e30 Particles or above.<br><br><b>Reward: </b>You keep Particle Upgrade 20 on challenge resets.</span>
         </p></td>
       </tr>
     </table>
@@ -94,7 +116,7 @@
       <tr>
         <td>
           <p id = "chall1" class = "challenge">
-            The 3rd and 4th row of upgrades do nothing.
+            You cannot buy the 3rd and 4th row of Upgrades.
             <br><br><br><br><br><br>
             <button onclick = 'startChallenge(1)' id = "startChall1" class = "challengebtn" style = "padding: 6px, 10px;">Start</button><br><br><br>Reward: 1 Energy and 3rd Particle Generators<br><br><br><br>Goal: 3e6 Particles</p>
           </td>
@@ -111,10 +133,16 @@
           <p id = "chall3" class = "challenge">
             You can only click 10 times.
             <br><br><br><br><br><br>
-            <button onclick = 'startChallenge(3)' id = "startChall3" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and a new Empowerment<br><br><br><br>Goal: 1e20 Particles</p>
+            <button onclick = 'startChallenge(3)' id = "startChall3" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and a new Empowerment<br><br><br><br>Goal: 1e23 Particles</p>
           </td>
-        <td></td>
-        <td></td>
+        <td>
+          <p id = "chall4" class = "challenge">
+            You cannot buy any Particle Upgrades.
+            <br><br><br><br><br><br>
+            <button onclick = 'startChallenge(4)' id = "startChall4" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and the ability of converting Energy<br><br><br><br>Goal: 1e14 Particles</p>
+        </td>
+        <td>
+        </td>
       </tr>
     </table>
   </div>
@@ -214,7 +242,11 @@
           Multiply 2nd Power Generators' production by 2. <br> Currently: 1.00x <br> Cost: 1e7 Power
         </button></td>
       </tr>
-      <tr></tr>
+      <tr>
+        <td><button id = 'emp31' onclick = 'buyEmpowerment(31)' class = 'emp'>
+          Increase the hardcap of the Power multiplier to clicking. <br> Currently: 1.00x <br> Cost: 1e10 Power
+        </button></td>
+      </tr>
     </table>
   </div>
   <div id = "Energy">
@@ -224,17 +256,17 @@
 </body>
 
 <script type= "text/javascript" src = "break_infinity.js"></script>
+<script type= "text/javascript" src = "var.js"></script>
 <script type= "text/javascript" src = "js/format.js"></script>
+<script type= "text/javascript" src = "js/layers/power.js"></script>
 <script type= "text/javascript" src = "main.js"></script>
 <script type= "text/javascript" src = "js/achievements.js"></script>
 <script type= "text/javascript" src = "js/options.js"></script>
 <script type= "text/javascript" src = "js/layers/quarks.js"></script>
 <script type= "text/javascript" src = "js/layers/parti.js"></script>
-<script type= "text/javascript" src = "js/layers/power.js"></script>
 <script type= "text/javascript" src = "js/layers/energy.js"></script>
 <script type= "text/javascript" src = "js/layers/automation.js"></script>
 <script type= "text/javascript" src = "js/layers/time.js"></script>
-<script type= "text/javascript" src = "js/layers/quarks.js"></script>
 <script type= "text/javascript" src = "js/challenge.js"></script>
 <script type= "text/javascript" src = "js/save.js"></script>
 <script type= "text/javascript" src = "js/gen.js"></script>

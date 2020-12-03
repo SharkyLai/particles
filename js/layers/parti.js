@@ -1,4 +1,5 @@
 function buyUpgrade1() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= 0.25) {
     if (game.upgrade1Bought != 0) return;
     // if (game.upgrade1Bought = 0) {
@@ -17,7 +18,8 @@ function buyUpgrade1() {
 
 
 function buyUpgrade2() {
-   if (game.parti >= 1.5) {
+    if (game.currentChallenge == 4) return;
+    if (game.parti >= 1.5) {
     if (game.upgrade2Bought != 0) return;
        game.parti -= 1.5;
        game.u2mult = Math.sqrt(game.clicks * 2) / 5;
@@ -36,6 +38,7 @@ function buyUpgrade2() {
 }
 
 function buyUpgrade3() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= 4) {
         if (game.upgrade3Bought != 0) return;
         game.parti -= 4;
@@ -55,6 +58,7 @@ function buyUpgrade3() {
 }
 
 function buyUpgrade4() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= 15) {
         if (game.upgrade4Bought != 0) return;
         game.parti -= 15;
@@ -68,6 +72,7 @@ function buyUpgrade4() {
 }
 
 function buyUpgrade5() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= 30) {
         if (game.upgrade5Bought != 0) return;
         game.parti -= 30;
@@ -85,6 +90,7 @@ function buyUpgrade5() {
 }
 
 function buyUpgrade6() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= 80) {
         if (game.upgrade6Bought != 0) return;
         game.parti -= 80;
@@ -97,6 +103,7 @@ function buyUpgrade6() {
 }
 
 function buyUpgrade7() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= 150) {
         if (game.upgrade7Bought != 0) return;
         game.parti -= 150;
@@ -115,6 +122,7 @@ function buyUpgrade7() {
 }
 
 function buyUpgrade8() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= 400) {
         if (game.upgrade8Bought != 0) return;
         game.parti -= 400;
@@ -132,6 +140,7 @@ function buyUpgrade8() {
 }
 
 function buyUpgrade9() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= 1000) {
         if (game.upgrade9Bought != 0) return;
         game.parti -= 1000;
@@ -149,6 +158,7 @@ function buyUpgrade9() {
 }
 
 function buyUpgrade10() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= 4000) {
         if (game.upgrade10Bought != 0) return;
         game.parti -= 4000;
@@ -165,6 +175,7 @@ function buyUpgrade10() {
 }
 
 function buyUpgrade11() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 8000) {
        if (game.upgrade11Bought != 0) return;
@@ -179,6 +190,7 @@ function buyUpgrade11() {
 }
 
 function buyUpgrade12() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 15000) {
         if (game.upgrade12Bought != 0) return;
@@ -194,6 +206,7 @@ function buyUpgrade12() {
 }
 
 function buyUpgrade13() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 80000) {
         if (game.upgrade13Bought != 0) return;
@@ -212,6 +225,7 @@ function buyUpgrade13() {
 }
 
 function buyUpgrade14() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 200000) {
         if (game.upgrade14Bought != 0) return;
@@ -230,6 +244,7 @@ function buyUpgrade14() {
 }
 
 function buyUpgrade15() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 1e6) {
         if (game.upgrade15Bought != 0) return;
@@ -245,6 +260,7 @@ function buyUpgrade15() {
 }
 
 function buyUpgrade16() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 1e7) {
         if (game.upgrade16Bought != 0) return;
@@ -256,6 +272,7 @@ function buyUpgrade16() {
 }
 
 function buyUpgrade17() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 3e8) {
         if (game.upgrade17Bought != 0) return;
@@ -268,6 +285,7 @@ function buyUpgrade17() {
 }
 
 function buyUpgrade18() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 5e9) {
         if (game.upgrade18Bought != 0) return;
@@ -282,6 +300,7 @@ function buyUpgrade18() {
 }
 
 function buyUpgrade19() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 1e13) {
         if (game.upgrade19Bought != 0) return;
@@ -294,11 +313,12 @@ function buyUpgrade19() {
 }
 
 function buyUpgrade20() {
+    if (game.currentChallenge == 4) return;
     if (game.currentChallenge == 1) return;
     if (game.parti >= 1e15) {
         if (game.upgrade20Bought != 0) return;
         game.parti -= 1e15;
-        game.caps.powerMult = 1e10;
+        game.u20mult = 1e8;
         checkAchs(16);
         document.getElementById("buttonupgrade20").style.backgroundColor = "lightgrey";
         game.upgrade20Bought = 1;
@@ -306,6 +326,7 @@ function buyUpgrade20() {
 }
 
 function buyRepUpgrade11() {
+    if (game.currentChallenge == 4) return;
     if (game.parti >= game.rep.upg11.cost) {
         game.parti -= game.rep.upg11.cost;
         game.rep.upg11.mult *= 2;

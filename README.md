@@ -1,7 +1,9 @@
-# infinity
+# Particles
 
 an incremental game about particles, quarks, atoms... all those physics stuff.
 
-heavy wip, at the moment only v0.3.0 is fully released
+heavy wip, at the moment only v0.4.0 is fully released
 
-full changelog can be found at https://sharkylai.github.io/infinity/changelog.html
+changelog can be found at https://sharkylai.github.io/particles/changelog.html
+
+game link: https://sharkylai.github.io/particles/index.html

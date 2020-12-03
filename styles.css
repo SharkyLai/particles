@@ -57,6 +57,11 @@ table, th, td {
 	height: 110px;
 }
 
+.emp {
+	width: 270px;
+	height: 150px;
+}
+
 .challengebtn {
 	margin: auto;
 	display: block;
@@ -116,4 +121,13 @@ table, th, td {
 
 .tooltip:hover .tooltiptext {
 	visibility: visible;
+}
+
+.hid {
+	visibility: hidden;
+}
+
+.stats {
+	font-size: 16px;
+	text-align: center;
 }

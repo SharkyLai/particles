@@ -5,6 +5,7 @@ var game = {
     energy: 0,
     positiveEnergy: 0,
     negativeEnergy: 0,
+    convAmt: 1,
     quarks: 0,
     partiPerClick: 0.01,
     clicks: 0,
@@ -167,12 +168,13 @@ var game = {
             mult: 1,
         }
     },
-    /* powUpg: {
-        upg11: {
-            cost: 1e11,
-            costMult:
-        },
-    }, */
+    en: {
+        pos: {
+            upg11: 0,
+            upg12: 0,
+            upg13: 0,
+        }
+    }
 }
 
 var challCheck;

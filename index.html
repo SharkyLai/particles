@@ -251,6 +251,60 @@
   </div>
   <div id = "Energy">
     <p id = "energyCount" style = "color: yellow; text-align: center; font-size: 22px;">You have 0 Energy, translated to a x1.00 multiplier on all Particle Generators</p>
+    <button id = "enReset" style = "display: block; margin: auto; background: linear-gradient(yellow, rgb(187, 187, 0));" onclick = "energyReset()">+0 Energy</button>
+    <br>
+    <table align = "center">
+      <tr>
+        <td>
+          <button id = "conv1" class = "convEnAmt select" onclick = "selectConvAmt(1)">
+            1
+          </button>
+        </td>
+        <td>
+          <button id = "conv50" class = "convEnAmt" onclick = "selectConvAmt(50)">
+            50%
+          </button>
+        </td>
+        <td>
+          <button id = "conv100" class = "convEnAmt" onclick = "selectConvAmt(100)">
+            100%
+          </button>
+        </td>
+      </tr>
+    </table>
+    <p style = "font-size: 12px; text-align: center;">Toggle amount to convert</p>
+    <br>
+    <p id = "posEn" style = "color: aqua; font-size: 20px; text-align: center;"><b>You have 0 Positive Energy.</b></p>
+    <br>
+    <table align = "center">
+      <tr>
+        <td>
+          <button onclick = "convertToPos()" style = "border-radius: 50px; background: linear-gradient(aqua, lightblue);"><b>+</b></button>
+        </td>
+        <td>
+          
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <button id = "posEn1" class = "posEn">
+            You keep the First Row of Particle Upgrades on reset. <br> <br> Req: 1 Positive Energy
+          </button>
+        </td>
+        <td>
+          <button id = "posEn2" class = "posEn">
+            Gain access to 3rd Power Generators. <br> <br> Req: 3 Positive Energy
+          </button>
+        </td>
+        <td>
+          <button id = "posEn3" class = "posEn">
+            The First Row of Particle Upgrades' multiplier caps are increased to 5000x. <br> <br> Req: 6 Positive Energy
+          </button>
+        </td>
+      </tr>
+    </table>
   </div>
   <div id = "Quarks"></div>
 </body>
@@ -270,5 +324,6 @@
 <script type= "text/javascript" src = "js/challenge.js"></script>
 <script type= "text/javascript" src = "js/save.js"></script>
 <script type= "text/javascript" src = "js/gen.js"></script>
+<script type= "text/javascript" src = "js/reset.js"></script>
 <script type= "text/javascript" src = "js/updates.js"></script>
 </html>

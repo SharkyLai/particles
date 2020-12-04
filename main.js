@@ -49,7 +49,7 @@ function updatePartiPerSecond() {
         game.u8mult = 1;
     }
     // Energy Mult
-    game.enMult = Math.pow((Math.log10(Math.pow((game.energy + 1), 2)) + (game.energy * 2) + 1), 1.75);
+    game.enMult = getEnMult();
     if (game.enMult < 1) {
         game.enMult = 1;
     }

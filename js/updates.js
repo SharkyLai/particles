@@ -15,7 +15,9 @@ function updateAll() {
     document.getElementById("gen3").innerHTML = "3rd Particle Generator x" + format(game.gen3.productionMult) + " (" + format(game.gen3.amount) + ") " + format(game.gen3.production) + " Generators/tick"
     document.getElementById("gen3Buy").innerHTML = "Cost: " + format(game.gen3.cost);
     document.getElementById("clickCap").innerHTML = "You can only click " + format(game.clickCap) + " times.";
-    document.getElementById("energyCount").innerHTML = "You have " + format(game.energy) + " Energy, translated to a x" + format(game.enMult) + " multiplier to all Particle Generators"
+    document.getElementById("energyCount").innerHTML = "You have " + format(game.energy) + " Energy, translated to a x" + format(game.enMult) + " multiplier to all Particle Generators";
+    document.getElementById("posEn").innerHTML = "You have " + format(game.positiveEnergy) + " Positive Energy."
+    document.getElementById("enReset").innerHTML = "+" + format(getEnergyGain()) + " Energy.";
     document.getElementById("rep11").innerHTML = "Multiplies all Particle gain by 2. Currently: " + format(game.rep.upg11.mult) + "x Cost: " + format(game.rep.upg11.cost) + " Particles";
     document.getElementById("emp11").innerHTML = "All Power gain is multiplied by 2. Currently: " + format(game.emp.upg11.mult) + "x Cost: " + format(game.emp.upg11.cost) + " Power";
     document.getElementById("emp21").innerHTML = "Increase the multiplier to clicking from Power's formula's exponent. Currently: " + format(game.emp.upg21.mult) + "x Cost: " + format(game.emp.upg21.cost) + " Power";
@@ -181,6 +183,10 @@ function updateAll() {
         document.getElementById("startChall4").innerHTML = "Running";
     }
 
+    if (game.convAmt == 1) document.getElementById("conv1").className = "convEnAmt select";
+    if (game.convAmt == 50) document.getElementById("conv50").className = "convEnAmt select";
+    if (game.convAmt == 100) document.getElementById("conv100").className = "convEnAmt select";
+
     // r1 achs
     if (game.achs.ach11 == 1) document.getElementById('ach11').className = 'achFin tooltip';
     if (game.achs.ach12 == 1) document.getElementById('ach12').className = 'achFin tooltip';
@@ -224,6 +230,7 @@ var updateLoop = window.setInterval(function() {
     updatePowerPerSecond();
 }, 100)
 
-var updatePlayTimeLoop = window.setInterval(function() {
+var updateDisplayLoop = window.setInterval(function() {
     game.playTime++;
+    document.getElementById("enReset").innerHTML = "+" + format(getEnergyGain()) + " Energy.";
 }, 1000)

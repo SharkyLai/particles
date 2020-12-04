@@ -131,3 +131,38 @@ table, th, td {
 	font-size: 16px;
 	text-align: center;
 }
+
+.posEn {
+	background: linear-gradient(aqua, lightblue);
+	color: black;
+	width: 180px;
+	height: 130px;
+	font-size: 14px;
+	padding: 15px 15px;
+}
+
+.posEn:hover {
+	background: linear-gradient(lightblue, aqua);
+}
+
+.convEnAmt {
+	background: linear-gradient(aqua, lightblue);
+	color: black;
+	width: 50px;
+	height: 50px;
+	font-size: 15px;
+	padding: 5px 5px;
+}
+
+.convEnAmt:hover {
+	background: linear-gradient(lightblue, aqua);
+}
+
+.select {
+	background: linear-gradient(gray, gray);
+	box-shadow: none;
+}
+
+.select:hover {
+	background: linear-gradient(gray, gray);
+}

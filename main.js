@@ -53,15 +53,10 @@ function updatePartiPerSecond() {
     if (game.enMult < 1) {
         game.enMult = 1;
     }
-    game.gen1.productionMult = game.u4mult * game.u5mult * game.u8mult * game.enMult;
-    game.gen1.production = 0.2 * game.gen1.amount * game.gen1.productionMult * game.rep.upg11.mult;
-    if (game.upgrade16Bought != 0) {
-        game.gen2.productionMult = game.u4mult * game.u5mult * game.u8mult * game.enMult;
-    }
-    game.gen2.production = 0.2 * game.gen2.amount * game.gen2.productionMult;
-
-    game.gen3.productionMult = game.enMult;
-    game.gen3.production = 2 * game.gen3.amount * game.gen3.productionMult;
+    game.gen1.production = getGen1Prod();
+    game.gen2.production = getGen2Prod();
+    game.gen3.production = getGen3Prod();
+    
     checkAchs(26);
     document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.mult * game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
     document.getElementById("gen2").innerHTML = "2nd Particle Generator x" + format(game.gen2.productionMult) + " (" + format(game.gen2.amount) + ") " + format(game.gen2.production) + " Generators/tick"
@@ -75,10 +70,8 @@ function updatePowerPerSecond() {
         game.u15mult = 1;
     }
     checkAchs(22);
-    game.powergen1.productionMult = game.u6mult * game.u15mult * game.emp.upg11.mult;
-    game.powergen1.production = 0.025 * game.powergen1.amount * game.powergen1.productionMult;
-    game.powergen2.productionMult = game.emp.upg22.mult;
-    game.powergen2.production = 0.5 * game.powergen2.amount * game.powergen2.productionMult;
+    game.powergen1.production = getPowGen1Prod();
+    game.powergen2.production = getPowGen2Prod();
     document.getElementById("powerCount").innerHTML = "You have " + format(game.power) + " Power, translated to a x" + format(game.powerMult) + " boost to clicking."
     document.getElementById("powergen1").innerHTML = "1st Power Generator x" + format(game.powergen1.productionMult) + " (" + format(game.powergen1.amount) + ") " + format(game.powergen1.production) + " Power/tick"
     document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powerPerSecond) + " Power per tick."
@@ -144,6 +137,8 @@ function tab(tab) {
   document.getElementById("Particles").style.display = "none"
   document.getElementById("Power").style.display = "none"
   document.getElementById("Energy").style.display = "none"
+  document.getElementById("Automation").style.display = "none"
+  document.getElementById("Time").style.display = "none"
   document.getElementById("Quarks").style.display = "none"
   document.getElementById(tab).style.display = "inline"
 }

@@ -210,8 +210,19 @@ function updateAll() {
     if (game.achs.ach27 == 1) document.getElementById('ach27').className = 'achFin tooltip';
     if (game.achs.ach28 == 1) document.getElementById('ach28').className = 'achFin tooltip';
 
+    checkAchs(22);
+    checkAchs(23);
     checkAchs(24);
+    checkAchs(25);
     checkAchs(26);
+
+    if (game.chall1Comp >= 1) {
+        document.getElementById("gen3").className = "";
+        document.getElementById("energytab").className = "energy";
+    }
+    if (game.chall2Comp >= 1) document.getElementById("rep11").className = "upgrade";
+    if (game.chall3Comp >= 1) document.getElementById("emp11").className = "emp";
+    if (game.chall4Comp >= 1) document.getElementById("convEn").className = "";
 }
 
 updateAll();

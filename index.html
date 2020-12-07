@@ -24,15 +24,17 @@
     <button onclick = "tab('Challenges')" style = "width: 120px; height: 40px; padding: 6px 10px">Challenges</button>
     <button onclick = "tab('Particles')" class = 'parti'><b>Particles</b></button>
     <button onclick = "tab('Power')" class = 'power'><b>Power</b></button>
-    <button onclick = "tab('Energy')" class = 'energy'><b>Energy</b></button>
-    <button onclick = "tab('Quarks')" class = 'quarks'><b>Quarks</b></button>
+    <button onclick = "tab('Energy')" class = 'energy hid' id = "energytab"><b>Energy</b></button>
+    <button onclick = "tab('Automation')" class = 'auto hid' id = "autotab"><b>Automation</b></button>
+    <button onclick = "tab('Time')" class = 'time hid' id = "timetab"><b>Time</b></button>
+    <button onclick = "tab('Quarks')" class = 'quarks hid' id = "quarkstab"><b>Quarks</b></button>
   </div>
   <div id = "Generators">
     <p id = 'gen1'>1st Particle Generator x1.00 (0) 0 Particles/tick </p> <button id = "gen1Buy" onclick = 'buyGenerator1()'>Cost: 10</button>
     <p id = 'powergen1'>1st Power Generator x1.00 (0) 0 Power/tick</p> <button id = "powergen1Buy" onclick = 'buyPowerGenerator1()'>Cost: 50</button>
     <p id = 'gen2'>2nd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen2Buy" onclick = 'buyGenerator2()'>Cost: 1e4</button>
     <p id = 'powergen2'>2nd Power Generator x1.00 (0) 0 Generators/tick</p> <button id = "powergen2Buy" onclick = 'buyPowerGenerator2()'>Cost: 1.5e3 Power</button>
-    <p id = 'gen3'>3rd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen3Buy" onclick = 'buyGenerator3()'>Cost: 1e12</button>  
+    <p id = 'gen3' class = 'hid'>3rd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen3Buy" onclick = 'buyGenerator3()'>Cost: 1e12</button>  
   </div>
   
   <div id = "Options">
@@ -103,7 +105,7 @@
           <span class = 'tooltiptext'><b>okay, you're Powerful</b><br><br>Buy one of each of the first four Empowerments.</span>
         </p></td>
         <td><p id = 'ach26' class = 'ach tooltip'>26
-          <span class = 'tooltiptext'><b>particle overload</b><br><br>Obtain 1e30 Particles or above.<br><br><b>Reward: </b>You keep Particle Upgrade 20 on challenge resets.</span>
+          <span class = 'tooltiptext'><b>particle overload</b><br><br>Obtain 1e30 Particles or above.<br><br><b>Reward: </b>You keep Particle Upgrade 20 on resets.</span>
         </p></td>
       </tr>
     </table>
@@ -219,7 +221,7 @@
       </button></td>
     </tr>
     <tr>
-      <td><button onclick = 'buyRepUpgrade11()' id = 'rep11' class = 'upgrade'>
+      <td><button onclick = 'buyRepUpgrade11()' id = 'rep11' class = 'upgrade hid'>
         Multiplies all Particle gain by 2. <br> Currently: 1.00x <br> Cost: 1e10 Particles
       </button></td>
     </tr>
@@ -243,7 +245,7 @@
         </button></td>
       </tr>
       <tr>
-        <td><button id = 'emp31' onclick = 'buyEmpowerment(31)' class = 'emp'>
+        <td><button id = 'emp31' onclick = 'buyEmpowerment(31)' class = 'emp hid'>
           Increase the hardcap of the Power multiplier to clicking. <br> Currently: 1.00x <br> Cost: 1e10 Power
         </button></td>
       </tr>
@@ -251,6 +253,7 @@
   </div>
   <div id = "Energy">
     <p id = "energyCount" style = "color: yellow; text-align: center; font-size: 22px;">You have 0 Energy, translated to a x1.00 multiplier on all Particle Generators</p>
+    <div id = "convEn" class = "hid">
     <button id = "enReset" style = "display: block; margin: auto; background: linear-gradient(yellow, rgb(187, 187, 0));" onclick = "energyReset()">+0 Energy</button>
     <br>
     <table align = "center">
@@ -306,6 +309,9 @@
       </tr>
     </table>
   </div>
+  </div>
+  <div id = "Automation"></div>
+  <div id = "Time"></div>
   <div id = "Quarks"></div>
 </body>
 

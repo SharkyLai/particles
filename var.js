@@ -173,6 +173,9 @@ var game = {
             upg11: 0,
             upg12: 0,
             upg13: 0,
+            upg21: 0,
+            upg22: 0,
+            upg23: 0,
         }
     }
 }

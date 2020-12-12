@@ -1,7 +1,5 @@
-// imports and exports
-
 function clickParticles() { 
-    if (game.clicks < game.clickCap) { // Click Function
+    if (game.clicks < game.clickCap) { // runs on click
     game.parti += game.partiPerClick;
     game.clicks++;
     updatePartiPerClick();
@@ -32,8 +30,8 @@ function updatePartiPerSecond() {
     if (game.upgrade5Bought != 0) {
     game.u5mult = Math.sqrt(game.gen1.bought * 2);
     }
-    if (game.u5mult > game.caps.firstRow) {
-        game.u5mult = game.caps.firstRow;
+    if (game.u5mult > getFirstRowMultCap()) {
+        game.u5mult = getFirstRowMultCap();
     } else if (game.u5mult < 1) {
         game.u5mult = 1;
     }
@@ -95,8 +93,8 @@ function updatePartiPerClick() {
     } else if (game.upgrade2Bought != 0) {
         game.u2mult = Math.sqrt(game.clicks * 2) / 5;
     } 
-    if (game.u2mult > game.caps.firstRow) {
-        game.u2mult = game.caps.firstRow;
+    if (game.u2mult > getFirstRowMultCap()) {
+        game.u2mult = getFirstRowMultCap();
      } else if (game.u2mult < 1) {
          game.u2mult = 1;
      }
@@ -106,8 +104,8 @@ function updatePartiPerClick() {
     } else if (game.upgrade3Bought != 0) {
         game.u3mult = Math.log10(game.parti) + 2;
     }
-    if (game.u3mult > game.caps.firstRow) {
-        game.u3mult = game.caps.firstRow;
+    if (game.u3mult > getFirstRowMultCap()) {
+        game.u3mult = getFirstRowMultCap();
     } else if (game.u3mult < 1) {
         game.u3mult = 1;
     }

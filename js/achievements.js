@@ -60,9 +60,6 @@ function checkAchs(id) {
         if (game.achs.ach18 == 0) {
             if (game.powergen2.amount >= 1) {
                 game.achs.ach18 = 1;
-                if (game.caps.firstRow < 450) {
-                    game.caps.firstRow = 450
-                }
                 document.getElementById('ach18').style.backgroundColor = 'green';
             }
         }

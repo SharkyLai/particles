@@ -15,10 +15,16 @@ function selectConvAmt(num) {
 function posEn() {
     if (game.positiveEnergy >= 1) {
         game.en.pos.upg11 = 1;
-    } else if (game.positiveEnergy >= 3) {
+    } else if (game.positiveEnergy >= 4) {
         game.en.pos.upg12 = 1;
-    } else if (game.positiveEnergy >= 6) {
+    } else if (game.positiveEnergy >= 10) {
         game.en.pos.upg13 = 1;
+    } else if (game.positiveEnergy >= 20) {
+        game.en.pos.upg21 = 1;
+    } else if (game.positiveEnergy >= 35) {
+        game.en.pos.upg22 = 1;
+    } else if (game.positiveEnergy >= 56) {
+        game.en.pos.upg23 = 1;
     }
 }
 
@@ -49,7 +55,11 @@ function convertToPos() {
 
 function getEnMult() {
     let em = 1;
-    em = Math.pow((Math.log10(Math.pow((game.energy + 1), 2)) + (game.energy * 2) + 1), 1.75);
+    if (game.en.pos.upg12 == 0) {
+        em = Math.pow((Math.log10(Math.pow((game.energy + 1), 2)) + (game.energy * 2) + 1), 1.75);
+    } else if (game.en.pos.upg12 == 1) {
+        em = Math.pow((Math.log10(Math.pow((game.energy + 1), 4)) + (game.energy * 2) + 1), 2.25);
+    }
     if (em < 1) em = 1;
     game.enMult = em;
     return em;
@@ -57,13 +67,19 @@ function getEnMult() {
 
 function getEnergyGain() {
     let eg = 0;
-    if (canEnergyReset() == false) {
+    if (!canEnergyReset()) {
         eg = 0;
         return eg;
     }
     eg = Math.floor(((game.parti / 1e5) - 6) + ((game.power / 1e8) - 2))
     if (eg > 100) eg = 100;
     return eg;
+}
+
+function getPosEnMs4Mult() {
+    let mlt = 1;
+    if (game.en.pos.upg21 == 1) mlt = 1e990;
+    return mlt;
 }
 
 function clearConvSelect() {

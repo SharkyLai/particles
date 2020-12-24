@@ -5,6 +5,7 @@ var game = {
     energy: 0,
     positiveEnergy: 0,
     negativeEnergy: 0,
+    convAmt: 1,
     quarks: 0,
     partiPerClick: 0.01,
     clicks: 0,
@@ -94,7 +95,7 @@ var game = {
         productionMult: 1,
     },
     genSpeed: 1000,
-    version: 0.4,
+    version: 0.5,
     playTime: 0,
     currentChallenge: "none",
     challGoal: 0,
@@ -161,18 +162,22 @@ var game = {
             mult: 1,
         },
         upg31: {
-            cost: 1e10,
+            cost: 1e8,
             costMult: 10,
             bought: 0,
             mult: 1,
         }
     },
-    /* powUpg: {
-        upg11: {
-            cost: 1e11,
-            costMult:
-        },
-    }, */
+    en: {
+        pos: {
+            upg11: 0,
+            upg12: 0,
+            upg13: 0,
+            upg21: 0,
+            upg22: 0,
+            upg23: 0,
+        }
+    }
 }
 
 var challCheck;

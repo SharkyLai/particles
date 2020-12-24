@@ -1,6 +1,6 @@
 function getPowMultHardCap() {
     let pmhc = 100;
-    pmhc = 100 * game.emp.upg31.mult * game.u20mult;
+    pmhc = 100 * game.emp.upg31.mult * game.u20mult * getPosEnMs4Mult();
     game.caps.powerMult = pmhc;
     updateAll();
     return pmhc;

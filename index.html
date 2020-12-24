@@ -24,15 +24,17 @@
     <button onclick = "tab('Challenges')" style = "width: 120px; height: 40px; padding: 6px 10px">Challenges</button>
     <button onclick = "tab('Particles')" class = 'parti'><b>Particles</b></button>
     <button onclick = "tab('Power')" class = 'power'><b>Power</b></button>
-    <button onclick = "tab('Energy')" class = 'energy'><b>Energy</b></button>
-    <button onclick = "tab('Quarks')" class = 'quarks'><b>Quarks</b></button>
+    <button onclick = "tab('Energy')" class = 'energy hid' id = "energytab"><b>Energy</b></button>
+    <button onclick = "tab('Automation')" class = 'auto hid' id = "autotab"><b>Automation</b></button>
+    <button onclick = "tab('Time')" class = 'time hid' id = "timetab"><b>Time</b></button>
+    <button onclick = "tab('Quarks')" class = 'quarks hid' id = "quarkstab"><b>Quarks</b></button>
   </div>
   <div id = "Generators">
     <p id = 'gen1'>1st Particle Generator x1.00 (0) 0 Particles/tick </p> <button id = "gen1Buy" onclick = 'buyGenerator1()'>Cost: 10</button>
     <p id = 'powergen1'>1st Power Generator x1.00 (0) 0 Power/tick</p> <button id = "powergen1Buy" onclick = 'buyPowerGenerator1()'>Cost: 50</button>
     <p id = 'gen2'>2nd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen2Buy" onclick = 'buyGenerator2()'>Cost: 1e4</button>
     <p id = 'powergen2'>2nd Power Generator x1.00 (0) 0 Generators/tick</p> <button id = "powergen2Buy" onclick = 'buyPowerGenerator2()'>Cost: 1.5e3 Power</button>
-    <p id = 'gen3'>3rd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen3Buy" onclick = 'buyGenerator3()'>Cost: 1e12</button>  
+    <p id = 'gen3' class = 'hid'>3rd Particle Generator x1.00 (0) 0 Generators/tick</p> <button id = "gen3Buy" onclick = 'buyGenerator3()' class = 'hid'>Cost: 1e12</button>  
   </div>
   
   <div id = "Options">
@@ -51,7 +53,7 @@
     <p id = 'clickAmount' class = "stats">
       You've clicked 0 times. <br>
     </p>
-    <p class = "Stats">You are currently playing on v0.4.0</p>
+    <p class = "Stats">You are currently playing on v0.5.0</p>
     <a href="changelog.html" class = "stats">View the Changelog</a>
   </div>
   <div id = "Achievements">
@@ -103,7 +105,13 @@
           <span class = 'tooltiptext'><b>okay, you're Powerful</b><br><br>Buy one of each of the first four Empowerments.</span>
         </p></td>
         <td><p id = 'ach26' class = 'ach tooltip'>26
-          <span class = 'tooltiptext'><b>particle overload</b><br><br>Obtain 1e30 Particles or above.<br><br><b>Reward: </b>You keep Particle Upgrade 20 on challenge resets.</span>
+          <span class = 'tooltiptext'><b>particle overload</b><br><br>Obtain 1e25 Particles or above.<br><br><b>Reward: </b>You keep Particle Upgrade 20 on resets.</span>
+        </p></td>
+        <td><p id = 'ach27' class = 'ach tooltip'>
+          <span class = 'tooltiptext'><b>Energized</b><br><br>Gain your first Positive Energy.</span>
+        </p></td>
+        <td><p id = 'ach28' class = 'ach tooltip'>
+          <span class = 'tooltiptext'><b>way too positive</b><br><br>Gain 56 Positive Energy.</span>
         </p></td>
       </tr>
     </table>
@@ -124,14 +132,14 @@
           <p id = "chall2" class = "challenge">
             You can only buy 1st Particle Gens and 1st Power Gens.
             <br><br><br><br><br><br>
-            <button onclick = 'startChallenge(2)' id = "startChall2" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and a new Repeatable Upgrade<br><br><br><br>Goal: 1e13 Particles</p>
+            <button onclick = 'startChallenge(2)' id = "startChall2" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and a new Repeatable Upgrade<br><br><br><br>Goal: 2e12 Particles</p>
           </td>
         <td>
       </tr>
       <tr>
         <td>
           <p id = "chall3" class = "challenge">
-            You can only click 10 times.
+            You can only gain particles through clicking once.
             <br><br><br><br><br><br>
             <button onclick = 'startChallenge(3)' id = "startChall3" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and a new Empowerment<br><br><br><br>Goal: 1e23 Particles</p>
           </td>
@@ -139,7 +147,7 @@
           <p id = "chall4" class = "challenge">
             You cannot buy any Particle Upgrades.
             <br><br><br><br><br><br>
-            <button onclick = 'startChallenge(4)' id = "startChall4" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and the ability of converting Energy<br><br><br><br>Goal: 1e14 Particles</p>
+            <button onclick = 'startChallenge(4)' id = "startChall4" class = "challengebtn">Start</button><br><br><br>Reward: 1 Energy and the ability of converting Energy<br><br><br><br>Goal: 1e13 Particles</p>
         </td>
         <td>
         </td>
@@ -219,7 +227,7 @@
       </button></td>
     </tr>
     <tr>
-      <td><button onclick = 'buyRepUpgrade11()' id = 'rep11' class = 'upgrade'>
+      <td><button onclick = 'buyRepUpgrade11()' id = 'rep11' class = 'upgrade hid'>
         Multiplies all Particle gain by 2. <br> Currently: 1.00x <br> Cost: 1e10 Particles
       </button></td>
     </tr>
@@ -243,15 +251,90 @@
         </button></td>
       </tr>
       <tr>
-        <td><button id = 'emp31' onclick = 'buyEmpowerment(31)' class = 'emp'>
-          Increase the hardcap of the Power multiplier to clicking. <br> Currently: 1.00x <br> Cost: 1e10 Power
+        <td><button id = 'emp31' onclick = 'buyEmpowerment(31)' class = 'emp hid'>
+          Increase the hardcap of the Power multiplier to clicking. <br> Currently: 1.00x <br> Cost: 1e8 Power
         </button></td>
       </tr>
     </table>
   </div>
   <div id = "Energy">
     <p id = "energyCount" style = "color: yellow; text-align: center; font-size: 22px;">You have 0 Energy, translated to a x1.00 multiplier on all Particle Generators</p>
+    <div id = "convEn" class = "hid">
+    <button id = "enReset" style = "display: block; margin: auto; background: linear-gradient(yellow, rgb(187, 187, 0));" onclick = "energyReset()">+0 Energy</button>
+    <br>
+    <table align = "center">
+      <tr>
+        <td>
+          <button id = "conv1" class = "convEnAmt" onclick = "selectConvAmt(1)">
+            1
+          </button>
+        </td>
+        <td>
+          <button id = "conv50" class = "convEnAmt" onclick = "selectConvAmt(50)">
+            50%
+          </button>
+        </td>
+        <td>
+          <button id = "conv100" class = "convEnAmt" onclick = "selectConvAmt(100)">
+            100%
+          </button>
+        </td>
+      </tr>
+    </table>
+    <p style = "font-size: 12px; text-align: center;">Toggle amount to convert</p>
+    <br>
+    <p id = "posEn" style = "color: aqua; font-size: 20px; text-align: center;"><b>You have 0 Positive Energy.</b></p>
+    <br>
+    <table align = "center">
+      <tr>
+        <td>
+          <button onclick = "convertToPos()" style = "border-radius: 50px; background: linear-gradient(aqua, lightblue);"><b>+</b></button>
+        </td>
+        <td>
+          
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <button id = "posEn1" class = "posEn">
+            You keep the First and Second Row of Particle Upgrades on reset. <br> <br> Req: 1 Positive Energy
+          </button>
+        </td>
+        <td>
+          <button id = "posEn2" class = "posEn">
+            Energy multiplier formula is better. <br> <br> Req: 3 Positive Energy
+          </button>
+        </td>
+        <td>
+          <button id = "posEn3" class = "posEn">
+            The First Row of Particle Upgrades' multiplier caps are increased to 5000x. <br> <br> Req: 10 Positive Energy
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button id = "posEn4" class = "posEn">
+            Power multiplier cap is multiplied by 1e990x. <br> <br> Req: 20 Positive Energy
+          </button>
+        </td>
+        <td>
+          <button id = "posEn5" class = "posEn">
+            Repeatable Upgrade 11's multiplier increases by 2.2x. <br> <br> Req: 35 Positive Energy
+          </button>
+        </td>
+        <td>
+          <button id = "posEn6" class = "posEn">
+            The Second Row of Particle Upgrades' multiplier caps are increased to 5000x. <br> <br> Req: 56 Positive Energy
+          </button>
+        </td>
+      </tr>
+    </table>
   </div>
+  </div>
+  <div id = "Automation"></div>
+  <div id = "Time"></div>
   <div id = "Quarks"></div>
 </body>
 
@@ -270,5 +353,6 @@
 <script type= "text/javascript" src = "js/challenge.js"></script>
 <script type= "text/javascript" src = "js/save.js"></script>
 <script type= "text/javascript" src = "js/gen.js"></script>
+<script type= "text/javascript" src = "js/reset.js"></script>
 <script type= "text/javascript" src = "js/updates.js"></script>
 </html>

@@ -1,7 +1,9 @@
-// imports and exports
+function getBaseLog(x, y) {
+    return Math.log(y) / Math.log(x);
+}
 
 function clickParticles() { 
-    if (game.clicks < game.clickCap) { // Click Function
+    if (game.clicks < game.clickCap) { // runs on click
     game.parti += game.partiPerClick;
     game.clicks++;
     updatePartiPerClick();
@@ -32,8 +34,8 @@ function updatePartiPerSecond() {
     if (game.upgrade5Bought != 0) {
     game.u5mult = Math.sqrt(game.gen1.bought * 2);
     }
-    if (game.u5mult > game.caps.firstRow) {
-        game.u5mult = game.caps.firstRow;
+    if (game.u5mult > getFirstRowMultCap()) {
+        game.u5mult = getFirstRowMultCap();
     } else if (game.u5mult < 1) {
         game.u5mult = 1;
     }
@@ -43,25 +45,20 @@ function updatePartiPerSecond() {
     } else if (game.upgrade8Bought != 0) {
         game.u8mult = Math.log10(Math.pow(game.power, 4));
     }
-    if (game.u8mult > game.caps.secondRow) {
-        game.u8mult = game.caps.secondRow;
+    if (game.u8mult > getSecondRowMultCap()) {
+        game.u8mult = getSecondRowMultCap();
     } else if (game.u8mult < 1) {
         game.u8mult = 1;
     }
     // Energy Mult
-    game.enMult = Math.pow((Math.log10(Math.pow((game.energy + 1), 2)) + (game.energy * 2) + 1), 1.75);
+    game.enMult = getEnMult();
     if (game.enMult < 1) {
         game.enMult = 1;
     }
-    game.gen1.productionMult = game.u4mult * game.u5mult * game.u8mult * game.enMult;
-    game.gen1.production = 0.2 * game.gen1.amount * game.gen1.productionMult * game.rep.upg11.mult;
-    if (game.upgrade16Bought != 0) {
-        game.gen2.productionMult = game.u4mult * game.u5mult * game.u8mult * game.enMult;
-    }
-    game.gen2.production = 0.2 * game.gen2.amount * game.gen2.productionMult;
-
-    game.gen3.productionMult = game.enMult;
-    game.gen3.production = 2 * game.gen3.amount * game.gen3.productionMult;
+    game.gen1.production = getGen1Prod();
+    game.gen2.production = getGen2Prod();
+    game.gen3.production = getGen3Prod();
+    
     checkAchs(26);
     document.getElementById("gen1").innerHTML = "1st Particle Generator x" + format(game.gen1.mult * game.gen1.productionMult) + " (" + format(game.gen1.amount) + ") " + format(game.gen1.production) + " Particles/tick"
     document.getElementById("gen2").innerHTML = "2nd Particle Generator x" + format(game.gen2.productionMult) + " (" + format(game.gen2.amount) + ") " + format(game.gen2.production) + " Generators/tick"
@@ -75,10 +72,8 @@ function updatePowerPerSecond() {
         game.u15mult = 1;
     }
     checkAchs(22);
-    game.powergen1.productionMult = game.u6mult * game.u15mult * game.emp.upg11.mult;
-    game.powergen1.production = 0.025 * game.powergen1.amount * game.powergen1.productionMult;
-    game.powergen2.productionMult = game.emp.upg22.mult;
-    game.powergen2.production = 0.5 * game.powergen2.amount * game.powergen2.productionMult;
+    game.powergen1.production = getPowGen1Prod();
+    game.powergen2.production = getPowGen2Prod();
     document.getElementById("powerCount").innerHTML = "You have " + format(game.power) + " Power, translated to a x" + format(game.powerMult) + " boost to clicking."
     document.getElementById("powergen1").innerHTML = "1st Power Generator x" + format(game.powergen1.productionMult) + " (" + format(game.powergen1.amount) + ") " + format(game.powergen1.production) + " Power/tick"
     document.getElementById("displayPowerPerSecond").innerHTML = "You gain " + format(game.powerPerSecond) + " Power per tick."
@@ -102,8 +97,8 @@ function updatePartiPerClick() {
     } else if (game.upgrade2Bought != 0) {
         game.u2mult = Math.sqrt(game.clicks * 2) / 5;
     } 
-    if (game.u2mult > game.caps.firstRow) {
-        game.u2mult = game.caps.firstRow;
+    if (game.u2mult > getFirstRowMultCap()) {
+        game.u2mult = getFirstRowMultCap();
      } else if (game.u2mult < 1) {
          game.u2mult = 1;
      }
@@ -113,8 +108,8 @@ function updatePartiPerClick() {
     } else if (game.upgrade3Bought != 0) {
         game.u3mult = Math.log10(game.parti) + 2;
     }
-    if (game.u3mult > game.caps.firstRow) {
-        game.u3mult = game.caps.firstRow;
+    if (game.u3mult > getFirstRowMultCap()) {
+        game.u3mult = getFirstRowMultCap();
     } else if (game.u3mult < 1) {
         game.u3mult = 1;
     }
@@ -124,8 +119,8 @@ function updatePartiPerClick() {
     } else if (game.upgrade7Bought != 0) {
         game.u7mult = Math.log10(Math.pow(game.power, 4));
     } 
-    if (game.u7mult > game.caps.secondRow) {
-        game.u7mult = game.caps.secondRow;
+    if (game.u7mult > getSecondRowMultCap()) {
+        game.u7mult = getSecondRowMultCap();
     } else if (game.u7mult < 1) {
         game.u7mult = 1;
     }
@@ -144,6 +139,8 @@ function tab(tab) {
   document.getElementById("Particles").style.display = "none"
   document.getElementById("Power").style.display = "none"
   document.getElementById("Energy").style.display = "none"
+  document.getElementById("Automation").style.display = "none"
+  document.getElementById("Time").style.display = "none"
   document.getElementById("Quarks").style.display = "none"
   document.getElementById(tab).style.display = "inline"
 }

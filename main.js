@@ -1,3 +1,7 @@
+function getBaseLog(x, y) {
+    return Math.log(y) / Math.log(x);
+}
+
 function clickParticles() { 
     if (game.clicks < game.clickCap) { // runs on click
     game.parti += game.partiPerClick;
@@ -41,8 +45,8 @@ function updatePartiPerSecond() {
     } else if (game.upgrade8Bought != 0) {
         game.u8mult = Math.log10(Math.pow(game.power, 4));
     }
-    if (game.u8mult > game.caps.secondRow) {
-        game.u8mult = game.caps.secondRow;
+    if (game.u8mult > getSecondRowMultCap()) {
+        game.u8mult = getSecondRowMultCap();
     } else if (game.u8mult < 1) {
         game.u8mult = 1;
     }
@@ -115,8 +119,8 @@ function updatePartiPerClick() {
     } else if (game.upgrade7Bought != 0) {
         game.u7mult = Math.log10(Math.pow(game.power, 4));
     } 
-    if (game.u7mult > game.caps.secondRow) {
-        game.u7mult = game.caps.secondRow;
+    if (game.u7mult > getSecondRowMultCap()) {
+        game.u7mult = getSecondRowMultCap();
     } else if (game.u7mult < 1) {
         game.u7mult = 1;
     }

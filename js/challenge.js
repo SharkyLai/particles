@@ -15,16 +15,16 @@ function startChallenge(chall) {
             document.getElementById("startChall1").innerHTML = "Running"
         } else if (chall == 2) {
             game.currentChallenge = 2;
-            game.challGoal = 1e13;
+            game.challGoal = 2e12;
             document.getElementById("startChall2").innerHTML = "Running"
         } else if (chall == 3) {
             game.currentChallenge = 3;
             game.challGoal = 1e23; 
-            game.clickCap = 10;
+            game.clickCap = 1;
             document.getElementById("startChall3").innerHTML = "Running"
         } else if (chall == 4) {
             game.currentChallenge = 4;
-            game.challGoal = 1e14;
+            game.challGoal = 1e13;
             document.getElementById("startChall4").innerHTML = "Running"
         }
         challCheck = window.setInterval(function() {

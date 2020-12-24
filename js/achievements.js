@@ -74,7 +74,7 @@ function checkAchs(id) {
     }
     if (id == 22) {
         if (game.achs.ach22 == 0) {
-            if (game.emp.upg11.amount >= 1) {
+            if (game.emp.upg11.bought >= 1) {
                 game.achs.ach22 = 1;
                 document.getElementById('ach22').style.backgroundColor = 'green';
             }
@@ -98,7 +98,7 @@ function checkAchs(id) {
     }
     if (id == 25) {
         if (game.achs.ach25 == 0) {
-            if (game.emp.upg11.amount >= 1 && game.emp.upg21.amount >= 1 && game.emp.upg22.amount >= 1 && game.emp.upg31.amount >= 1) {
+            if (game.emp.upg11.bought >= 1 && game.emp.upg21.bought >= 1 && game.emp.upg22.bought >= 1 && game.emp.upg31.bought >= 1) {
                 game.achs.ach25 = 1;
                 document.getElementById('ach25').style.backgroundColor = 'green';
             }
@@ -106,9 +106,25 @@ function checkAchs(id) {
     }
     if (id == 26) {
         if (game.achs.ach26 == 0) {
-            if (game.parti >= 1e30) {
+            if (game.parti >= 1e25) {
                 game.achs.ach26 = 1;
                 document.getElementById('ach26').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 27) {
+        if (game.achs.ach27 == 0) {
+            if (game.positiveEnergy >= 1) {
+                game.achs.ach27 = 1;
+                document.getElementById('ach27').style.backgroundColor = 'green';
+            }
+        }
+    }
+    if (id == 28) {
+        if (game.achs.ach28 == 0) {
+            if (game.positiveEnergy >= 56) {
+                game.achs.ach28 = 1;
+                document.getElementById('ach28').style.backgroundColor = 'green';
             }
         }
     }

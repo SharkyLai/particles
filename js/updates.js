@@ -215,13 +215,16 @@ function updateAll() {
     checkAchs(24);
     checkAchs(25);
     checkAchs(26);
+    checkAchs(27);
+    checkAchs(28);
 
     if (game.chall1Comp >= 1) {
         document.getElementById("gen3").className = "";
+        document.getElementById("gen3Buy").className = "";
         document.getElementById("energytab").className = "energy";
     }
     if (game.chall2Comp >= 1) document.getElementById("rep11").className = "upgrade";
-    if (game.chall3Comp >= 1) document.getElementById("emp11").className = "emp";
+    if (game.chall3Comp >= 1) document.getElementById("emp31").className = "emp";
     if (game.chall4Comp >= 1) document.getElementById("convEn").className = "";
 }
 

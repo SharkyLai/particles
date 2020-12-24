@@ -1,9 +1,22 @@
 function getFirstRowMultCap() {
-    var frmc = 10;
+    let frmc = 10;
     if (game.upgrade11Bought >= 0 && frmc < 150) frmc = 150;
     if (game.achs.ach18 >= 1 && frmc < 450) frmc = 450; 
     if (game.en.pos.upg13 >= 1 && frmc < 5000) frmc = 5000;
     return frmc;
+}
+
+function getSecondRowMultCap() {
+    let srmc = 20;
+    if (game.upgrade17Bought >= 0 && srmc < 250) srmc = 250;
+    if (game.en.pos.upg23 >= 1 && srmc < 5000) srmc = 5000;
+    return srmc;
+}
+
+function getRepUpg11Mult() {
+    let rum = 2;
+    if (game.en.pos.upg22 == 1) rum = 2.2;
+    return rum;
 }
 
 // upgs
@@ -118,8 +131,8 @@ function buyUpgrade7() {
         if (game.upgrade7Bought != 0) return;
         game.parti -= 150;
         game.u7mult = Math.log10(Math.pow(game.power, 4));
-        if (game.u7mult > game.caps.secondRow) {
-            game.u7mult = game.caps.secondRow;
+        if (game.u7mult > getSecondRowMultCap()) {
+            game.u7mult = getSecondRowMultCap();
         } else if (game.u7mult < 1) {
             game.u7mult = 1;
         }
@@ -137,8 +150,8 @@ function buyUpgrade8() {
         if (game.upgrade8Bought != 0) return;
         game.parti -= 400;
         game.u8mult = Math.log10(Math.pow(game.power, 4));
-        if (game.u8mult > game.caps.secondRow) {
-            game.u8mult = game.caps.secondRow;
+        if (game.u8mult > getSecondRowMultCap()) {
+            game.u8mult = getSecondRowMultCap();
         } else if (game.u8mult < 1) {
             game.u8mult = 1;
         }
@@ -222,8 +235,8 @@ function buyUpgrade13() {
         if (game.upgrade13Bought != 0) return;
         game.parti -= 80000;
         game.u7mult = Math.sqrt(Math.pow(game.power, 4));
-        if (game.u7mult > game.caps.secondRow) {
-            game.u7mult = game.caps.secondRow;
+        if (game.u7mult > getSecondRowMultCap()) {
+            game.u7mult = getSecondRowMultCap();
         } else if (game.u7mult < 1) {
             game.u7mult = 1;
         }
@@ -241,8 +254,8 @@ function buyUpgrade14() {
         if (game.upgrade14Bought != 0) return;
         game.parti -= 200000;
         game.u8mult = Math.sqrt(Math.pow(game.power, 4));
-        if (game.u8mult > game.caps.secondRow) {
-            game.u8mult = game.caps.secondRow;
+        if (game.u8mult > getSecondRowMultCap()) {
+            game.u8mult = getSecondRowMultCap();
         } else if (game.u8mult < 1) {
             game.u8mult = 1;
         }
@@ -287,7 +300,7 @@ function buyUpgrade17() {
     if (game.parti >= 3e8) {
         if (game.upgrade17Bought != 0) return;
         game.parti -= 3e8;
-        game.caps.secondRow = 250;
+        // game.caps.secondRow = 250;
         checkAchs(16);
         document.getElementById("buttonupgrade17").style.backgroundColor = "lightgrey"
         game.upgrade17Bought = 1;
@@ -339,7 +352,7 @@ function buyRepUpgrade11() {
     if (game.currentChallenge == 4) return;
     if (game.parti >= game.rep.upg11.cost) {
         game.parti -= game.rep.upg11.cost;
-        game.rep.upg11.mult *= 2;
+        game.rep.upg11.mult *= getRepUpg11Mult();
         game.rep.upg11.cost *= game.rep.upg11.costMult;
         game.rep.upg11.bought++;
         document.getElementById("rep11").innerHTML = "Multiplies all Particle gain by 2. Currently: " + format(game.rep.upg11.mult) + "x Cost: " + format(game.rep.upg11.cost) + " Particles";

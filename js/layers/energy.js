@@ -15,7 +15,7 @@ function selectConvAmt(num) {
 function posEn() {
     if (game.positiveEnergy >= 1) {
         game.en.pos.upg11 = 1;
-    } else if (game.positiveEnergy >= 4) {
+    } else if (game.positiveEnergy >= 3) {
         game.en.pos.upg12 = 1;
     } else if (game.positiveEnergy >= 10) {
         game.en.pos.upg13 = 1;
@@ -29,7 +29,7 @@ function posEn() {
 }
 
 function canEnergyReset() {
-    if (game.parti >= 1e35 && game.chall4Comp == 1 && game.power >= 1e16) return true;
+    if (game.parti >= 1e25 && game.chall4Comp == 1 && game.power >= 1e9) return true;
     else return false;
 }
 
@@ -48,6 +48,8 @@ function convertToPos() {
         }
         getEnMult();
         posEn();
+        checkAchs(27);
+        checkAchs(28);
         document.getElementById("energyCount").innerHTML = "You have " + format(game.energy) + " Energy, translated to a x" + format(game.enMult) + " multiplier to all Particle Generators";
         document.getElementById("posEn").innerHTML = "You have " + format(game.positiveEnergy) + " Positive Energy."
     }
@@ -71,8 +73,10 @@ function getEnergyGain() {
         eg = 0;
         return eg;
     }
-    eg = Math.floor(((game.parti / 1e5) - 6) + ((game.power / 1e8) - 2))
-    if (eg > 100) eg = 100;
+    eg = Math.floor((getBaseLog(1e5, game.parti) - 4) + (getBaseLog(1e8, game.power) - 1) + Math.sqrt(game.positiveEnergy));
+    // eg = Math.floor(((game.parti / 1e5) - 4) + ((game.power / 1e8) - 1));
+    if (eg < 0) eg = 0; 
+    if (eg > 100) eg = 100 + Math.cbrt(Math.log10(game.parti + game.power - 10))
     return eg;
 }
 

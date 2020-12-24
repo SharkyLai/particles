@@ -5,6 +5,7 @@ function hardReset() {
         energy: 0,
         positiveEnergy: 0,
         negativeEnergy: 0,
+        convAmt: 1,
         quarks: 0,
         partiPerClick: 0.01,
         clicks: 0,
@@ -94,7 +95,7 @@ function hardReset() {
             productionMult: 1,
         },
         genSpeed: 1000,
-        version: 0.4,
+        version: 0.5,
         playTime: 0,
         currentChallenge: "none",
         challGoal: 0,
@@ -161,18 +162,22 @@ function hardReset() {
                 mult: 1,
             },
             upg31: {
-                cost: 1e10,
+                cost: 1e8,
                 costMult: 10,
                 bought: 0,
                 mult: 1,
             }
         },
-        /* powUpg: {
-            upg11: {
-                cost: 1e11,
-                costMult:
-            },
-        }, */
+        en: {
+            pos: {
+                upg11: 0,
+                upg12: 0,
+                upg13: 0,
+                upg21: 0,
+                upg22: 0,
+                upg23: 0,
+            }
+        }
     }
     updateAll();
 }
@@ -189,9 +194,9 @@ function challReset() {
     if (game.en.pos.upg11 == 0) game.u3mult = 1;
     if (game.en.pos.upg11 == 0) game.u4mult = 1;
     if (game.en.pos.upg11 == 0) game.u5mult = 1;
-    game.u6mult = 1;
-    game.u7mult = 1;
-    game.u8mult = 1;
+    if (game.en.pos.upg11 == 0) game.u6mult = 1;
+    if (game.en.pos.upg11 == 0) game.u7mult = 1;
+    if (game.en.pos.upg11 == 0) game.u8mult = 1;
     game.u15mult = 1;
     if (game.achs.ach26 == 0) game.u20mult = 1
     if (game.achs.ach26 == 1) game.u20mult = 1e8
@@ -201,11 +206,11 @@ function challReset() {
     if (game.en.pos.upg11 == 0) game.upgrade3Bought = 0;
     if (game.en.pos.upg11 == 0) game.upgrade4Bought = 0;
     if (game.en.pos.upg11 == 0) game.upgrade5Bought = 0;
-    game.upgrade6Bought = 0;
-    game.upgrade7Bought = 0;
-    game.upgrade8Bought = 0;
-    game.upgrade9Bought = 0;
-    game.upgrade10Bought = 0;
+    if (game.en.pos.upg11 == 0) game.upgrade6Bought = 0;
+    if (game.en.pos.upg11 == 0) game.upgrade7Bought = 0;
+    if (game.en.pos.upg11 == 0) game.upgrade8Bought = 0;
+    if (game.en.pos.upg11 == 0) game.upgrade9Bought = 0;
+    if (game.en.pos.upg11 == 0) game.upgrade10Bought = 0;
     game.upgrade11Bought = 0;
     game.upgrade12Bought = 0;
     game.upgrade13Bought = 0;
@@ -267,8 +272,9 @@ function challReset() {
 
 function energyReset() {
     if (canEnergyReset()) {
+        if (!confirm("Are you sure? Doing so will reset all your previous progress except for achievements! This process is not undoable.")) return;
     challReset();
-    game.power = 0;
+    game.power = 0.01;
     // Rep Upgrades
     game.rep = {
         upg11: {
@@ -299,16 +305,13 @@ function energyReset() {
             mult: 1,
         },
         upg31: {
-            cost: 1e10,
+            cost: 1e8,
             costMult: 10,
             bought: 0,
             mult: 1,
         }
     }
 
-    // Gain Energy
-
     game.energy += getEnergyGain();
-
     }
 }
